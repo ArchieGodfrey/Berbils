@@ -58,6 +58,7 @@ public class Kroy extends Game
 	public static AssetManager assets;
 	public SpriteBatch batch;
 	public PlayScreen gameScreen;
+	public MiniGameScreen miniGameScreen; //NEW: Added minigame screen
 	public BasicMenu mainMenu, selectFireEngine, pauseScreen;
 	public TitleScreen fireEngineDestroyedScreen;
 	public TitleScreen gameOverScreen;
@@ -112,6 +113,7 @@ public class Kroy extends Game
 											  Kroy.GAME_OVER_TITLE);
 		this.winScreen = new TitleScreen(this, batch, Kroy.YOUVE_WON_TITLE);
 		this.pauseScreen = new PauseScreen(this, batch);
+		this.miniGameScreen = new MiniGameScreen(this, batch);// NEW: Initalised minigame screen
 		}
 
 	@Override

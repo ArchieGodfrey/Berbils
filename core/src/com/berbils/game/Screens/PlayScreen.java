@@ -4,6 +4,7 @@ import static com.berbils.game.Kroy.PPM;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -131,6 +132,18 @@ public class PlayScreen implements Screen
 
 	/** The players score */
 	private int playerScore;
+
+	/**
+	 * NEW METHOD
+	 * Creates an instance of PlayScreen that can be extended for
+	 * the MiniGameScreen.
+	 *
+	 * @param game the game instance
+	 */
+	public PlayScreen(Kroy game, Batch batch)
+		{
+			this.game = game;
+		}
 
 	/**
 	 * Creates the camera, loads the map in, creates the Box2D world and

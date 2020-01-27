@@ -1,0 +1,11 @@
+com.berbils.game
+com.berbils.game.Entities.EntityTypes
+com.berbils.game.Entities.FireEngines
+com.berbils.game.Entities.FireStation
+com.berbils.game.Entities.ProjectileSpawners
+com.berbils.game.Entities.ProjectileSpawners.ProjectileTypes
+com.berbils.game.Entities.Towers
+com.berbils.game.Handlers
+com.berbils.game.Scenes
+com.berbils.game.Screens
+com.berbils.game.Tools

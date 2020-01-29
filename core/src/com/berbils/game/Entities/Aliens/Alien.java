@@ -99,6 +99,23 @@ public class Alien extends BoxGameEntity
 		}
 
 	/**
+	 * This method sets the body position, then creates the body, fixture and
+	 * creates an attached sprite
+	 *
+	 * @param spawnPos The position in meters where the fire engine should be
+	 *                   created with the center of the fire engine being at
+	 *                   this position.
+	 */
+	public void spawn(Vector2 spawnPos)
+	{
+		super.setSpawnPosition(spawnPos);
+		super.createBodyCopy();
+		super.createFixtureCopy();
+		super.setUserData(this);
+		super.createSprite();
+	}
+
+	/**
 	 * Method for reducing the current health of the fire engine instance and
 	 * checking whether the health reaches zero
 	 *

@@ -321,7 +321,7 @@ public class PlayScreen implements Screen
 		hud.stage.draw();
 		// If change false to true, the box2D debug renderer will render box2D
 		// body outlines
-		if(false) {
+		if(true) {
 		b2dr.render(world, gameCam.combined.scl(PPM));
 		}
 	}
@@ -569,6 +569,20 @@ public class PlayScreen implements Screen
 		{
 		return this.game;
 		}
+
+	/**
+	 * NEW METHOD
+	 * @author Archie Godfrey
+	 * Getter for the index of the current
+	 * selected fire engine
+	 *
+	 * @return returns the index of the current
+	 * selected fire engine
+	 */
+	public int getSelectedFireEngineIndex()
+	{
+	return this.fireEngineSelectedIndex;
+	}
 
 	/**
 	 * A getter for the screen world

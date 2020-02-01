@@ -3,7 +3,6 @@ package com.berbils.game.Screens;
 import static com.berbils.game.Kroy.PPM;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -15,18 +14,16 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.berbils.game.Entities.FireEngines.FireEngine;
-import com.berbils.game.Entities.FireStation.FireStation;
 import com.berbils.game.Entities.ProjectileSpawners.*;
 import com.berbils.game.Entities.ProjectileSpawners.ProjectileTypes.*;
-import com.berbils.game.Entities.Towers.Tower;
 import com.berbils.game.Handlers.GameContactListener;
 import com.berbils.game.Handlers.SpriteHandler;
 import com.berbils.game.Kroy;
 import com.berbils.game.Scenes.HUD;
 import com.berbils.game.Tools.InputManager;
 import com.berbils.game.Tools.MapLoader;
-import com.berbils.game.Entities.Aliens.Alien;
+import com.berbils.game.Entities.Minigame.Alien;
+import com.berbils.game.Entities.Minigame.FireEngineFront;
 import java.util.ArrayList;
 
 /**
@@ -44,17 +41,6 @@ public class MiniGameScreen extends PlayScreen
 	/** The game camera */
 	public OrthographicCamera gameCam;
 	// Set to public temporarily, can be private once more when tower loading from map is done
-
-
-	/** the current index of the fire engine selected, this index relates to
-	 * the button to select it on the SelectFireEngineScreen */
-	public int fireEngineSelectedIndex;
-
-	/** the number of fire engines alive in this screen instance */
-	private int fireEnginesAlive;
-
-	/** The number of towers left alive in this screen instance */
-	private int towersAlive;
 
 	/** Game instance */
 	private Kroy game;
@@ -85,44 +71,10 @@ public class MiniGameScreen extends PlayScreen
 	 */
 	private Box2DDebugRenderer b2dr;
 
-
-	/** Pre-defined weapon types for the Play Screen */
-	public Weapon basicWeapon,spokeWeapon,randomDirWeapon,baseFireEngWeapon,
-		largeFireEngWeapon;
 	// Game objects
-	/** Array containing all fire engine instances */;
-	private ArrayList<FireEngine> fireEngineArrayList = new ArrayList<>();
-
-	/** large slower fire engine with a higher damage weapon and higher
-	 * health and water capacity
-	 */
-	private FireEngine largeFireEngine;
-
-	/** Standard fire engine with standard states */
-	private FireEngine normalFireEngine;
-
 	/** The player */
-	private FireEngine player;
+	private FireEngineFront player;
 
-	/** Array containing all towers within this screen instance */
-	private Array<Tower> towers;
-
-	/** The fire station, the user can change which fire engine is currently
-	 * selected and refresh its health and water */
-	private FireStation fireStation;
-
-	/** Pre-defined projectile types for use in PlayScreen */
-	private Projectiles standardProjectile,
-			slowLargeExplosiveProjectile,
-			smallFastProjectile,
-			waterProjectile,
-			largewaterProjectile;
-
-	/** Array List storing all pre-defined projectiles */
-	private ArrayList<Projectiles> projectileList = new ArrayList<>();
-
-	/** Array List storing all pre-defined Weapons */
-	private ArrayList<Weapon> weaponList = new ArrayList<>();
 	// Box2d Object Managers
 
 	/** Array storing all bodies to be deleted on update */
@@ -133,9 +85,6 @@ public class MiniGameScreen extends PlayScreen
 
 	/** PlayScreen sprite Handler */
 	private SpriteHandler spriteHandler;
-
-	/** Fire engine spawn position */
-	private Vector2 fireEngSpawnPos;
 
 	/** The players score */
 	private int playerScore;
@@ -182,8 +131,8 @@ public class MiniGameScreen extends PlayScreen
 	 */
 	private void loadMap()
 		{
-		maploader = new MapLoader("CityMap/Map.tmx");
-		renderer = new OrthoCachedTiledMapRenderer(maploader.map, 1 / Kroy.PPM);
+		this.maploader = new MapLoader("CityMap/Map.tmx");
+		this.renderer = new OrthoCachedTiledMapRenderer(maploader.map, 1 / Kroy.PPM);
 		}
 	
 	/**
@@ -217,26 +166,67 @@ public class MiniGameScreen extends PlayScreen
    * 	                last Gdx delta call.
    */
   public void updateCamera(float delta) {
-    Vector2 mapDims = maploader.getDims().cpy().scl(PPM);
+    Vector2 mapDims = this.maploader.getDims().cpy().scl(PPM);
     float halfViewportWidth = this.gameCam.viewportWidth / 2;
     float halfViewPortHeight = this.gameCam.viewportHeight /2;
 
-    Vector3 position = gameCam.position;
-    Vector2 playerPos = alien.getBody().getPosition().scl(PPM);
+    Vector3 position = this.gameCam.position;
+    Vector2 playerPos = this.player.getBody().getPosition().scl(PPM);
     position.x = MathUtils.clamp(playerPos.x, halfViewportWidth, mapDims.x - halfViewportWidth);
     position.y = MathUtils.clamp(playerPos.y, halfViewPortHeight, mapDims.y - halfViewPortHeight);
 
-    gameCam.position.set(position);
-    gameCam.update();
-  }
+    this.gameCam.position.set(position);
+		this.gameCam.update();
+		this.game.batch.setProjectionMatrix(this.gameCam.combined);
+	}
+	
+	private void createPlayer() {
+		switch (this.game.gameScreen.getSelectedFireEngineIndex()) {
+			case 1:
+				Projectiles largewaterProjectile = new SimpleBulletCircle(4f, 0.4f, 20, 3.5f, Kroy.WATER_PROJECTILE_TEX, this);
+				Weapon largeFireEngWeapon = new BasicProjectileSpawner( 10, largewaterProjectile);
+				this.player = new FireEngineFront(this, new Vector2(1.5f, 1), largeFireEngWeapon, 800, 15, 200, Kroy.HEAVY_FIRE_ENGINE_TEX);
+				break;
+			default:
+				Projectiles waterProjectile = new SimpleBulletCircle(5f, 0.25f, 10, 3, Kroy.WATER_PROJECTILE_TEX, this);
+				Weapon baseFireEngWeapon = new BasicProjectileSpawner( 20, waterProjectile);
+				this.player = new FireEngineFront(this, new Vector2(1, 0.5f), baseFireEngWeapon, 400, 20, 100, Kroy.BASE_FIRE_ENGINE_TEX);
+				break;
+		}
+		this.player.spawn(new Vector2(10,1));
+	}
 
+	/**
+	 * Adds the body to an array that on each update will be iterated
+	 * through, destroying each body inside the array
+	 *
+	 * @param toDestroy body to remove from the world
+	 */
+	public void destroyBody(Body toDestroy)
+		{
+    	this.toBeDeleted.add(toDestroy);
+  		}
+
+	/**
+	 * Destroys all objects queued for deletion from the world and removes
+	 * them from the queue
+	 */
+	private void destroyObjects() {
+    for (int i = 0; i < this.toBeDeleted.size(); i++) {
+      this.world.destroyBody(this.toBeDeleted.get(i));
+      this.toBeDeleted.remove(i);
+    }
+	}
 
   @Override
   public void show() {
 	  System.out.println("Render Minigame");
 	  this.renderer.setView(this.gameCam);
 	  this.alien = new Alien(this, new Vector2(1, 0.5f), 20, 100, Kroy.BASE_FIRE_ENGINE_TEX);
-	  this.alien.spawn(new Vector2(200,220));
+		this.alien.spawn(new Vector2(10,10));
+
+		// Create player here so that index is correct
+		createPlayer();
     }
 
   /**
@@ -249,9 +239,17 @@ public class MiniGameScreen extends PlayScreen
   @Override
   public void render(float delta)
 	  {
-        // MUST BE FIRST: Clear the screen each frame to stop textures blurring
+    // MUST BE FIRST: Clear the screen each frame to stop textures blurring
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		// Get player input
+		if (Gdx.input.isTouched()) {
+      Vector3 mousePosInWorld = this.gameCam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0)).scl(1/ Kroy.PPM);
+      if (player.currentWater > 0) {
+        player.fire(new Vector2(mousePosInWorld.x, mousePosInWorld.y));
+      }
+    }
 
 		// Progress the world
 		this.world.step(1 / 60f, 6, 2);
@@ -266,10 +264,13 @@ public class MiniGameScreen extends PlayScreen
 
 		updateCamera(delta);
 
+		// Clean up game
+    destroyObjects();
+
 		// If change false to true, the box2D debug renderer will render box2D
 		// body outlines
 		if(true) {
-		b2dr.render(this.world, gameCam.combined.scl(PPM));
+		b2dr.render(this.world, this.gameCam.combined.scl(PPM));
 		}
 	}
 

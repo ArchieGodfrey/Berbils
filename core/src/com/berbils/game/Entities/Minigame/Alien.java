@@ -1,4 +1,4 @@
-package com.berbils.game.Entities.Aliens;
+package com.berbils.game.Entities.Minigame;
 
 import com.badlogic.gdx.math.Vector2;
 import com.berbils.game.Entities.EntityTypes.BoxGameEntity;

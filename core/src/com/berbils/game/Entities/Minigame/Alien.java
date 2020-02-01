@@ -30,6 +30,11 @@ public class Alien extends BoxGameEntity
 	public float speed;
 
 	/**
+	 * The original scale of the alien
+	 */
+	public Vector2 originalScale;
+
+	/**
 	 * A boolean used to check whether the alien is "alive" to
 	 * determine whether it should be despawned and destroyed.Is also
 	 * required to prevent multiple accidental onDeath() calls
@@ -75,8 +80,18 @@ public class Alien extends BoxGameEntity
 		super.setBodyDefAngularDampening(10);
 		super.setBodyDefLinearDampening(10);
 
+		this.originalScale = dimensions;
 		defineStats(speed, maxHealth);
 		}
+
+	/***
+	 * NEW METHOD @author Archie Godfrey
+	 * Method for changing the size of an entity
+	 */
+	public void scaleEntity(float scale) {
+		Vector2 newScale = new Vector2(originalScale.x * scale, originalScale.y * scale);
+		this.setScale(newScale);
+	}
 
 	/**
 	 * A method for initialising most of the alien variables

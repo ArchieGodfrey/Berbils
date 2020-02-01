@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -72,16 +73,17 @@ public class MiniGameScreen extends PlayScreen
 	private Box2DDebugRenderer b2dr;
 
 	// Game objects
+
 	/** The player */
 	private FireEngineFront player;
+
+	/** Array storing all aliens currently on screen */
+	private ArrayList<Alien> aliens = new ArrayList<Alien>();
 
 	// Box2d Object Managers
 
 	/** Array storing all bodies to be deleted on update */
 	private ArrayList<Body> toBeDeleted = new ArrayList<Body>();
-
-	/** PlayScreen input manager */
-	private InputManager inputManager;
 
 	/** PlayScreen sprite Handler */
 	private SpriteHandler spriteHandler;
@@ -180,6 +182,10 @@ public class MiniGameScreen extends PlayScreen
 		this.game.batch.setProjectionMatrix(this.gameCam.combined);
 	}
 	
+	/**
+	 * Creates a player which is a fire engine, the type of
+	 * fire engine is the same used in the main game
+	 */
 	private void createPlayer() {
 		switch (this.game.gameScreen.getSelectedFireEngineIndex()) {
 			case 1:
@@ -194,6 +200,12 @@ public class MiniGameScreen extends PlayScreen
 				break;
 		}
 		this.player.spawn(new Vector2(10,1));
+	}
+
+	private void createAlien() {
+		Alien alien = new Alien(this, new Vector2(1, 0.5f), 20, 100, Kroy.BASE_FIRE_ENGINE_TEX);
+		alien.spawn(new Vector2(10,4));
+		this.aliens.add(alien);
 	}
 
 	/**
@@ -218,12 +230,25 @@ public class MiniGameScreen extends PlayScreen
     }
 	}
 
+	/**
+	 * Scale objects based on their distance from the player
+	 */
+	private void scaleObjects() {
+		MapProperties prop = this.maploader.map.getProperties();
+    float mapHeight = prop.get("height", Integer.class);
+		for (Alien alien : this.aliens) {
+			float yPos = alien.getBody().getPosition().y;
+			float scale = (mapHeight - yPos) * (1 / Kroy.PPM); 
+			alien.scaleEntity(scale);
+		}
+	}
+
   @Override
   public void show() {
 	  System.out.println("Render Minigame");
-	  this.renderer.setView(this.gameCam);
-	  this.alien = new Alien(this, new Vector2(1, 0.5f), 20, 100, Kroy.BASE_FIRE_ENGINE_TEX);
-		this.alien.spawn(new Vector2(10,10));
+		this.renderer.setView(this.gameCam);
+		//Create a single alien
+		createAlien();
 
 		// Create player here so that index is correct
 		createPlayer();
@@ -256,6 +281,9 @@ public class MiniGameScreen extends PlayScreen
 
 		// Render the map
 		this.renderer.render();
+
+		//Scale objects
+		scaleObjects();
 
 		// Draw Sprites
 		this.game.batch.begin();

@@ -133,8 +133,8 @@ public class MiniGameScreen extends PlayScreen
 	 */
 	private void loadMap()
 		{
-		this.maploader = new MapLoader("CityMap/Map.tmx");
-		this.renderer = new OrthoCachedTiledMapRenderer(maploader.map, 1 / Kroy.PPM);
+		maploader = new MapLoader("MinigameMap/Minigame.tmx");
+		renderer = new OrthoCachedTiledMapRenderer(maploader.map, 1 / Kroy.PPM);
 		}
 	
 	/**
@@ -150,7 +150,7 @@ public class MiniGameScreen extends PlayScreen
 		// Create a world with 0 forces applied to it
 		this.world = new World(new Vector2(0, 0), true);
 		this.world.setContactListener(new GameContactListener());
-		this.spriteHandler = new SpriteHandler(this, Kroy.CITY_MAP_TEX, maploader.getDims().cpy());
+		this.spriteHandler = new SpriteHandler(this, Kroy.MINIGAME_MAP_TEX, maploader.getDims().cpy());
 		this.mapColliders = maploader.getColliders(this.world);
 		this.mapBorders = maploader.getBorders(this.world);
 		// Render Box2d Fixtures
@@ -276,11 +276,11 @@ public class MiniGameScreen extends PlayScreen
       }
     }
 
-		// Progress the world
-		this.world.step(1 / 60f, 6, 2);
+	// Progress the world
+	this.world.step(1 / 60f, 6, 2);
 
-		// Render the map
-		this.renderer.render();
+	// Render the map
+	this.renderer.render();
 
 		//Scale objects
 		scaleObjects();
@@ -290,16 +290,19 @@ public class MiniGameScreen extends PlayScreen
 		this.spriteHandler.updateAndDrawAllSprites(this.game.batch);
 		this.game.batch.end();
 
-		updateCamera(delta);
+	updateCamera(delta);
 
 		// Clean up game
     destroyObjects();
 
-		// If change false to true, the box2D debug renderer will render box2D
-		// body outlines
-		if(true) {
-		b2dr.render(this.world, this.gameCam.combined.scl(PPM));
-		}
+    //TEMP ***********
+    alien.update(delta);
+
+	// If change false to true, the box2D debug renderer will render box2D
+	// body outlines
+	if(true) {
+	b2dr.render(this.world, this.gameCam.combined.scl(PPM));
+	}
 	}
 
 	/** updates the gamePort width and height if the game window gets resized */

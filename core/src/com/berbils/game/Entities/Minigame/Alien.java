@@ -1,5 +1,6 @@
 package com.berbils.game.Entities.Minigame;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.berbils.game.Entities.EntityTypes.BoxGameEntity;
 import com.berbils.game.Kroy;
@@ -115,6 +116,40 @@ public class Alien extends BoxGameEntity
 		super.createSprite();
 	}
 
+	/**Get the x coordinate of the alien**/
+	private float getX(){return this.position.x;}
+
+	/**Get the y coordinate of the alien**/
+	private float getY(){return this.position.y;}
+
+	/**
+	 * Method for moving the alien towards a specified point
+	 *
+	 *
+	 * @param x the x coordinate of the point to move towards
+	 * @param y the y coordinate of the point to move towards
+	 */
+	public void moveTowards(int x, int y)
+		{
+			float direction;
+
+			float deltaX = x - getX();
+			float deltaY = y - getY();
+			direction = MathUtils.atan2(deltaY, deltaX);
+
+			this.getBody()
+			.applyForce(
+				new Vector2(this.speed * MathUtils.cos(direction),
+							this.speed * MathUtils.sin(direction)),
+							this.getBody().getWorldCenter(),
+							true);
+		}
+
+
+	public void update(float deltaTime)
+		{
+			this.moveTowards(10,10);
+		}
 	/**
 	 * Method for reducing the current health of the fire engine instance and
 	 * checking whether the health reaches zero

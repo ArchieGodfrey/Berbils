@@ -38,6 +38,9 @@ public class MiniGameScreen extends PlayScreen
 
 	private Alien alien;
 
+	/** Array containing all aliens within this screen instance */
+	private Array<Alien> aliens;
+
 	/** The game camera */
 	public OrthographicCamera gameCam;
 	// Set to public temporarily, can be private once more when tower loading from map is done
@@ -223,7 +226,7 @@ public class MiniGameScreen extends PlayScreen
 	  System.out.println("Render Minigame");
 	  this.renderer.setView(this.gameCam);
 	  this.alien = new Alien(this, new Vector2(1, 0.5f), 20, 100, Kroy.BASE_FIRE_ENGINE_TEX);
-		this.alien.spawn(new Vector2(10,10));
+		this.alien.spawn(new Vector2(10,3));
 
 		// Create player here so that index is correct
 		createPlayer();
@@ -251,27 +254,30 @@ public class MiniGameScreen extends PlayScreen
       }
     }
 
-		// Progress the world
-		this.world.step(1 / 60f, 6, 2);
+	// Progress the world
+	this.world.step(1 / 60f, 6, 2);
 
-		// Render the map
-		this.renderer.render();
+	// Render the map
+	this.renderer.render();
 
-		// Draw Sprites
-		this.game.batch.begin();
-		this.spriteHandler.updateAndDrawAllSprites(this.game.batch);
-		this.game.batch.end();
+	// Draw Sprites
+	this.game.batch.begin();
+	this.spriteHandler.updateAndDrawAllSprites(this.game.batch);
+	this.game.batch.end();
 
-		updateCamera(delta);
+	updateCamera(delta);
 
 		// Clean up game
     destroyObjects();
 
-		// If change false to true, the box2D debug renderer will render box2D
-		// body outlines
-		if(true) {
-		b2dr.render(this.world, this.gameCam.combined.scl(PPM));
-		}
+    //TEMP ***********
+    alien.update(delta);
+
+	// If change false to true, the box2D debug renderer will render box2D
+	// body outlines
+	if(true) {
+	b2dr.render(this.world, this.gameCam.combined.scl(PPM));
+	}
 	}
 
 	/** updates the gamePort width and height if the game window gets resized */

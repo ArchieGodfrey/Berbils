@@ -55,6 +55,8 @@ public class Kroy extends Game
 	public static String YOUVE_WON_TITLE = "ScreenTitles/YouveWon.png";
 	public static String GAME_PAUSED_TITLE = "ScreenTitles/GamePaused.png";
 	public static String CITY_MAP_TEX = "CityMap/CityMap2.png";
+	public static String MINIGAME_MAP_TEX = "MinigameMap/minigame.png"; //NEW
+	// : Added minigame map texture
 	public static AssetManager assets;
 	public SpriteBatch batch;
 	public PlayScreen gameScreen;
@@ -93,6 +95,8 @@ public class Kroy extends Game
 		assets.load(YOUVE_WON_TITLE, Texture.class);
 		assets.load(GAME_PAUSED_TITLE, Texture.class);
 		assets.load(CITY_MAP_TEX, Texture.class);
+		assets.load(MINIGAME_MAP_TEX, Texture.class); //NEW: Added minigame map
+		// texture asset
 		assets.finishLoading();
 		V_HEIGHT = Gdx.graphics.getHeight();
 		V_WIDTH = Gdx.graphics.getWidth();

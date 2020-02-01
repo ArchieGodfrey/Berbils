@@ -182,7 +182,7 @@ public class MiniGameScreen extends PlayScreen
 	 */
 	private void loadMap()
 		{
-		maploader = new MapLoader("CityMap/Map.tmx");
+		maploader = new MapLoader("MinigameMap/Minigame.tmx");
 		renderer = new OrthoCachedTiledMapRenderer(maploader.map, 1 / Kroy.PPM);
 		}
 	
@@ -199,7 +199,7 @@ public class MiniGameScreen extends PlayScreen
 		// Create a world with 0 forces applied to it
 		this.world = new World(new Vector2(0, 0), true);
 		this.world.setContactListener(new GameContactListener());
-		this.spriteHandler = new SpriteHandler(this, Kroy.CITY_MAP_TEX, maploader.getDims().cpy());
+		this.spriteHandler = new SpriteHandler(this, Kroy.MINIGAME_MAP_TEX, maploader.getDims().cpy());
 		this.mapColliders = maploader.getColliders(this.world);
 		this.mapBorders = maploader.getBorders(this.world);
 		// Render Box2d Fixtures
@@ -236,7 +236,7 @@ public class MiniGameScreen extends PlayScreen
 	  System.out.println("Render Minigame");
 	  this.renderer.setView(this.gameCam);
 	  this.alien = new Alien(this, new Vector2(1, 0.5f), 20, 100, Kroy.BASE_FIRE_ENGINE_TEX);
-	  this.alien.spawn(new Vector2(200,220));
+	  this.alien.spawn(new Vector2(10,1));
     }
 
   /**

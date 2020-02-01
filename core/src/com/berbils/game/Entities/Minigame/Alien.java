@@ -140,31 +140,22 @@ public class Alien extends BoxGameEntity
 	/**
 	 * Method for moving the alien towards a specified point
 	 *
-	 *
-	 * @param x the x coordinate of the point to move towards
-	 * @param y the y coordinate of the point to move towards
+	 * @param targetVector the position ot move the alien to
 	 */
-	public void moveTowards(int x, int y)
+	public void moveTowards(Vector2 targetVector)
 		{
-			float direction;
+			// Get the centre of the alien
+			Vector2 alienCentre = new Vector2(this.getX() + this.getSizeDims().x / 2,this.getY() + this.getSizeDims().y / 2).scl(1 / Kroy.PPM); 
 
-			float deltaX = x - getX();
-			float deltaY = y - getY();
-			direction = MathUtils.atan2(deltaY, deltaX);
+			// Work out the vector between them and scale by speed
+			Vector2 trajectory = targetVector.sub(alienCentre);
+			trajectory.nor().scl(this.speed);
 
-			this.getBody()
-			.applyForce(
-				new Vector2(this.speed * MathUtils.cos(direction),
-							this.speed * MathUtils.sin(direction)),
-							this.getBody().getWorldCenter(),
-							true);
+			// Apply force to the alien
+			//this.getBody().setTransform(this.getBody().getPosition(), trajectory.angle());
+			this.getBody().applyForceToCenter(trajectory, true);
 		}
 
-
-	public void update(float deltaTime)
-		{
-			this.moveTowards(10,10);
-		}
 	/**
 	 * Method for reducing the current health of the fire engine instance and
 	 * checking whether the health reaches zero

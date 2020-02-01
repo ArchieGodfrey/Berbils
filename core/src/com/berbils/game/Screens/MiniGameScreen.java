@@ -118,8 +118,8 @@ public class MiniGameScreen extends PlayScreen
     this.gameCam = new OrthographicCamera();
     // Create a FitViewPort to maintain aspect ratio across screen sizes
     this.gamePort = new ExtendViewport(
-            Kroy.V_WIDTH / ( Kroy.PPM * Kroy.CAMERA_SCALAR ),
-            Kroy.V_HEIGHT / ( Kroy.PPM * Kroy.CAMERA_SCALAR ),
+            Kroy.V_WIDTH,
+            Kroy.V_HEIGHT,
             this.gameCam);
     this.gameCam.position.set(this.gamePort.getWorldWidth(),
                          	  this.gamePort.getWorldHeight(),
@@ -158,25 +158,12 @@ public class MiniGameScreen extends PlayScreen
 		}
 
 	/**
-   * Updates the camera every tick to follow the player
-   * Also clamps the camera to prevent it viewing outside the map at which
-   * point it no longer follows the player until they move away from the
-   * boundaries again
-   *
-   * @param delta The time in seconds that have elapsed in world time
-   * 	                (Excludes time taken to draw, render etc) since the
-   * 	                last Gdx delta call.
+	 * Set the camera's view of the whole game. Only needs
+	 * to be set once as it does not move.
    */
-  public void updateCamera(float delta) {
-    Vector2 mapDims = this.maploader.getDims().cpy().scl(PPM);
-    float halfViewportWidth = this.gameCam.viewportWidth / 2;
-    float halfViewPortHeight = this.gameCam.viewportHeight /2;
-
-    Vector3 position = this.gameCam.position;
-    Vector2 playerPos = this.player.getBody().getPosition().scl(PPM);
-    position.x = MathUtils.clamp(playerPos.x, halfViewportWidth, mapDims.x - halfViewportWidth);
-    position.y = MathUtils.clamp(playerPos.y, halfViewPortHeight, mapDims.y - halfViewPortHeight);
-
+  private void updateCamera() {
+    Vector2 mapDims = this.maploader.getDims().cpy().scl(PPM);	
+		Vector3 position = new Vector3(mapDims.x / 2, mapDims.y / 2, 0);
     this.gameCam.position.set(position);
 		this.gameCam.update();
 		this.game.batch.setProjectionMatrix(this.gameCam.combined);
@@ -191,20 +178,25 @@ public class MiniGameScreen extends PlayScreen
 			case 1:
 				Projectiles largewaterProjectile = new SimpleBulletCircle(4f, 0.4f, 20, 3.5f, Kroy.WATER_PROJECTILE_TEX, this);
 				Weapon largeFireEngWeapon = new BasicProjectileSpawner( 10, largewaterProjectile);
-				this.player = new FireEngineFront(this, new Vector2(1.5f, 1), largeFireEngWeapon, 800, 15, 200, Kroy.HEAVY_FIRE_ENGINE_TEX);
+				this.player = new FireEngineFront(this, new Vector2(6f, 3f), largeFireEngWeapon, 800, 15, 200, Kroy.HEAVY_FIRE_ENGINE_TEX);
 				break;
 			default:
 				Projectiles waterProjectile = new SimpleBulletCircle(5f, 0.25f, 10, 3, Kroy.WATER_PROJECTILE_TEX, this);
 				Weapon baseFireEngWeapon = new BasicProjectileSpawner( 20, waterProjectile);
-				this.player = new FireEngineFront(this, new Vector2(1, 0.5f), baseFireEngWeapon, 400, 20, 100, Kroy.BASE_FIRE_ENGINE_TEX);
+				this.player = new FireEngineFront(this, new Vector2(5f, 2.5f), baseFireEngWeapon, 400, 20, 100, Kroy.BASE_FIRE_ENGINE_TEX);
 				break;
 		}
-		this.player.spawn(new Vector2(10,1));
+		//Spawn player in bottom left quarter of the map
+		this.player.spawn(new Vector2((this.maploader.getDims().cpy().x / 4), 0));
 	}
 
+	/**
+	 * Creates an alien and adds it to the list of
+	 * all aliens on the screen.
+	 */
 	private void createAlien() {
-		Alien alien = new Alien(this, new Vector2(1, 0.5f), 20, 100, Kroy.BASE_FIRE_ENGINE_TEX);
-		alien.spawn(new Vector2(10,4));
+		Alien alien = new Alien(this, new Vector2(5, 2.5f), 20, 100, Kroy.BASE_FIRE_ENGINE_TEX);
+		alien.spawn(new Vector2(10,10));
 		this.aliens.add(alien);
 	}
 
@@ -238,7 +230,7 @@ public class MiniGameScreen extends PlayScreen
     float mapHeight = prop.get("height", Integer.class);
 		for (Alien alien : this.aliens) {
 			float yPos = alien.getBody().getPosition().y;
-			float scale = (mapHeight - yPos) * (1 / Kroy.PPM); 
+			float scale = (mapHeight - yPos) * (1 / Kroy.PPM);
 			alien.scaleEntity(scale);
 		}
 	}
@@ -247,6 +239,7 @@ public class MiniGameScreen extends PlayScreen
   public void show() {
 	  System.out.println("Render Minigame");
 		this.renderer.setView(this.gameCam);
+		updateCamera();
 		//Create a single alien
 		createAlien();
 
@@ -290,13 +283,12 @@ public class MiniGameScreen extends PlayScreen
 		this.spriteHandler.updateAndDrawAllSprites(this.game.batch);
 		this.game.batch.end();
 
-	updateCamera(delta);
-
 		// Clean up game
     destroyObjects();
 
-    //TEMP ***********
-    alien.update(delta);
+    for (Alien alien : this.aliens) {
+			alien.moveTowards(this.player.getBody().getPosition());
+		}
 
 	// If change false to true, the box2D debug renderer will render box2D
 	// body outlines

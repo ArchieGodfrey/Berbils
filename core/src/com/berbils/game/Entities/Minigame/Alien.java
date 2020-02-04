@@ -128,6 +128,7 @@ public class Alien extends BoxGameEntity
 		super.createBodyCopy();
 		super.createFixtureCopy();
 		super.setUserData(this);
+		System.out.println("alien" + this.entityBody.getUserData());
 		super.createSprite();
 	}
 
@@ -162,10 +163,10 @@ public class Alien extends BoxGameEntity
 	 *
 	 * @param damageTaken the amount the fire engine health should be reduced by
 	 */
-	public void takeDamage(int damageTaken)
+	public void takeDamage()
 		{
-		this.currentHealth -= damageTaken;
-		this.screen.updatePlayerScore(-damageTaken);
+		this.currentHealth -= 50;
+		this.screen.updatePlayerScore(50);
 		if (this.currentHealth <= 0) {
 			this.onDeath();
 		}

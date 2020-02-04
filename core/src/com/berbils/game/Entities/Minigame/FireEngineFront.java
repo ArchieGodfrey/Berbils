@@ -162,51 +162,17 @@ public class FireEngineFront extends BoxGameEntity
 		}
 
 	/**
-	 * Method for reducing the current health of the fire engine instance and
-	 * checking whether the health reaches zero
-	 *
-	 * @param damageTaken the amount the fire engine health should be reduced by
-	 */
-	public void takeDamage(int damageTaken)
-		{
-		this.currentHealth -= damageTaken;
-		this.screen.updatePlayerScore(-damageTaken);
-		if (this.currentHealth <= 0) {
-			this.onDeath();
-		}
-		}
-
-	/**
 	 * Method called to represent fire engine death, updates scores, the
 	 * current screen shown and what state the game will be in after the
 	 * screens shown.
 	 */
-	private void onDeath()
+	public void onDeath()
 		{
-		if (this.isAlive) { //
+		if (this.isAlive) {
 			this.isAlive = false;
-			/* Regardless of rest of the game the screen should acknowledge
-			* fire engine destruction and display fire-engine-destroyed screen
-			* The button for selecting that fire engine instance should also
-			* be removed
-			* */
 			Kroy game = this.screen.getGame();
-			this.screen.fireEngineDestroyed();
-			game.selectFireEngine.removeButton(this.screen.fireEngineSelectedIndex);
-
-			if (this.screen.allFireEnginesDestroyed()) {
-				this.screen.getGame().setScreen(game.gameOverScreen);
-				game.gameOverScreen.setTimer(2, game.mainMenu);
-				game.createAllScreens();
-			}
-			else {
-				game.fireEngineDestroyedScreen.setTimer(2,
-														game.selectFireEngine);
-				this.spriteHandler.destroySpriteAndBody(this.entityFixture);
-				this.screen.updatePlayerScore(-200);
-				this.screen.getGame().setScreen(game.fireEngineDestroyedScreen);
-
-			}
+			this.screen.updatePlayerScore(-200);
+			this.screen.getGame().setScreen(game.gameScreen);
 		}
 		}
 
@@ -224,6 +190,7 @@ public class FireEngineFront extends BoxGameEntity
 		super.createBodyCopy();
 		super.createFixtureCopy();
 		super.setUserData(this);
+		System.out.println("fire" + this.entityBody.getUserData());
         super.createSprite();
         // Rotate to face aliens
         this.getBody().setAngularVelocity(16);

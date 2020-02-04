@@ -167,6 +167,7 @@ public class MiniGameScreen extends PlayScreen
     this.gameCam.position.set(position);
 		this.gameCam.update();
 		this.game.batch.setProjectionMatrix(this.gameCam.combined);
+		this.renderer.setView(this.gameCam);
 	}
 	
 	/**
@@ -238,13 +239,11 @@ public class MiniGameScreen extends PlayScreen
   @Override
   public void show() {
 	  System.out.println("Render Minigame");
-		this.renderer.setView(this.gameCam);
-		updateCamera();
 		//Create a single alien
 		createAlien();
 
 		// Create player here so that index is correct
-		createPlayer();
+		createPlayer();		
     }
 
   /**
@@ -269,11 +268,8 @@ public class MiniGameScreen extends PlayScreen
       }
     }
 
-	// Progress the world
-	this.world.step(1 / 60f, 6, 2);
-
-	// Render the map
-	this.renderer.render();
+		// Progress the world
+		this.world.step(1 / 60f, 6, 2);
 
 		//Scale objects
 		scaleObjects();
@@ -290,11 +286,15 @@ public class MiniGameScreen extends PlayScreen
 			alien.moveTowards(this.player.getBody().getPosition());
 		}
 
-	// If change false to true, the box2D debug renderer will render box2D
-	// body outlines
-	if(true) {
-	b2dr.render(this.world, this.gameCam.combined.scl(PPM));
-	}
+		// Render the map and update the camera
+		this.renderer.render();
+		updateCamera();
+
+		// If change false to true, the box2D debug renderer will render box2D
+		// body outlines
+		if(true) {
+			b2dr.render(this.world, this.gameCam.combined.scl(PPM));
+		}
 	}
 
 	/** updates the gamePort width and height if the game window gets resized */

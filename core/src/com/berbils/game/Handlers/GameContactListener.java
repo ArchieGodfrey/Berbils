@@ -3,6 +3,8 @@ package com.berbils.game.Handlers;
 import com.badlogic.gdx.physics.box2d.*;
 import com.berbils.game.Entities.FireEngines.FireEngine;
 import com.berbils.game.Entities.FireStation.FireStation;
+import com.berbils.game.Entities.Minigame.Alien;
+import com.berbils.game.Entities.Minigame.FireEngineFront;
 import com.berbils.game.Entities.ProjectileSpawners.ProjectileTypes.Projectiles;
 import com.berbils.game.Entities.Towers.Tower;
 import com.berbils.game.Kroy;
@@ -31,8 +33,9 @@ public class GameContactListener implements ContactListener
 		if (fixtureA == null || fixtureB == null) {
 			return;
 		}
+		System.out.println("Collision start " + fixtureAUserData + " " + fixtureBUserData);
 		// Fire engine getting in range of a tower
-		else if (this.fireEngContactTowerSensor(fixtureAUserData,
+		if (this.fireEngContactTowerSensor(fixtureAUserData,
 												fixtureBUserData)) {
 			this.getTowerObject(fixtureAUserData, fixtureBUserData)
 				.setTarget(this.getFireEngineObject(fixtureAUserData,
@@ -67,6 +70,14 @@ public class GameContactListener implements ContactListener
 			this.getPatrolObject(fixtureAUserData, fixtureBUserData)
 				.collided(this.getFireEngineFixture(fixtureA, fixtureB));
 		}
+		else if (this.fireEngineFrontContactAlien(fixtureAUserData, fixtureBUserData)) {
+			System.out.println("Hit");
+			this.getFireEngineFrontObject(fixtureAUserData, fixtureBUserData).onDeath();
+		}
+		else if (this.projectileContactAlien(fixtureAUserData, fixtureBUserData)) {
+			System.out.println("Hit Alein");
+			this.getAlienObject(fixtureAUserData, fixtureBUserData).takeDamage();
+		}
 		// END OF NEW CODE
 		// Projectile hitting scenery
 		else if (this.projectileContactScenery(fixtureA, fixtureB)) {
@@ -90,6 +101,7 @@ public class GameContactListener implements ContactListener
 
 		Object fixtureAUserData = fixtureA.getBody().getUserData();
 		Object fixtureBUserData = fixtureB.getBody().getUserData();
+		System.out.println("Collision end " + fixtureAUserData + " " + fixtureBUserData);
 
 		if (fixtureA == null || fixtureB == null) {
 			return;
@@ -208,6 +220,50 @@ public class GameContactListener implements ContactListener
 		}
 
 	/**
+	 * Gets the {@link FireEngineFront} object out of the two objects collided
+	 *
+	 * @param obj1 one of the objects in the collision
+	 * @param obj2 one of the objects in the collision
+	 * @return Returns which of the objects are a {@link FireEngineFront}, the first object
+	 * 		   if they are both {@link FireEngineFront}s
+	 */
+	private FireEngineFront getFireEngineFrontObject(Object obj1, Object obj2)
+	{
+	if (obj1 instanceof FireEngineFront) {
+		return (FireEngineFront) obj1;
+	}
+	else if (obj2 instanceof FireEngineFront) {
+		return (FireEngineFront) obj2;
+	}
+	else {
+		throw new IllegalArgumentException(
+			"Neither arguments are fire engines");
+	}
+	}
+
+	/**
+	 * Gets the {@link Alien} object out of the two objects collided
+	 *
+	 * @param obj1 one of the objects in the collision
+	 * @param obj2 one of the objects in the collision
+	 * @return Returns which of the objects are a {@link Alien}, the first object
+	 * 		   if they are both {@link Alien}s
+	 */
+	private Alien getAlienObject(Object obj1, Object obj2)
+	{
+	if (obj1 instanceof Alien) {
+		return (Alien) obj1;
+	}
+	else if (obj2 instanceof Alien) {
+		return (Alien) obj2;
+	}
+	else {
+		throw new IllegalArgumentException(
+			"Neither arguments are Aliens");
+	}
+	}
+
+	/**
 	 *  A Method to check if the two objects colliding are a projectile and a
 	 * 	fire engine
 	 *
@@ -223,6 +279,43 @@ public class GameContactListener implements ContactListener
 		return ( ( obj1 instanceof Projectiles && obj2 instanceof FireEngine )
 			|| ( obj1 instanceof FireEngine && obj2 instanceof Projectiles ) );
 		}
+
+	/**
+	 * NEW METHOD @author Archie Godfrey
+	 *  A Method to check if the two objects colliding are an Alien and a
+	 * 	FireEngineFront
+	 *
+	 * @param obj1 one of the objects in the collision
+	 *
+	 * @param obj2 one of the objects in the collision
+	 *
+	 * @return true if one object is an Alien and the other object
+	 * 		   is a FireEngineFront, else false
+	 */
+	private boolean fireEngineFrontContactAlien(Object obj1, Object obj2)
+	{
+	return ( ( obj1 instanceof Alien && obj2 instanceof FireEngineFront )
+		|| ( obj1 instanceof FireEngineFront && obj2 instanceof Alien ) );
+	}
+
+	/**
+	 * NEW METHOD @author Archie Godfrey
+	 *  A Method to check if the two objects colliding are an Alien and a
+	 * 	Projectiles
+	 *
+	 * @param obj1 one of the objects in the collision
+	 *
+	 * @param obj2 one of the objects in the collision
+	 *
+	 * @return true if one object is an Alien and the other object
+	 * 		   is a FireEngineFront, else false
+	 */
+	private boolean projectileContactAlien(Object obj1, Object obj2)
+	{
+		System.out.println("Projectile Alein " + obj1 + " " + obj2);
+	return ( ( obj1 instanceof Alien && obj2 instanceof Projectiles )
+		|| ( obj1 instanceof Projectiles && obj2 instanceof Alien ) );
+	}
 
 	/**
 	 * Gets the Projectiles object out of the two objects collided

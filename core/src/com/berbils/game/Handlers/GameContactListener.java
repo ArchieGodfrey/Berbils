@@ -71,11 +71,9 @@ public class GameContactListener implements ContactListener
 				.collided(this.getFireEngineFixture(fixtureA, fixtureB));
 		}
 		else if (this.fireEngineFrontContactAlien(fixtureAUserData, fixtureBUserData)) {
-			System.out.println("Hit");
 			this.getFireEngineFrontObject(fixtureAUserData, fixtureBUserData).onDeath();
 		}
 		else if (this.projectileContactAlien(fixtureAUserData, fixtureBUserData)) {
-			System.out.println("Hit Alein");
 			this.getAlienObject(fixtureAUserData, fixtureBUserData).takeDamage();
 		}
 		// END OF NEW CODE
@@ -312,7 +310,6 @@ public class GameContactListener implements ContactListener
 	 */
 	private boolean projectileContactAlien(Object obj1, Object obj2)
 	{
-		System.out.println("Projectile Alein " + obj1 + " " + obj2);
 	return ( ( obj1 instanceof Alien && obj2 instanceof Projectiles )
 		|| ( obj1 instanceof Projectiles && obj2 instanceof Alien ) );
 	}

@@ -128,15 +128,15 @@ public class Alien extends BoxGameEntity
 		super.createBodyCopy();
 		super.createFixtureCopy();
 		super.setUserData(this);
-		System.out.println("alien" + this.entityBody.getUserData());
 		super.createSprite();
+		this.setPosition(spawnPos);
 	}
 
 	/**Get the x coordinate of the alien**/
-	private float getX(){return this.position.x;}
+	private float getX(){return this.getBody().getPosition().x;}
 
 	/**Get the y coordinate of the alien**/
-	private float getY(){return this.position.y;}
+	private float getY(){return this.getBody().getPosition().y;}
 
 	/**
 	 * Method for moving the alien towards a specified point
@@ -150,7 +150,7 @@ public class Alien extends BoxGameEntity
 
 			// Work out the vector between them and scale by speed
 			Vector2 trajectory = targetVector.sub(alienCentre);
-			trajectory.nor().scl(this.speed);
+			trajectory.nor().scl(this.speed).rotate(180);
 
 			// Apply force to the alien
 			//this.getBody().setTransform(this.getBody().getPosition(), trajectory.angle());
@@ -165,8 +165,8 @@ public class Alien extends BoxGameEntity
 	 */
 	public void takeDamage()
 		{
-		this.currentHealth -= 50;
-		this.screen.updatePlayerScore(50);
+		this.currentHealth -= 10;
+		this.screen.updatePlayerScore(10);
 		if (this.currentHealth <= 0) {
 			this.onDeath();
 		}

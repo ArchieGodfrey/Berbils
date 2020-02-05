@@ -190,7 +190,6 @@ public class FireEngineFront extends BoxGameEntity
 		super.createBodyCopy();
 		super.createFixtureCopy();
 		super.setUserData(this);
-		System.out.println("fire" + this.entityBody.getUserData());
         super.createSprite();
         // Rotate to face aliens
         this.getBody().setAngularVelocity(16);

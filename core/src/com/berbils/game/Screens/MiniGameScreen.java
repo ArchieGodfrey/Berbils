@@ -13,6 +13,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.berbils.game.Entities.ProjectileSpawners.*;
@@ -88,8 +90,8 @@ public class MiniGameScreen extends PlayScreen
 	/** PlayScreen sprite Handler */
 	private SpriteHandler spriteHandler;
 
-	/** The players score */
-	private int playerScore;
+	/** The number of aliens in this round */
+	private int alienTotal;
 
 
 	/**
@@ -105,7 +107,9 @@ public class MiniGameScreen extends PlayScreen
 		createCamera();
 		loadMap();
 		createBox2DWorld();
-        }
+		// NEED TO UPDATE
+		createPlayer();
+    }
         
     /**
 	 * Creates the Camera
@@ -193,12 +197,19 @@ public class MiniGameScreen extends PlayScreen
 
 	/**
 	 * Creates an alien and adds it to the list of
-	 * all aliens on the screen.
+	 * all aliens on the screen. Ends the game when all
+	 * aliens have been spawned
 	 */
 	private void createAlien() {
-		Alien alien = new Alien(this, new Vector2(5, 2.5f), 20, 100, Kroy.BASE_FIRE_ENGINE_TEX);
-		alien.spawn(new Vector2(10,10));
-		this.aliens.add(alien);
+		if (this.alienTotal > 0) {
+			Alien alien = new Alien(this, new Vector2(1, 0.5f), 5, 100, Kroy.BASE_FIRE_ENGINE_TEX);
+			alien.spawn(new Vector2((int) (Math.random() * 10.0),10));
+			this.aliens.add(alien);
+			this.alienTotal -= 1;
+		} else {
+			// Return to main game
+			this.getGame().setScreen(game.gameScreen);
+		}
 	}
 
 	/**
@@ -238,12 +249,18 @@ public class MiniGameScreen extends PlayScreen
 
   @Override
   public void show() {
-	  System.out.println("Render Minigame");
-		//Create a single alien
-		createAlien();
+		System.out.println("Render Minigame");
 
-		// Create player here so that index is correct
-		createPlayer();		
+		// Creates a random number of aliens between 1-11
+		this.alienTotal = 1+ (int) (Math.random() * 10.0);
+		
+		//Create a single alien every 3 seconds
+		Timer.schedule(new Task() {
+			@Override
+			public void run() {
+				createAlien();
+			}
+		}, 1, 3 );
     }
 
   /**
@@ -271,8 +288,8 @@ public class MiniGameScreen extends PlayScreen
 		// Progress the world
 		this.world.step(1 / 60f, 6, 2);
 
-		//Scale objects
-		scaleObjects();
+		//Scale objects CURRENTLY NOT WORKING
+		//scaleObjects();
 
 		// Draw Sprites
 		this.game.batch.begin();

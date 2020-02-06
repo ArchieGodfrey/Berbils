@@ -17,7 +17,7 @@ public class SelectFireEngineScreen extends BasicMenu
 
 	/** An array containing the text that will appear on its own button */
 	private static String[] menuOptions = new String[] { "Regular Fire Engine",
-		"Large Fire Engine"
+		"Large Fire Engine", "Small Fire Engine", "Blablabla Fire Engine"
 	};
 
 	/**
@@ -52,5 +52,12 @@ public class SelectFireEngineScreen extends BasicMenu
 					Gdx.input.setInputProcessor(null);
 					}
 				});
+		}
+
+
+		@Override
+		public void render(float delta){
+			stage.act();
+		    stage.draw();
 		}
 	}

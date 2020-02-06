@@ -30,7 +30,7 @@ public abstract class BasicMenu implements Screen
 	private Viewport viewport;
 
 	/** The stage, where the buttons are displayed */
-	private Stage stage;
+	protected Stage stage;
 
 	/** The amount of padding at the top of each button */
 	private float padding;

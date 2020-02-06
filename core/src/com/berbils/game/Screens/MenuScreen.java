@@ -33,7 +33,8 @@ public class MenuScreen extends BasicMenu
 				@Override
 				public void clicked(InputEvent event, float x, float y)
 					{
-					game.setScreen(game.selectFireEngine);
+					game.gameScreen.selectFireEngine(0);
+					game.setScreen(game.gameScreen);
 					}
 				});
 		super.menuButtons.get(1).addListener(

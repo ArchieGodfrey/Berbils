@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -20,6 +21,7 @@ import com.berbils.game.Entities.Towers.Tower;
 import com.berbils.game.Handlers.GameContactListener;
 import com.berbils.game.Handlers.SpriteHandler;
 import com.berbils.game.Kroy;
+import com.berbils.game.Utils;
 import com.berbils.game.Scenes.HUD;
 import com.berbils.game.Tools.InputManager;
 import com.berbils.game.Tools.MapLoader;
@@ -155,6 +157,9 @@ public class PlayScreen implements Screen
 		this.towersAlive = this.towers.size;
 		hud = new HUD(game.batch, player, this);
 		this.playerScore = 0;
+
+		/** NEW Line @author Archie Godfrey */
+		createSelectionMenu();
 		}
 
 	/**
@@ -281,7 +286,20 @@ public class PlayScreen implements Screen
     inputManager.handlePlayerInput(player, delta, this.game);
     renderer.setView(gameCam);
     updateCamera(delta);
-  }
+	}
+	
+	/** NEW Method @author Archie Godfrey */
+	private void createSelectionMenu() {
+		/** An array containing the text that will appear on its own button */
+		String[] menuOptions = new String[] { "Regular Fire Engine",
+			"Large Fire Engine", "Small Fire Engine", "Medium Fire Engine"
+		};
+		ArrayList<TextButton> menuButtons = Utils.createMenuOptions(menuOptions);
+		int noOfItemRows = menuOptions.length + 1;
+		float padding = Kroy.V_HEIGHT / noOfItemRows / 2;
+		Vector2 titleSize = new Vector2(Kroy.V_WIDTH / 2, Kroy.V_HEIGHT / noOfItemRows);
+		this.hud.stage.addActor(Utils.createTable(menuButtons, titleSize, padding));
+	}
 
   /**
    * Render To Play Screen

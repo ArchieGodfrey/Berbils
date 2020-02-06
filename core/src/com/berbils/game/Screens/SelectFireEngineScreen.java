@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.berbils.game.Kroy;
+import com.berbils.game.Utils;
 
 /**
  * Creates the Select your fire engine screen
@@ -20,6 +21,9 @@ public class SelectFireEngineScreen extends BasicMenu
 		"Large Fire Engine", "Small Fire Engine", "Blablabla Fire Engine"
 	};
 
+	/** NEW Field @author Archie Godfrey */
+	private Kroy game;
+
 	/**
 	 * Creates the select fire engine screen and assigns functions to each of
 	 * the menu buttons
@@ -30,6 +34,7 @@ public class SelectFireEngineScreen extends BasicMenu
 	public SelectFireEngineScreen(final Kroy game, SpriteBatch spriteBatch)
 		{
 		super(spriteBatch, titlePath, menuOptions);
+		this.game = game; /** NEW Line @author Archie Godfrey */
 		super.menuButtons.get(0).addListener(
 			new ClickListener()
 				{

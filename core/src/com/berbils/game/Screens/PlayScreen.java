@@ -2,6 +2,7 @@ package com.berbils.game.Screens;
 
 import static com.berbils.game.Kroy.PPM;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -166,7 +167,8 @@ public class PlayScreen implements Screen
 		this.fireEngSpawnPos = maploader.getEngineSpawn();
 		this.fireEnginesAlive = this.fireEngineArrayList.size();
 		this.towersAlive = this.towers.size;
-		hud = new HUD(game.batch, player, this);
+		/** NEW Line @author Archie Godfrey */
+		this.hud = new HUD(this.game.batch, 4);
 		this.playerScore = 0;
 		}
 
@@ -290,10 +292,9 @@ public class PlayScreen implements Screen
       projectiles.update(delta);
     }
 
-    hud.update();
     inputManager.handlePlayerInput(player, delta, this.game);
     renderer.setView(gameCam);
-    updateCamera(delta);
+		updateCamera(delta);
   }
 
   /**
@@ -310,7 +311,6 @@ public class PlayScreen implements Screen
 		renderer.render();
 
 		// Render HUD
-		game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
 		game.batch.setProjectionMatrix(gameCam.combined);
 
 		// Draw Sprites
@@ -318,7 +318,14 @@ public class PlayScreen implements Screen
 		spriteHandler.updateAndDrawAllSprites(game.batch);
 		game.batch.end();
 
-		hud.stage.draw();
+		/**
+		 * NEW Method @author Archie Godfrey
+		 * Updated how the HUD is displayed
+		 */
+		String[] labelNames = { "Water", "FPS", "Score", "Health" };
+		int[] labelValues = { this.player.currentWater, Gdx.graphics.getFramesPerSecond(), this.getPlayerScore(), this.player.currentHealth };
+    this.hud.update(labelNames, labelValues);
+
 		// If change false to true, the box2D debug renderer will render box2D
 		// body outlines
 		if(true) {
@@ -513,7 +520,6 @@ public class PlayScreen implements Screen
 		this.player.leftFireStation = false;
 		this.player.spawn(this.fireEngSpawnPos);
 		this.fireEngineSelectedIndex = index;
-		this.hud.setPlayer(this.player);
 		}
 
 	/**

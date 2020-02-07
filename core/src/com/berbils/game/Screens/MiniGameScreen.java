@@ -107,6 +107,9 @@ public class MiniGameScreen extends PlayScreen
 		createCamera();
 		loadMap();
 		createBox2DWorld();
+
+		//Create HUD for player
+		this.hud = new HUD(this.game.batch, 3);
 		// NEED TO UPDATE
 		createPlayer();
     }
@@ -137,8 +140,8 @@ public class MiniGameScreen extends PlayScreen
 	 */
 	private void loadMap()
 		{
-		maploader = new MapLoader("MinigameMap/Minigame.tmx");
-		renderer = new OrthoCachedTiledMapRenderer(maploader.map, 1 / Kroy.PPM);
+		this.maploader = new MapLoader("MinigameMap/Minigame.tmx");
+		this.renderer = new OrthoCachedTiledMapRenderer(maploader.map, 1 / Kroy.PPM);
 		}
 	
 	/**
@@ -295,6 +298,11 @@ public class MiniGameScreen extends PlayScreen
 		this.game.batch.begin();
 		this.spriteHandler.updateAndDrawAllSprites(this.game.batch);
 		this.game.batch.end();
+
+		// Update HUD
+		String[] labelNames = { "Water", "Score", "Aliens Left" };
+		int[] labelValues = { this.player.currentWater, this.getPlayerScore(), this.alienTotal };
+		this.hud.update(labelNames, labelValues);
 
 		// Clean up game
     destroyObjects();

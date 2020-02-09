@@ -27,6 +27,7 @@ import com.berbils.game.Tools.InputManager;
 import com.berbils.game.Tools.MapLoader;
 import com.berbils.game.Entities.Minigame.Alien;
 import com.berbils.game.Entities.Minigame.FireEngineFront;
+import com.berbils.game.Entities.Minigame.Spawner;
 import java.util.ArrayList;
 
 /**
@@ -111,6 +112,7 @@ public class MiniGameScreen extends PlayScreen
 		//Create HUD for player
 		this.hud = new HUD(this.game.batch, 3);
 		// NEED TO UPDATE
+		createSpawner();
 		createPlayer();
     }
         
@@ -198,6 +200,8 @@ public class MiniGameScreen extends PlayScreen
 		this.player.spawn(new Vector2((this.maploader.getDims().cpy().x / 4), 0));
 	}
 
+	private void createSpawner(){
+		this.spawner = new Spawner(this, new Vector2(1, 0.5f), 30,
 	/**
 	 * Creates an alien and adds it to the list of
 	 * all aliens on the screen. Ends the game when all
@@ -206,7 +210,7 @@ public class MiniGameScreen extends PlayScreen
 	private void createAlien() {
 		if (this.alienTotal > 0) {
 			Alien alien = new Alien(this, new Vector2(1, 0.5f), 5, 100, Kroy.BASE_FIRE_ENGINE_TEX);
-			alien.spawn(new Vector2((int) (Math.random() * 10.0),10));
+			alien.spawn(new Vector2((int) (this.spawner.getBody().getPosition().x),10));
 			this.aliens.add(alien);
 			this.alienTotal -= 1;
 		} else {
@@ -310,10 +314,11 @@ public class MiniGameScreen extends PlayScreen
     for (Alien alien : this.aliens) {
 			alien.moveTowards(this.player.getBody().getPosition());
 		}
-
+    	this.spawner.move();
 		// Render the map and update the camera
 		this.renderer.render();
 		updateCamera();
+
 
 		// If change false to true, the box2D debug renderer will render box2D
 		// body outlines

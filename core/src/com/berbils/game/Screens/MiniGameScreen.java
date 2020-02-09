@@ -40,7 +40,8 @@ public class MiniGameScreen extends PlayScreen
     /** The game viewport, the window the camera can be mapped to */
 	private Viewport gamePort;
 
-	private Alien alien;
+	/**alien instance spawner*/
+	private Spawner spawner;
 
 	/** The game camera */
 	public OrthographicCamera gameCam;
@@ -202,6 +203,12 @@ public class MiniGameScreen extends PlayScreen
 
 	private void createSpawner(){
 		this.spawner = new Spawner(this, new Vector2(1, 0.5f), 30,
+								 this.alienTotal,
+									  Kroy.BASE_FIRE_ENGINE_TEX);
+		this.spawner.spawn(new Vector2((this.maploader.getDims().cpy().x / 4),
+									 12));
+	}
+
 	/**
 	 * Creates an alien and adds it to the list of
 	 * all aliens on the screen. Ends the game when all

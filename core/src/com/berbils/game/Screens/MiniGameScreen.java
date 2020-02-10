@@ -248,8 +248,7 @@ public class MiniGameScreen extends PlayScreen
     float mapHeight = prop.get("height", Integer.class);
 		for (Alien alien : this.aliens) {
 			float yPos = alien.getBody().getPosition().y;
-			float scale = (float) (((mapHeight - yPos) == 0) ? 0 : Math.pow(1.25, ((mapHeight - yPos) - 1))) / 10;
-			System.out.println(scale);
+			float scale = (float) (Math.pow(1.25, ((mapHeight - yPos) - 1)) / 10);
 			alien.scaleEntity(scale);
 		}
 	}

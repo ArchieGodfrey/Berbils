@@ -216,8 +216,12 @@ public class MiniGameScreen extends PlayScreen
 	 */
 	private void createAlien() {
 		if (this.alienTotal > 0) {
+			// Stop the UFO and then randomise it's next direction
+			this.spawner.randomiseTrajectory();
+
+			// Create an alien and spawn it
 			Alien alien = new Alien(this, new Vector2(1, 0.5f), 5, 100, Kroy.BASE_FIRE_ENGINE_TEX);
-			alien.spawn(new Vector2((int) (this.spawner.getBody().getPosition().x),10));
+			alien.spawn(this.spawner.getBody().getPosition());
 			this.aliens.add(alien);
 			this.alienTotal -= 1;
 		} else {
@@ -318,10 +322,23 @@ public class MiniGameScreen extends PlayScreen
 		// Clean up game
     destroyObjects();
 
+		// Only move UFO if not beaming aliens
+		boolean allowUFOMovement = true;
+	
     for (Alien alien : this.aliens) {
-			alien.moveTowards(this.player.getBody().getPosition());
+			// If first spawned, move directly down until correct axis
+			if (alien.getBody().getPosition().y > 10) {
+				alien.getBody().applyForceToCenter(0, -alien.getSpeed() * 4, true);
+				allowUFOMovement = false;
+			} else {
+				// Move towards the player
+				alien.moveTowards(this.player.getBody().getPosition());
+			}
 		}
-    	this.spawner.move();
+
+		// Allow UFO to move again if all aliens beamed down
+		this.spawner.move(allowUFOMovement);
+		
 		// Render the map and update the camera
 		this.renderer.render();
 		updateCamera();

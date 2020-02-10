@@ -177,4 +177,13 @@ public class Alien extends BoxGameEntity
 		this.spriteHandler.destroySpriteAndBody(this.entityFixture);
 		}
 
+	/**
+	 * Get the speed of the alien
+	 * 
+	 * @return The current speed of the alien
+	 */
+	public float getSpeed() {
+		return this.speed;
+	}
+
 	}

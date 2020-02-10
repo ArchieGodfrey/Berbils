@@ -1,6 +1,5 @@
 package com.berbils.game.Entities.Minigame;
 
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.berbils.game.Entities.EntityTypes.BoxGameEntity;
 import com.berbils.game.Kroy;
@@ -13,16 +12,16 @@ public class Spawner extends BoxGameEntity
 	 * A constant speed multiplier used by the {@link com.berbils.game.Tools.InputManager} to change
 	 * the amount of force applied and therefore the speed
 	 */
-	public float speed;
+	private float speed;
 
 	/**
 	 * A constant used to determine how many aliens the spawner instance will
 	 * create.
 	 */
-	public int alienCount;
+	private int alienCount;
 
 
-	public Vector2 trajectory;
+	private Vector2 trajectory;
 	/**
 	 * This constructor assigns required variables and
 	 * instance for use.It only creates a fixture and body definition, no
@@ -100,7 +99,13 @@ public class Spawner extends BoxGameEntity
 	/**Get the x coordinate of the spawner**/
 	private float getX(){return this.getBody().getPosition().x;}
 
-	public void move(){
+
+	/**
+	 * Move the spawner from one side of the screen to another
+	 * 
+	 * @param allowMovement A boolean to determine if the spawner can move or not
+	 */
+	public void move(boolean allowMovement){
 		float x = this.getX();
 		if(x > 19){
 			trajectory.x = -1;
@@ -111,7 +116,26 @@ public class Spawner extends BoxGameEntity
 			}
 		}
 		trajectory.nor().scl(this.speed);
+		if (allowMovement) {
+			this.getBody().applyForceToCenter(trajectory, true);
+		}
+	}
 
-		this.getBody().applyForceToCenter(trajectory, true);
+	/**
+	 * Stop the spawners movement then randomise it's new direction
+	 */
+	public void randomiseTrajectory() {
+		this.getBody().applyForceToCenter(this.getTrajectory().rotate(180).scl(8), true);
+		this.trajectory.rotate(Math.random() > 0.5 ? 180 : 0);
 	}
+
+
+	/**
+	 * Get the current trajectory of the spawer
+	 * 
+	 * @return the current trajectory of the spawner
+	 */
+	public Vector2 getTrajectory() {
+		return this.trajectory.cpy();
 	}
+}

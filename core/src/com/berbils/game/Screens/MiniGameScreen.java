@@ -243,7 +243,7 @@ public class MiniGameScreen extends PlayScreen
 	/**
 	 * Scale objects based on their distance from the player
 	 */
-	private void scaleObjects() {
+	private void scaleAliens() {
 		MapProperties prop = this.maploader.map.getProperties();
     float mapHeight = prop.get("height", Integer.class);
 		for (Alien alien : this.aliens) {
@@ -272,7 +272,8 @@ public class MiniGameScreen extends PlayScreen
 		}
 
 		// Allow UFO to move again if all aliens beamed down
-		this.spawner.move(allowUFOMovement);
+		// When no more aliens, fly away
+		this.spawner.move(allowUFOMovement, this.alienTotal <= 0);
 	}
 
   @Override
@@ -316,8 +317,8 @@ public class MiniGameScreen extends PlayScreen
 		// Progress the world
 		this.world.step(1 / 60f, 6, 2);
 
-		//Scale objects CURRENTLY NOT WORKING
-		scaleObjects();
+		// Scale aliens depending on their distance from the player
+		scaleAliens();
 
 		// Draw Sprites
 		this.game.batch.begin();

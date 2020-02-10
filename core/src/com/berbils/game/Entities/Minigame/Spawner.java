@@ -95,12 +95,15 @@ public class Spawner extends BoxGameEntity
 	/**Get the x coordinate of the spawner**/
 	private float getX(){return this.getBody().getPosition().x;}
 
+	/**Get the y coordinate of the spawner**/
+	private float getY(){return this.getBody().getPosition().y;}
+
 	/**
 	 * Move the spawner from one side of the screen to another
 	 * 
 	 * @param allowMovement A boolean to determine if the spawner can move or not
 	 */
-	public void move(boolean allowMovement) {
+	public void move(boolean allowMovement, boolean leaveScreen) {
 		// Move right until it reaches the right screen edge
 		if (this.getX() > (this.screen.getCamera().viewportWidth / Kroy.PPM) - this.getSizeDims().x * 4) {
 			this.trajectory = new Vector2(-speed, 0);
@@ -109,6 +112,17 @@ public class Spawner extends BoxGameEntity
 			if (this.getX() < this.getSizeDims().x * 2) {
 				this.trajectory = new Vector2(speed, 0);
 			}
+		}
+
+		// Move spawner out of view
+		if (leaveScreen) {
+			// Get the centre of the spawner and the point to leave the screen at
+			Vector2 spawnerCentre = new Vector2(this.getX() + this.getSizeDims().x / 2,this.getY() + this.getSizeDims().y / 2);
+			Vector2 targetVector = new Vector2((this.screen.getCamera().viewportWidth / Kroy.PPM) / 2,this.getY() * 3);
+
+			// Work out the vector between them and scale by speed
+			this.trajectory = targetVector.sub(spawnerCentre);
+			this.trajectory.nor().scl(this.speed);
 		}
 
 		// Only move if not beaming

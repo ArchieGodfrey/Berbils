@@ -213,7 +213,7 @@ public class MiniGameScreen extends PlayScreen
 			// Stop the UFO and then randomise it's next direction
 			this.spawner.randomiseTrajectory();
 			// Create an alien and spawn it
-			Alien alien = new Alien(this, new Vector2(1, 0.5f), 5, 100, Kroy.BASE_FIRE_ENGINE_TEX);
+			Alien alien = new Alien(this, new Vector2(1.5f, 0.75f), 5, 100, Kroy.BASE_FIRE_ENGINE_TEX);
 			alien.spawn(this.spawner.getBody().getPosition());
 			this.aliens.add(alien);
 			this.alienTotal -= 1;
@@ -248,7 +248,8 @@ public class MiniGameScreen extends PlayScreen
     float mapHeight = prop.get("height", Integer.class);
 		for (Alien alien : this.aliens) {
 			float yPos = alien.getBody().getPosition().y;
-			float scale = (mapHeight - yPos) * (1 / Kroy.PPM);
+			float scale = (float) (((mapHeight - yPos) == 0) ? 0 : Math.pow(1.25, ((mapHeight - yPos) - 1))) / 10;
+			System.out.println(scale);
 			alien.scaleEntity(scale);
 		}
 	}
@@ -317,7 +318,7 @@ public class MiniGameScreen extends PlayScreen
 		this.world.step(1 / 60f, 6, 2);
 
 		//Scale objects CURRENTLY NOT WORKING
-		//scaleObjects();
+		scaleObjects();
 
 		// Draw Sprites
 		this.game.batch.begin();

@@ -153,7 +153,7 @@ public class Alien extends BoxGameEntity
 			trajectory.nor().scl(this.speed);
 
 			// Apply force to the alien
-			this.getBody().setTransform(this.getBody().getPosition(), trajectory.angle());
+			//this.getBody().setTransform(this.getBody().getPosition(), trajectory.angle());
 			this.getBody().applyForceToCenter(trajectory, true);
 		}
 

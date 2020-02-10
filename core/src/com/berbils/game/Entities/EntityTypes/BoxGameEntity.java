@@ -134,9 +134,6 @@ public class BoxGameEntity extends Entity
 	public void setScale(Vector2 scale) {
 		if (this.sizeDims != scale) {
 			this.sizeDims = scale;
-			super.setPosition(this.getBody().getPosition());
-			this.world.destroyBody(this.getBody());
-			this.defineBox2DEntity();
 		}
 	}
 

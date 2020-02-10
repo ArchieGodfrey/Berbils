@@ -19,34 +19,17 @@ public class FireEngineFront extends BoxGameEntity
 	 * can no longer fire */
 	public int currentWater;
 
-	/** The maximum water the fire engine holds, this is what it starts off
-	 * with when it is spawned or reset
-	 */
-	private int maxWater;
-
 	/**
 	 * The current health of the fire engine, once this reaches zero the
 	 * fire engine "dies" and the onDeath() method is called
 	 */
 	public int currentHealth;
 
-	/**The maximum health the fire engine can have, this is what it starts off
-	 * with when it is spawned or reset
-	 *
-	 */
-	private int maxHealth;
-
 	/**
 	 * A constant speed multiplier used by the {@link com.berbils.game.Tools.InputManager} to change
 	 * the amount of force applied and therefore the speed
 	 */
 	public float speed;
-
-	/**
-	 * A boolean value used in conjuction with the @{@link com.berbils.game.Entities.FireStation.FireStation} class to
-	 * determine whether the player should interact with the Fire Station
-	 */
-	public boolean leftFireStation;
 
 	/**
 	 * The {@link Weapon} class instance assigned to the fire engine
@@ -140,11 +123,8 @@ public class FireEngineFront extends BoxGameEntity
 	private void defineStats(int maxWater,float speed, int maxHealth)
 		{
 		this.currentWater = maxWater;
-		this.maxWater = maxWater;
 		this.speed = speed;
 		this.currentHealth = maxHealth;
-		this.maxHealth = maxHealth;
-		this.leftFireStation = true;
 		this.isAlive = true;
 		}
 
@@ -158,7 +138,7 @@ public class FireEngineFront extends BoxGameEntity
 	public void fire(Vector2 targetPos)
 		{
 		this.weapon.attack(this.entityBody.getPosition(), targetPos);
-		currentWater -= 1;
+		this.currentWater -= 1;
 		}
 
 	/**
@@ -196,13 +176,12 @@ public class FireEngineFront extends BoxGameEntity
 		}
 
 	/**
-	 * Resets the current health and current water atributes to their max values
+	 * Get the weapons damage amount
+	 * 
+	 * @return The amount of damage the weapon does
 	 */
-	public void reset()
-		{
-		this.currentHealth = this.maxHealth;
-		this.currentWater = this.maxWater;
-		}
-
+	public int getWeaponDamage() {
+		return this.weapon.getWeaponDamage();
+	}
 
 	}

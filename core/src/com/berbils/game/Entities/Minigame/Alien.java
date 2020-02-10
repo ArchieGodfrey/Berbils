@@ -146,27 +146,27 @@ public class Alien extends BoxGameEntity
 	public void moveTowards(Vector2 targetVector)
 		{
 			// Get the centre of the alien
-			Vector2 alienCentre = new Vector2(this.getX() + this.getSizeDims().x / 2,this.getY() + this.getSizeDims().y / 2).scl(1 / Kroy.PPM); 
+			Vector2 alienCentre = new Vector2(this.getX() + this.getSizeDims().x / 2,this.getY() + this.getSizeDims().y / 2);
 
 			// Work out the vector between them and scale by speed
 			Vector2 trajectory = targetVector.sub(alienCentre);
-			trajectory.nor().scl(this.speed).rotate(180);
+			trajectory.nor().scl(this.speed);
 
 			// Apply force to the alien
-			//this.getBody().setTransform(this.getBody().getPosition(), trajectory.angle());
+			this.getBody().setTransform(this.getBody().getPosition(), trajectory.angle());
 			this.getBody().applyForceToCenter(trajectory, true);
 		}
 
 	/**
-	 * Method for reducing the current health of the fire engine instance and
+	 * Method for reducing the current health of the alien instance and
 	 * checking whether the health reaches zero
 	 *
-	 * @param damageTaken the amount the fire engine health should be reduced by
+	 * @param damageTaken the amount the alien's health should be reduced by
 	 */
-	public void takeDamage()
+	public void takeDamage(int damageTaken)
 		{
-		this.currentHealth -= 10;
-		this.screen.updatePlayerScore(10);
+		this.currentHealth -= damageTaken;
+		this.screen.updatePlayerScore(damageTaken);
 		if (this.currentHealth <= 0) {
 			this.onDeath();
 		}

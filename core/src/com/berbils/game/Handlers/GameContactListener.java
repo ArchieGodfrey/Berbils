@@ -74,7 +74,8 @@ public class GameContactListener implements ContactListener
 			this.getFireEngineFrontObject(fixtureAUserData, fixtureBUserData).onDeath();
 		}
 		else if (this.projectileContactAlien(fixtureAUserData, fixtureBUserData)) {
-			this.getAlienObject(fixtureAUserData, fixtureBUserData).takeDamage();
+			this.getAlienObject(fixtureAUserData, fixtureBUserData).takeDamage(
+				this.getProjectilesObject(fixtureAUserData,	fixtureBUserData).getDamage());
 		}
 		// END OF NEW CODE
 		// Projectile hitting scenery

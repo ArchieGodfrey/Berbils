@@ -8,11 +8,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -23,7 +21,6 @@ import com.berbils.game.Handlers.GameContactListener;
 import com.berbils.game.Handlers.SpriteHandler;
 import com.berbils.game.Kroy;
 import com.berbils.game.Scenes.HUD;
-import com.berbils.game.Tools.InputManager;
 import com.berbils.game.Tools.MapLoader;
 import com.berbils.game.Entities.Minigame.Alien;
 import com.berbils.game.Entities.Minigame.FireEngineFront;
@@ -37,20 +34,19 @@ import java.util.ArrayList;
 public class MiniGameScreen extends PlayScreen
 	{
 
-    /** The game viewport, the window the camera can be mapped to */
+  /** The game viewport, the window the camera can be mapped to */
 	private Viewport gamePort;
-
-	/**alien instance spawner*/
-	private Spawner spawner;
 
 	/** The game camera */
 	public OrthographicCamera gameCam;
-	// Set to public temporarily, can be private once more when tower loading from map is done
 
 	/** Game instance */
 	private Kroy game;
 
-	/** The hud, displays FPS, SCORE, Fire engine current health, fire engine
+	/** Timer to create aliens */
+	Timer.Task spawnTimer;
+
+	/** The hud, displays remaining aliens, Fire engine current health, fire engine
 	 * current water
 	 */
 	private HUD hud;
@@ -63,8 +59,6 @@ public class MiniGameScreen extends PlayScreen
 
 	/** The tiled map render */
 	private OrthoCachedTiledMapRenderer renderer;
-
-	private Array<Body> mapColliders, mapBorders;
 
 	// Box2d variables
 	/** The game world, where all of the sprites and Box2D objects are
@@ -80,6 +74,9 @@ public class MiniGameScreen extends PlayScreen
 
 	/** The player */
 	private FireEngineFront player;
+
+	/**alien instance spawner*/
+	private Spawner spawner;
 
 	/** Array storing all aliens currently on screen */
 	private ArrayList<Alien> aliens = new ArrayList<Alien>();
@@ -112,7 +109,8 @@ public class MiniGameScreen extends PlayScreen
 
 		//Create HUD for player
 		this.hud = new HUD(this.game.batch, 3);
-		// NEED TO UPDATE
+
+		// Create inital entities
 		createSpawner();
 		createPlayer();
     }
@@ -161,8 +159,6 @@ public class MiniGameScreen extends PlayScreen
 		this.world = new World(new Vector2(0, 0), true);
 		this.world.setContactListener(new GameContactListener());
 		this.spriteHandler = new SpriteHandler(this, Kroy.MINIGAME_MAP_TEX, maploader.getDims().cpy());
-		this.mapColliders = maploader.getColliders(this.world);
-		this.mapBorders = maploader.getBorders(this.world);
 		// Render Box2d Fixtures
 		this.b2dr = new Box2DDebugRenderer();
 		}
@@ -187,18 +183,18 @@ public class MiniGameScreen extends PlayScreen
 	private void createPlayer() {
 		switch (this.game.gameScreen.getSelectedFireEngineIndex()) {
 			case 1:
-				Projectiles largewaterProjectile = new SimpleBulletCircle(4f, 0.4f, 20, 3.5f, Kroy.WATER_PROJECTILE_TEX, this);
-				Weapon largeFireEngWeapon = new BasicProjectileSpawner( 10, largewaterProjectile);
+				Projectiles largewaterProjectile = new SimpleBulletCircle(3f, 1f, 25, 0, Kroy.WATER_PROJECTILE_TEX, this);
+				Weapon largeFireEngWeapon = new BasicProjectileSpawner(5, largewaterProjectile);
 				this.player = new FireEngineFront(this, new Vector2(6f, 3f), largeFireEngWeapon, 800, 15, 200, Kroy.HEAVY_FIRE_ENGINE_TEX);
 				break;
 			default:
-				Projectiles waterProjectile = new SimpleBulletCircle(5f, 0.25f, 10, 3, Kroy.WATER_PROJECTILE_TEX, this);
-				Weapon baseFireEngWeapon = new BasicProjectileSpawner( 20, waterProjectile);
+				Projectiles waterProjectile = new SimpleBulletCircle(3f, 0.75f, 25, 0, Kroy.WATER_PROJECTILE_TEX, this);
+				Weapon baseFireEngWeapon = new BasicProjectileSpawner(5, waterProjectile);
 				this.player = new FireEngineFront(this, new Vector2(5f, 2.5f), baseFireEngWeapon, 400, 20, 100, Kroy.BASE_FIRE_ENGINE_TEX);
 				break;
 		}
 		//Spawn player in bottom left quarter of the map
-		this.player.spawn(new Vector2((this.maploader.getDims().cpy().x / 4), 0));
+		this.player.spawn(new Vector2((this.maploader.getDims().cpy().x / 4), 3));
 	}
 
 	/**
@@ -289,7 +285,7 @@ public class MiniGameScreen extends PlayScreen
 		this.alienTotal = 1+ (int) (Math.random() * 10.0);
 		
 		//Create a single alien every 3 seconds
-		Timer.schedule(new Task() {
+		this.spawnTimer = Timer.schedule(new Task() {
 			@Override
 			public void run() {
 				createAlien();
@@ -409,5 +405,6 @@ public class MiniGameScreen extends PlayScreen
 	@Override
 	public void dispose()
 		{
+			this.spawnTimer.cancel();
 		}
 }

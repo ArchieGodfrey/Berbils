@@ -123,7 +123,7 @@ public class Spawner extends BoxGameEntity
 	 */
 	public void randomiseTrajectory() {
 		this.getBody().applyForceToCenter(this.getTrajectory().rotate(180).scl(8), true);
-		//this.trajectory.rotate(Math.random() > 0.5 ? 180 : 0);
+		this.trajectory.rotate(Math.random() > 0.5 ? 180 : 0);
 	}
 
 

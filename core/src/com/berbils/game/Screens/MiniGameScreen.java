@@ -164,16 +164,14 @@ public class MiniGameScreen extends PlayScreen
 		}
 
 	/**
-	 * Set the camera's view of the whole game. Only needs
-	 * to be set once as it does not move.
+	 * Set the camera's view of the whole game
    */
   private void updateCamera() {
     Vector2 mapDims = this.maploader.getDims().cpy().scl(PPM);	
-		Vector3 position = new Vector3(mapDims.x / 2, mapDims.y / 2, 0);
-    this.gameCam.position.set(position);
+		Vector3 position = new Vector3(mapDims.x / 2, mapDims.y / 2 - 80, 0);
+		this.gameCam.position.set(position);
 		this.gameCam.update();
 		this.game.batch.setProjectionMatrix(this.gameCam.combined);
-		this.renderer.setView(this.gameCam);
 	}
 	
 	/**
@@ -194,7 +192,7 @@ public class MiniGameScreen extends PlayScreen
 				break;
 		}
 		//Spawn player in bottom left quarter of the map
-		this.player.spawn(new Vector2((this.maploader.getDims().cpy().x / 4), 3));
+		this.player.spawn(new Vector2((this.maploader.getDims().cpy().x / 4), 1));
 	}
 
 	/**
@@ -239,7 +237,7 @@ public class MiniGameScreen extends PlayScreen
 				this.aliensToBeDeleted.add(alien);
 			}
 		}
-    this.aliens.removeAll(this.aliensToBeDeleted);
+		this.aliens.removeAll(this.aliensToBeDeleted);
 	}
 
 	/**
@@ -337,8 +335,7 @@ public class MiniGameScreen extends PlayScreen
 		// Clean up game
     destroyObjects();
 		
-		// Render the map and update the camera
-		this.renderer.render();
+		// update the camera
 		updateCamera();
 
 		// If change false to true, the box2D debug renderer will render box2D
@@ -352,17 +349,17 @@ public class MiniGameScreen extends PlayScreen
 	@Override
 	public void resize(int width, int height)
 		{
-		gamePort.update(width, height);
+		this.gamePort.update(width, height);
 		}
 
 	/**
-	 * A getter for the viewport into the game
+	 * A getter for the camera for the game
 	 *
-	 * @return returns the game view port
+	 * @return returns the game camera
 	 */
-	public Viewport getViewPort()
+	public OrthographicCamera getCamera()
 	{
-	return this.gamePort;
+	return this.gameCam;
 	}
 
 	/**
@@ -399,12 +396,12 @@ public class MiniGameScreen extends PlayScreen
 	@Override
 	public void hide()
 		{
+			this.spawnTimer.cancel();
 		}
 
 	/** Disposes of everything */
 	@Override
 	public void dispose()
 		{
-			this.spawnTimer.cancel();
 		}
 }

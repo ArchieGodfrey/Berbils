@@ -101,7 +101,8 @@ public class Spawner extends BoxGameEntity
 	/**
 	 * Move the spawner from one side of the screen to another
 	 * 
-	 * @param allowMovement A boolean to determine if the spawner can move or not
+	 * @param allowMovement A boolean to determine if the spawner can move (true) or not (false)
+	 * @param leaveScreen   A boolean to determine if the spawner should leave the screen (true) or not (false)
 	 */
 	public void move(boolean allowMovement, boolean leaveScreen) {
 		// Move right until it reaches the right screen edge

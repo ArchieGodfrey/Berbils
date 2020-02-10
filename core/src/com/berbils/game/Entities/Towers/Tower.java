@@ -334,7 +334,7 @@ public class Tower extends CircleGameEntity
 		public void transitionToMiniGame()
 		{
 			System.out.println("Transition");
-			this.screen.getGame().setScreen(this.screen.getGame().miniGameScreen);
+			this.screen.getGame().setScreen(this.screen.getGame().getNewMinigameScreen());
 		}
 
 		/**

@@ -86,8 +86,8 @@ public class MiniGameScreen extends PlayScreen
 
 	// Box2d Object Managers
 
-	/** Array storing all bodies to be deleted on update */
-	private ArrayList<Body> toBeDeleted = new ArrayList<Body>();
+	/** Array storing all aliens to be deleted on update */
+	private ArrayList<Alien> aliensToBeDeleted = new ArrayList<Alien>();
 
 	/** PlayScreen sprite Handler */
 	private SpriteHandler spriteHandler;
@@ -201,12 +201,12 @@ public class MiniGameScreen extends PlayScreen
 		this.player.spawn(new Vector2((this.maploader.getDims().cpy().x / 4), 0));
 	}
 
+	/**
+	 * Create a UFO to spawn in the aliens
+	 */
 	private void createSpawner(){
-		this.spawner = new Spawner(this, new Vector2(1, 0.5f), 30,
-								 this.alienTotal,
-									  Kroy.BASE_FIRE_ENGINE_TEX);
-		this.spawner.spawn(new Vector2((this.maploader.getDims().cpy().x / 4),
-									 12));
+		this.spawner = new Spawner(this, new Vector2(1, 0.5f), 30, Kroy.BASE_FIRE_ENGINE_TEX);
+		this.spawner.spawn(new Vector2((this.maploader.getDims().cpy().x / 4), 12));
 	}
 
 	/**
@@ -218,38 +218,32 @@ public class MiniGameScreen extends PlayScreen
 		if (this.alienTotal > 0) {
 			// Stop the UFO and then randomise it's next direction
 			this.spawner.randomiseTrajectory();
-
 			// Create an alien and spawn it
 			Alien alien = new Alien(this, new Vector2(1, 0.5f), 5, 100, Kroy.BASE_FIRE_ENGINE_TEX);
 			alien.spawn(this.spawner.getBody().getPosition());
 			this.aliens.add(alien);
 			this.alienTotal -= 1;
 		} else {
-			// Return to main game
-			this.getGame().setScreen(game.gameScreen);
+			if (this.aliens.size() <= 0) {
+				// Return to main game
+				this.getGame().setScreen(game.gameScreen);
+			}
 		}
 	}
-
-	/**
-	 * Adds the body to an array that on each update will be iterated
-	 * through, destroying each body inside the array
-	 *
-	 * @param toDestroy body to remove from the world
-	 */
-	public void destroyBody(Body toDestroy)
-		{
-    	this.toBeDeleted.add(toDestroy);
-  		}
 
 	/**
 	 * Destroys all objects queued for deletion from the world and removes
 	 * them from the queue
 	 */
 	private void destroyObjects() {
-    for (int i = 0; i < this.toBeDeleted.size(); i++) {
-      this.world.destroyBody(this.toBeDeleted.get(i));
-      this.toBeDeleted.remove(i);
-    }
+		// Check if any aliens are dead
+		for (Alien alien : this.aliens) {
+			if (alien.getHealth() <= 0) {
+				this.world.destroyBody(alien.getBody());
+				this.aliensToBeDeleted.add(alien);
+			}
+		}
+    this.aliens.removeAll(this.aliensToBeDeleted);
 	}
 
 	/**
@@ -263,6 +257,28 @@ public class MiniGameScreen extends PlayScreen
 			float scale = (mapHeight - yPos) * (1 / Kroy.PPM);
 			alien.scaleEntity(scale);
 		}
+	}
+
+	/**
+	 * A function to store all code to move entities
+	 */
+	private void moveEntities() {
+		// Only move UFO if not beaming aliens
+		boolean allowUFOMovement = true;
+	
+    for (Alien alien : this.aliens) {
+			// If first spawned, move directly down until correct axis
+			if (alien.getBody().getPosition().y > 10) {
+				alien.getBody().applyForceToCenter(0, -alien.getSpeed() * 4, true);
+				allowUFOMovement = false;
+			} else {
+				// Move towards the player
+				alien.moveTowards(this.player.getBody().getPosition());
+			}
+		}
+
+		// Allow UFO to move again if all aliens beamed down
+		this.spawner.move(allowUFOMovement);
 	}
 
   @Override
@@ -319,30 +335,15 @@ public class MiniGameScreen extends PlayScreen
 		int[] labelValues = { this.player.currentWater, this.getPlayerScore(), this.alienTotal };
 		this.hud.update(labelNames, labelValues);
 
+		// Move alien and UFO
+		moveEntities();
+
 		// Clean up game
     destroyObjects();
-
-		// Only move UFO if not beaming aliens
-		boolean allowUFOMovement = true;
-	
-    for (Alien alien : this.aliens) {
-			// If first spawned, move directly down until correct axis
-			if (alien.getBody().getPosition().y > 10) {
-				alien.getBody().applyForceToCenter(0, -alien.getSpeed() * 4, true);
-				allowUFOMovement = false;
-			} else {
-				// Move towards the player
-				alien.moveTowards(this.player.getBody().getPosition());
-			}
-		}
-
-		// Allow UFO to move again if all aliens beamed down
-		this.spawner.move(allowUFOMovement);
 		
 		// Render the map and update the camera
 		this.renderer.render();
 		updateCamera();
-
 
 		// If change false to true, the box2D debug renderer will render box2D
 		// body outlines
@@ -357,6 +358,16 @@ public class MiniGameScreen extends PlayScreen
 		{
 		gamePort.update(width, height);
 		}
+
+	/**
+	 * A getter for the viewport into the game
+	 *
+	 * @return returns the game view port
+	 */
+	public Viewport getViewPort()
+	{
+	return this.gamePort;
+	}
 
 	/**
 	 * Getter for the screens sprite handler
@@ -378,8 +389,6 @@ public class MiniGameScreen extends PlayScreen
 	{
 	return this.world;
 	}
-
-
 
 	@Override
      public void pause()

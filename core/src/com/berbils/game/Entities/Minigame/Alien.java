@@ -186,4 +186,13 @@ public class Alien extends BoxGameEntity
 		return this.speed;
 	}
 
+	/**
+	 * Get the health of the alien
+	 * 
+	 * @return The current health of the alien
+	 */
+	public float getHealth() {
+		return this.currentHealth;
+	}
+
 	}

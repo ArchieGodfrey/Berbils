@@ -15,13 +15,13 @@ public class Spawner extends BoxGameEntity
 	private float speed;
 
 	/**
-	 * A constant used to determine how many aliens the spawner instance will
-	 * create.
+	 * A constant used to determine the width of the screen
 	 */
-	private int alienCount;
+	private MiniGameScreen screen;
 
-
+	/** Direction to move the spawner in */ 
 	private Vector2 trajectory;
+
 	/**
 	 * This constructor assigns required variables and
 	 * instance for use.It only creates a fixture and body definition, no
@@ -34,7 +34,6 @@ public class Spawner extends BoxGameEntity
 	 *
 	 * @param speed 			The speed of the spawner, how fast the ufo
 	 *                          will move
-	 * @param alienCount		The max number of aliens the spawner will spawn.
 	 *
 	 * @param textureFilePath  The file path to the sprite texture
 	 *                         Note - If passd as null no sprite will be
@@ -44,7 +43,6 @@ public class Spawner extends BoxGameEntity
 		MiniGameScreen screen,
 		Vector2 dimensions,
 		float speed,
-		int alienCount,
 		String textureFilePath)
 		{
 		super(
@@ -58,7 +56,8 @@ public class Spawner extends BoxGameEntity
 		super.setBodyDefAngularDampening(10);
 		super.setBodyDefLinearDampening(10);
 
-		this.defineStats(speed, alienCount);
+		this.screen = screen;
+		this.defineStats(speed);
 		}
 
 
@@ -69,14 +68,11 @@ public class Spawner extends BoxGameEntity
 	 *
 	 * @param speed 	The speed of the alien, how fast it
 	 * 	 *          	will move
-	 *
-	 * @param alienCount The max number of aliens the spawner will spawn.
 	 */
-	private void defineStats(float speed, int alienCount)
+	private void defineStats(float speed)
 		{
 		this.speed = speed;
-		this.alienCount = alienCount;
-		this.trajectory = new Vector2(1, 0);
+		this.trajectory = new Vector2(speed, 0);
 		}
 	/**
 	 * This method sets the body position, then creates the body, fixture and
@@ -106,18 +102,19 @@ public class Spawner extends BoxGameEntity
 	 * @param allowMovement A boolean to determine if the spawner can move or not
 	 */
 	public void move(boolean allowMovement){
-		float x = this.getX();
-		if(x > 19){
-			trajectory.x = -1;
-		}
-		else{
-			if(x < 1){
-				trajectory.x = 1;
+		// Move right until it reaches the right screen edge
+		if (this.getX() > (this.screen.getViewPort().getScreenWidth() / Kroy.PPM) - this.getSizeDims().x * 2) {
+			this.trajectory = new Vector2(-speed, 0);
+		} else {
+			// Move left until it reaches the left screen edge
+			if (this.getX() < this.getSizeDims().x * 2) {
+				this.trajectory = new Vector2(speed, 0);
 			}
 		}
-		trajectory.nor().scl(this.speed);
+
+		// Only move if not beaming
 		if (allowMovement) {
-			this.getBody().applyForceToCenter(trajectory, true);
+			this.getBody().applyForceToCenter(this.trajectory, true);
 		}
 	}
 
@@ -126,7 +123,7 @@ public class Spawner extends BoxGameEntity
 	 */
 	public void randomiseTrajectory() {
 		this.getBody().applyForceToCenter(this.getTrajectory().rotate(180).scl(8), true);
-		this.trajectory.rotate(Math.random() > 0.5 ? 180 : 0);
+		//this.trajectory.rotate(Math.random() > 0.5 ? 180 : 0);
 	}
 
 

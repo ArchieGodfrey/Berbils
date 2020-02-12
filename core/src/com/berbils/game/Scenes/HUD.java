@@ -73,6 +73,16 @@ public class HUD implements Disposable
 			}
 		}
 
+	/**
+	 * NEW Method @author Archie Godfrey
+	 * Get the stage the HUD is using
+	 * 
+	 * @return the stage the HUD is using
+	 */
+	public Stage getStage() {
+		return this.stage;
+	}
+
 	@Override
 	public void dispose()
 		{

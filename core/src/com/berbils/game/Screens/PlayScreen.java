@@ -292,8 +292,39 @@ public class PlayScreen implements Screen
 
     inputManager.handlePlayerInput(player, delta, this.game);
     renderer.setView(gameCam);
-		updateCamera(delta);
-  }
+    updateCamera(delta);
+	}
+	
+	/** NEW Method @author Archie Godfrey */
+	private void createSelectionMenu() {
+		/** An array containing the text that will appear on its own button */
+		String[] menuOptions = new String[] { "Regular Fire Engine",
+			"Large Fire Engine", "Small Fire Engine", "Medium Fire Engine"
+		};
+		// Create menuButtons
+		ArrayList<TextButton> menuButtons = Utils.createMenuOptions(menuOptions);
+		// Add listeners to button press
+		for (int i = 0; i < menuButtons.size(); i ++) {
+			final int index = i;
+			menuButtons.get(i).addListener(
+			new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					selectFireEngine(index);
+					Gdx.input.setInputProcessor(null);
+					setSelectionOverlayVisibility(false);
+				}
+			});
+		}
+		// Calculate styles for buttons then add to stage
+		int noOfItemRows = menuOptions.length + 1;
+		float padding = Kroy.V_HEIGHT / noOfItemRows / 2;
+		Vector2 titleSize = new Vector2(Kroy.V_WIDTH / 2, Kroy.V_HEIGHT / noOfItemRows);
+		Table selection = Utils.createTable(menuButtons, titleSize, padding);
+		// Set name so it can be found later
+		selection.setName("SELECTION_OVERLAY");
+		this.hud.getStage().addActor(selection);
+	}
 
   /**
    * Render To Play Screen
@@ -426,12 +457,12 @@ public class PlayScreen implements Screen
 		this.fireEngineArrayList.add(
 			new FireEngine(
 				this, new Vector2(1, 0.5f), this.baseFireEngWeapon, 400, 20, 100,
-				Kroy.BASE_FIRE_ENGINE_TEX)
+				Kroy.ORANGE_FIRE_ENGINE_TEX)
 		);
 		this.fireEngineArrayList.add(
 			new FireEngine(
 				this, new Vector2(1, 0.5f), this.baseFireEngWeapon, 400, 20, 100,
-				Kroy.BASE_FIRE_ENGINE_TEX)
+				Kroy.GREEN_FIRE_ENGINE_TEX)
 		);
 	  }
 

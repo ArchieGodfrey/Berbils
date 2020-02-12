@@ -40,6 +40,8 @@ public class Kroy extends Game
 	public static final String EXPLOSIVE_PROJECTILE_TEXTURE = "Projectiles/ExplosiveProjectile.png";
 	public static final String EXPLOSION_TEX = "Projectiles/Explosion.png";
 	public static final String BASE_FIRE_ENGINE_TEX = "FireEngine/fireEngineBase.png";
+	public static final String ORANGE_FIRE_ENGINE_TEX = "FireEngine/OrangeFireEngine.png";
+	public static final String GREEN_FIRE_ENGINE_TEX = "FireEngine/GreenFireEngine.png";
 	public static final String HEAVY_FIRE_ENGINE_TEX = "FireEngine/fireEngineHeavy.png";
 	public static final String OBSTACLE_TEX = "Obstacle.png";
 	public static final String WATER_PROJECTILE_TEX = "Projectiles/waterProjectile.png";
@@ -72,6 +74,8 @@ public class Kroy extends Game
 		batch = new SpriteBatch();
 		assets = new AssetManager();
 		assets.load(Kroy.BASE_FIRE_ENGINE_TEX, Texture.class);
+		assets.load(Kroy.ORANGE_FIRE_ENGINE_TEX, Texture.class);
+		assets.load(Kroy.GREEN_FIRE_ENGINE_TEX, Texture.class);
 		assets.load(Kroy.HEAVY_FIRE_ENGINE_TEX, Texture.class);
 		assets.load(Kroy.REG_PROJECTILE_TEX, Texture.class);
 		assets.load(Kroy.EXPLOSION_TEX, Texture.class);

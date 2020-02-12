@@ -57,9 +57,6 @@ public class MiniGameScreen extends PlayScreen
 	 */
 	private MapLoader maploader;
 
-	/** The tiled map render */
-	private OrthoCachedTiledMapRenderer renderer;
-
 	// Box2d variables
 	/** The game world, where all of the sprites and Box2D objects are
 	 * created onto     */
@@ -142,7 +139,6 @@ public class MiniGameScreen extends PlayScreen
 	private void loadMap()
 		{
 		this.maploader = new MapLoader("MinigameMap/Minigame.tmx");
-		this.renderer = new OrthoCachedTiledMapRenderer(maploader.map, 1 / Kroy.PPM);
 		}
 	
 	/**

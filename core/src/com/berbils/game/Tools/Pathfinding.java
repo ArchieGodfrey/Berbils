@@ -35,16 +35,75 @@ public class Pathfinding {
 		}
 	}
 	
+	private ArrayList<Vector2> getNeighbourNodes(Vector2 currentNode) {	
+		// Create neighbours list
+		ArrayList<Vector2> neighbourNodes = null;
+		
+		// Calculate possible neighbouring nodes
+		Vector2 leftNode = new Vector2(currentNode.x - 1, currentNode.y);
+		Vector2 upNode = new Vector2(currentNode.x, currentNode.y + 1);
+		Vector2 rightNode = new Vector2(currentNode.x + 1, currentNode.y);
+		Vector2 downNode = new Vector2(currentNode.x, currentNode.y - 1);
+		
+		// Check if nodes exist
+		if (navigationGrid.contains(leftNode)) {
+			neighbourNodes.add(leftNode);
+		}
+		if (navigationGrid.contains(upNode)) {
+			neighbourNodes.add(upNode);
+		}
+		if (navigationGrid.contains(rightNode)) {
+			neighbourNodes.add(rightNode);
+		}
+		if (navigationGrid.contains(downNode)) {
+			neighbourNodes.add(downNode);
+		}
+		
+		return neighbourNodes;
+		
+	}
+	
 	public ArrayList<Vector2> find(Vector2 start, Vector2 goal) {
+		// Nodes that have been visited, but not expanded
+		ArrayList<Vector2> openNodes = null;
+		// Add first node
+		openNodes.add(start);
+		// Nodes that have been visited and expanded
+		ArrayList<Vector2> closeNodes = null;
 		
 		if (!navigationGrid.contains(start) || !navigationGrid.contains(goal)) {
 			// Start or end node is not navigable or does not exist.
 			return null;
 		}
 		
-		// Pathfind
+		// Find path
+		while (!openNodes.isEmpty()) {
+			
+			// Get closest neighbour as current node
+			Vector2 currentNode = openNodes.get(0);
+			
+			// If goal node closest, solution found
+			if (currentNode == goal) {
+				break;
+			}
+			
+			// Explore successor nodes
+			for (Vector2 childNode : getNeighbourNodes(currentNode)) {
+				
+				if (openNodes.contains(childNode)) {
+					// Child nodes of this node not yet expanded
+					
+				} else if (closeNodes.contains(childNode)) {
+					// If node expanded, see if shorter route found
+					
+				}
+				
+				
+			}
+			
+		}
 		
-		return ArrayList<Vector2>;
+		return navigationGrid;
 	}
 
 }

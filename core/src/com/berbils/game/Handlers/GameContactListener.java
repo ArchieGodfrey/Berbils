@@ -4,7 +4,6 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.berbils.game.Entities.FireEngines.FireEngine;
 import com.berbils.game.Entities.FireStation.FireStation;
 import com.berbils.game.Entities.Minigame.Alien;
-import com.berbils.game.Entities.Minigame.FireEngineFront;
 import com.berbils.game.Entities.ProjectileSpawners.ProjectileTypes.Projectiles;
 import com.berbils.game.Entities.Towers.Tower;
 import com.berbils.game.Kroy;
@@ -70,8 +69,8 @@ public class GameContactListener implements ContactListener
 			this.getPatrolObject(fixtureAUserData, fixtureBUserData)
 				.collided(this.getFireEngineFixture(fixtureA, fixtureB));
 		}
-		else if (this.fireEngineFrontContactAlien(fixtureAUserData, fixtureBUserData)) {
-			this.getFireEngineFrontObject(fixtureAUserData, fixtureBUserData).onDeath();
+		else if (this.fireEngineContactAlien(fixtureAUserData, fixtureBUserData)) {
+			this.getFireEngineObject(fixtureAUserData, fixtureBUserData).onDeath();
 		}
 		else if (this.projectileContactAlien(fixtureAUserData, fixtureBUserData)) {
 			this.getAlienObject(fixtureAUserData, fixtureBUserData).takeDamage(
@@ -219,28 +218,6 @@ public class GameContactListener implements ContactListener
 		}
 
 	/**
-	 * Gets the {@link FireEngineFront} object out of the two objects collided
-	 *
-	 * @param obj1 one of the objects in the collision
-	 * @param obj2 one of the objects in the collision
-	 * @return Returns which of the objects are a {@link FireEngineFront}, the first object
-	 * 		   if they are both {@link FireEngineFront}s
-	 */
-	private FireEngineFront getFireEngineFrontObject(Object obj1, Object obj2)
-	{
-	if (obj1 instanceof FireEngineFront) {
-		return (FireEngineFront) obj1;
-	}
-	else if (obj2 instanceof FireEngineFront) {
-		return (FireEngineFront) obj2;
-	}
-	else {
-		throw new IllegalArgumentException(
-			"Neither arguments are fire engines");
-	}
-	}
-
-	/**
 	 * Gets the {@link Alien} object out of the two objects collided
 	 *
 	 * @param obj1 one of the objects in the collision
@@ -282,19 +259,19 @@ public class GameContactListener implements ContactListener
 	/**
 	 * NEW METHOD @author Archie Godfrey
 	 *  A Method to check if the two objects colliding are an Alien and a
-	 * 	FireEngineFront
+	 * 	FireEngine
 	 *
 	 * @param obj1 one of the objects in the collision
 	 *
 	 * @param obj2 one of the objects in the collision
 	 *
 	 * @return true if one object is an Alien and the other object
-	 * 		   is a FireEngineFront, else false
+	 * 		   is a FireEngine, else false
 	 */
-	private boolean fireEngineFrontContactAlien(Object obj1, Object obj2)
+	private boolean fireEngineContactAlien(Object obj1, Object obj2)
 	{
-	return ( ( obj1 instanceof Alien && obj2 instanceof FireEngineFront )
-		|| ( obj1 instanceof FireEngineFront && obj2 instanceof Alien ) );
+	return ( ( obj1 instanceof Alien && obj2 instanceof FireEngine )
+		|| ( obj1 instanceof FireEngine && obj2 instanceof Alien ) );
 	}
 
 	/**

@@ -103,7 +103,6 @@ public class Kroy extends Game
 		{
 		this.gameScreen = new PlayScreen(this);
 		this.mainMenu = new MenuScreen(this, batch);
-		this.selectFireEngine = new SelectFireEngineScreen(this, batch);
 		this.fireEngineDestroyedScreen = new TitleScreen(this,
 														 batch,
 														 Kroy.FIRE_ENGINE_DESTROYED_TITLE);

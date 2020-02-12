@@ -60,7 +60,7 @@ public class FireStation extends BoxGameEntity
 			fireEngine.reset();
 			this.screen.setFireEngSpawnPoint(this.position);
 			this.spriteHandler.destroySpriteAndBody(fixture);
-			this.screen.getGame().setScreen(this.screen.getGame().selectFireEngine);
+			this.screen.setSelectionOverlayVisibility(true);
 		}
 		}
 	}

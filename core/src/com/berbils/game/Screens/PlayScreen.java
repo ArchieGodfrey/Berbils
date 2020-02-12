@@ -11,6 +11,12 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -22,6 +28,7 @@ import com.berbils.game.Entities.Towers.Tower;
 import com.berbils.game.Handlers.GameContactListener;
 import com.berbils.game.Handlers.SpriteHandler;
 import com.berbils.game.Kroy;
+import com.berbils.game.Utils;
 import com.berbils.game.Scenes.HUD;
 import com.berbils.game.Tools.InputManager;
 import com.berbils.game.Tools.MapLoader;
@@ -36,7 +43,6 @@ public class PlayScreen implements Screen
 	/** The game camera */
 	public OrthographicCamera gameCam;
 	// Set to public temporarily, can be private once more when tower loading from map is done
-
 
 	/** the current index of the fire engine selected, this index relates to
 	 * the button to select it on the SelectFireEngineScreen */
@@ -86,14 +92,6 @@ public class PlayScreen implements Screen
 	// Game objects
 	/** Array containing all fire engine instances */;
 	private ArrayList<FireEngine> fireEngineArrayList = new ArrayList<>();
-
-	/** large slower fire engine with a higher damage weapon and higher
-	 * health and water capacity
-	 */
-	private FireEngine largeFireEngine;
-
-	/** Standard fire engine with standard states */
-	private FireEngine normalFireEngine;
 
 	/** The player */
 	private FireEngine player;
@@ -325,7 +323,6 @@ public class PlayScreen implements Screen
 		String[] labelNames = { "Water", "FPS", "Score", "Health" };
 		int[] labelValues = { this.player.currentWater, Gdx.graphics.getFramesPerSecond(), this.getPlayerScore(), this.player.currentHealth };
     this.hud.update(labelNames, labelValues);
-
 		// If change false to true, the box2D debug renderer will render box2D
 		// body outlines
 		if(true) {
@@ -407,26 +404,35 @@ public class PlayScreen implements Screen
 		}
 
 	/**
+	 * 	UPDATED Method @author Archie Godfrey
+	 * 	Removed local instances of fire engines, now all are stored in the global array
+	 * 
 	 *  Creates instances of pre-defined fire engines but doesnt spawn their
 	 *  sprites or Box2d bodies/fixtures then adds them to the
 	 *  fireEngineArrayList
 	 */
   	private void createFireEngines() {
-		this.normalFireEngine =
+		this.fireEngineArrayList.add(
 			new FireEngine(
 				this, new Vector2(1, 0.5f), this.baseFireEngWeapon, 400, 20, 100,
-				Kroy.BASE_FIRE_ENGINE_TEX);
-
-		this.largeFireEngine =
+				Kroy.BASE_FIRE_ENGINE_TEX)
+		);
+		this.fireEngineArrayList.add(
+				new FireEngine(
+					this, new Vector2(1.5f, 1), this.largeFireEngWeapon, 800, 15, 200,
+					Kroy.HEAVY_FIRE_ENGINE_TEX)
+		);
+		// TEMPORARY - Update with actual new fireengines
+		this.fireEngineArrayList.add(
 			new FireEngine(
-				this, new Vector2(1.5f, 1), this.largeFireEngWeapon, 800, 15, 200,
-				Kroy.HEAVY_FIRE_ENGINE_TEX);
-
-
-		this.fireEngineArrayList.add(this.normalFireEngine);
-		this.fireEngineArrayList.add(this.largeFireEngine);
-
-		this.player = this.normalFireEngine;
+				this, new Vector2(1, 0.5f), this.baseFireEngWeapon, 400, 20, 100,
+				Kroy.BASE_FIRE_ENGINE_TEX)
+		);
+		this.fireEngineArrayList.add(
+			new FireEngine(
+				this, new Vector2(1, 0.5f), this.baseFireEngWeapon, 400, 20, 100,
+				Kroy.BASE_FIRE_ENGINE_TEX)
+		);
 	  }
 
 	/**
@@ -521,6 +527,30 @@ public class PlayScreen implements Screen
 		this.player.spawn(this.fireEngSpawnPos);
 		this.fireEngineSelectedIndex = index;
 		}
+
+	/**
+	 * NEW Method @author Archie Godfrey
+	 * 
+	 * Sets the visibility of the fire engine overlay options
+	 *
+	 * @param show Whether to show the options (true) or hide them (false)
+	 */
+	public void setSelectionOverlayVisibility(boolean show)
+	{
+		// Show the selection overlay
+		if (show) {
+			// Allow the stage to recieve input
+			Gdx.input.setInputProcessor(this.hud.getStage());
+			this.createSelectionMenu();
+		} else {
+			// Hide the overlay by removing from the stage
+			for(Actor actor : this.hud.getStage().getActors()) {
+				if (actor.getName() == "SELECTION_OVERLAY") {
+					actor.remove();
+				}
+    	}
+		}
+	}
 
 	/**
 	 * Sets the fire engine spawn point

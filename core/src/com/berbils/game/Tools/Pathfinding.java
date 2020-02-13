@@ -2,8 +2,8 @@ package com.berbils.game.Tools;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeMap;
 
-import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
@@ -66,50 +66,68 @@ public class Pathfinding {
 	
 	public ArrayList<Vector2> find(Vector2 start, Vector2 goal) {
 		
-		// Nodes that have been visited, but not expanded
-		ArrayList<Vector2> openNodes = null;
-		// Add first node
-		openNodes.add(start);
-		
-		// Nodes that have been visited and expanded
-		ArrayList<Vector2> closeNodes = null;
-		
 		if (!navigationGrid.contains(start) || !navigationGrid.contains(goal)) {
 			// Start or end node is not navigable or does not exist.
 			return null;
 		}
 		
+		// Nodes that have been visited, but not expanded
+		TreeMap<Vector2, Integer> openNodes = new TreeMap<Vector2, Integer>();
+		// Add first node
+		openNodes.put(start, (int) 0);
+		
+		// Nodes that have been visited and expanded
+		TreeMap<Vector2, Integer> closeNodes = new TreeMap<Vector2, Integer>();
+		
+		// Record of parent nodes
+		HashMap<Vector2, Vector2> parentOf = new HashMap<Vector2, Vector2>();
+		
+		// List to return
+		ArrayList<Vector2> path = null;
+		path.add(start);
+		
 		// Find path
 		while (!openNodes.isEmpty()) {
 			
 			// Get closest neighbour as current node
-			Vector2 currentNode = openNodes.get(0);
+			
+			Vector2 currentNode = openNodes.firstEntry().getKey();
 			
 			// If goal node closest, solution found
 			if (currentNode == goal) {
-				break;
+				while (parentOf.get(currentNode) != null) {
+					path.add(currentNode);
+					currentNode = parentOf.get(currentNode);
+				}
 			}
 			
 			// Explore successor nodes
 			for (Vector2 childNode : getNeighbourNodes(currentNode)) {
-				
-				if (openNodes.contains(childNode)) {
+				if (openNodes.containsKey(childNode)) {
 					// If child is in the open list
-					// Change child cost if shorter
-					
-				} else if (closeNodes.contains(childNode)) {
+					if (openNodes.get(childNode) > openNodes.get(currentNode) + 1) {
+						// Change child cost if shorter
+						openNodes.replace(childNode, openNodes.get(currentNode) + 1);
+						parentOf.put(childNode, currentNode);
+					}
+				} else if (closeNodes.containsKey(childNode)) {
 					// If child in closed list
-					// Change child cost if shroter
+					if (closeNodes.get(childNode) > closeNodes.get(currentNode) + 1) {
+						// Change child cost if shorter
+						closeNodes.replace(childNode, closeNodes.get(currentNode) + 1);
+						parentOf.put(childNode, currentNode);
+					}
 				} else {
 					// Add successor to open list
-					// Set heuristic distance for child node
+					openNodes.put(childNode, openNodes.get(currentNode));
+					parentOf.put(childNode, currentNode);
 				}
-				// Add current node to closed list
-				closeNodes.add(currentNode);
 			}
+			// Add current node to closed list
+			closeNodes.put(currentNode, openNodes.get(currentNode));
 		}
 		
-		return navigationGrid;
+		return path;
 	}
-
+	
 }

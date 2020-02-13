@@ -24,6 +24,9 @@ public class Pathfinding {
 		int mapWidth = map.getProperties().get("width", Integer.class);
 		int mapHeight = map.getProperties().get("height", Integer.class);
 
+		// Initalise arrary for grid
+		navigationGrid = new ArrayList<Vector2>();
+
 		// Iterate through all tiles
 		for (int x = 0; x < mapWidth; x++) {
 			for (int y = 0; y < mapHeight; y++) {

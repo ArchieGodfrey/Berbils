@@ -301,8 +301,8 @@ public class PlayScreen implements Screen
 		update(delta);
 		renderer.render();
 
-		//ArrayList<Vector2> path = this.pathfinder.find(this.player.getBody().getPosition(), this.towers.get(0).getBody().getPosition());
-		//System.out.println(path);
+		ArrayList<Vector2> path = this.pathfinder.find(this.player.getBody().getPosition(), this.towers.get(0).getBody().getPosition());
+		System.out.println(path);
 
 		// Render HUD
 		game.batch.setProjectionMatrix(hud.stage.getCamera().combined);

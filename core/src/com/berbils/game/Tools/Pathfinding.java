@@ -1,6 +1,7 @@
 package com.berbils.game.Tools;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -64,10 +65,12 @@ public class Pathfinding {
 	}
 	
 	public ArrayList<Vector2> find(Vector2 start, Vector2 goal) {
+		
 		// Nodes that have been visited, but not expanded
 		ArrayList<Vector2> openNodes = null;
 		// Add first node
 		openNodes.add(start);
+		
 		// Nodes that have been visited and expanded
 		ArrayList<Vector2> closeNodes = null;
 		
@@ -91,16 +94,19 @@ public class Pathfinding {
 			for (Vector2 childNode : getNeighbourNodes(currentNode)) {
 				
 				if (openNodes.contains(childNode)) {
-					// Child nodes of this node not yet expanded
+					// If child is in the open list
+					// Change child cost if shorter
 					
 				} else if (closeNodes.contains(childNode)) {
-					// If node expanded, see if shorter route found
-					
+					// If child in closed list
+					// Change child cost if shroter
+				} else {
+					// Add successor to open list
+					// Set heuristic distance for child node
 				}
-				
-				
+				// Add current node to closed list
+				closeNodes.add(currentNode);
 			}
-			
 		}
 		
 		return navigationGrid;

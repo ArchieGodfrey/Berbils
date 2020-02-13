@@ -28,6 +28,7 @@ public class Pathfinding {
 		for (int x = 0; x < mapWidth; x++) {
 			for (int y = 0; y < mapHeight; y++) {
 				// Working with individual tile
+				System.out.println(mapNavLayer.getCell(x, y).getTile().getProperties().get("walkable"));
 				if (mapNavLayer.getCell(x, y).getTile().getProperties().get("walkable").equals(true)) {
 					// Tile is walkable
 					navigationGrid.add(new Vector2(x, y));
@@ -64,6 +65,15 @@ public class Pathfinding {
 		
 	}
 	
+	/**
+	 * To find a path from one node to another, where nodes are Vector2 objects with
+	 * (x, y) arguments. For instance, you could use this function as
+	 * ArrayList path = find (new Vector2(x1, y1), new Vector2(x2, y2));
+	 * 
+	 * @param start		The starting node of the path
+	 * @param goal		The goal node of the path
+	 * @return			A list of all tiles needed to reach the goal node
+	 */
 	public ArrayList<Vector2> find(Vector2 start, Vector2 goal) {
 		
 		// Parameters are not integer floats but grid is
@@ -75,6 +85,11 @@ public class Pathfinding {
 		start.y = (float) Math.floor(start.y);
 		goal.x = (float) Math.floor(goal.x);
 		goal.y = (float) Math.floor(goal.y);
+		
+		// Handle null navigation grid
+		if (navigationGrid == null) {
+			return null;
+		}
 		
 		if (!navigationGrid.contains(start) || !navigationGrid.contains(goal)) {
 			// Start or end node is not navigable or does not exist.

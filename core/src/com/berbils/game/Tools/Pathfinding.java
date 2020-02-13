@@ -66,6 +66,16 @@ public class Pathfinding {
 	
 	public ArrayList<Vector2> find(Vector2 start, Vector2 goal) {
 		
+		// Parameters are not integer floats but grid is
+		if (start == null || goal == null) {
+			System.out.println("Start or goal == null");
+			return null;
+		}
+		start.x = (float) Math.floor(start.x);
+		start.y = (float) Math.floor(start.y);
+		goal.x = (float) Math.floor(goal.x);
+		goal.y = (float) Math.floor(goal.y);
+		
 		if (!navigationGrid.contains(start) || !navigationGrid.contains(goal)) {
 			// Start or end node is not navigable or does not exist.
 			return null;

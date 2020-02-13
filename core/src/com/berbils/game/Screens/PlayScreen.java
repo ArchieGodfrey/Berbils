@@ -23,6 +23,8 @@ import com.berbils.game.Kroy;
 import com.berbils.game.Scenes.HUD;
 import com.berbils.game.Tools.InputManager;
 import com.berbils.game.Tools.MapLoader;
+import com.berbils.game.Tools.Pathfinding;
+
 import java.util.ArrayList;
 
 /**
@@ -132,6 +134,8 @@ public class PlayScreen implements Screen
 	/** The players score */
 	private int playerScore;
 
+	private Pathfinding pathfinder;
+
 	/**
 	 * Creates the camera, loads the map in, creates the Box2D world and
 	 * creates game entities such as fire engines, fire stations etc.
@@ -186,6 +190,7 @@ public class PlayScreen implements Screen
 		{
 		maploader = new MapLoader("CityMap/Map.tmx");
 		renderer = new OrthoCachedTiledMapRenderer(maploader.map, 1 / Kroy.PPM);
+		this.pathfinder = new Pathfinding(maploader.map);
 		}
 
 	/**
@@ -295,6 +300,9 @@ public class PlayScreen implements Screen
 	  {
 		update(delta);
 		renderer.render();
+
+		ArrayList<Vector2> path = this.pathfinder.find(this.player.getBody().getPosition(), this.towers.get(0).getBody().getPosition());
+		System.out.println(path);
 
 		// Render HUD
 		game.batch.setProjectionMatrix(hud.stage.getCamera().combined);

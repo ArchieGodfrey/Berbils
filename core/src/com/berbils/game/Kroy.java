@@ -40,6 +40,8 @@ public class Kroy extends Game
 	public static final String EXPLOSIVE_PROJECTILE_TEXTURE = "Projectiles/ExplosiveProjectile.png";
 	public static final String EXPLOSION_TEX = "Projectiles/Explosion.png";
 	public static final String BASE_FIRE_ENGINE_TEX = "FireEngine/fireEngineBase.png";
+	public static final String ORANGE_FIRE_ENGINE_TEX = "FireEngine/OrangeFireEngine.png";
+	public static final String GREEN_FIRE_ENGINE_TEX = "FireEngine/GreenFireEngine.png";
 	public static final String HEAVY_FIRE_ENGINE_TEX = "FireEngine/fireEngineHeavy.png";
 	public static final String OBSTACLE_TEX = "Obstacle.png";
 	public static final String WATER_PROJECTILE_TEX = "Projectiles/waterProjectile.png";
@@ -55,10 +57,13 @@ public class Kroy extends Game
 	public static String YOUVE_WON_TITLE = "ScreenTitles/YouveWon.png";
 	public static String GAME_PAUSED_TITLE = "ScreenTitles/GamePaused.png";
 	public static String CITY_MAP_TEX = "CityMap/CityMap2.png";
+	public static String MINIGAME_MAP_TEX = "MinigameMap/minigame.png"; //NEW
+	// : Added minigame map texture
 	public static AssetManager assets;
 	public SpriteBatch batch;
 	public PlayScreen gameScreen;
-	public BasicMenu mainMenu, selectFireEngine, pauseScreen;
+	public BasicMenu mainMenu, selectFireEngine;
+	public PauseScreen pauseScreen;
 	public TitleScreen fireEngineDestroyedScreen;
 	public TitleScreen gameOverScreen;
 	public TitleScreen winScreen;
@@ -70,6 +75,8 @@ public class Kroy extends Game
 		batch = new SpriteBatch();
 		assets = new AssetManager();
 		assets.load(Kroy.BASE_FIRE_ENGINE_TEX, Texture.class);
+		assets.load(Kroy.ORANGE_FIRE_ENGINE_TEX, Texture.class);
+		assets.load(Kroy.GREEN_FIRE_ENGINE_TEX, Texture.class);
 		assets.load(Kroy.HEAVY_FIRE_ENGINE_TEX, Texture.class);
 		assets.load(Kroy.REG_PROJECTILE_TEX, Texture.class);
 		assets.load(Kroy.EXPLOSION_TEX, Texture.class);
@@ -92,6 +99,8 @@ public class Kroy extends Game
 		assets.load(YOUVE_WON_TITLE, Texture.class);
 		assets.load(GAME_PAUSED_TITLE, Texture.class);
 		assets.load(CITY_MAP_TEX, Texture.class);
+		assets.load(MINIGAME_MAP_TEX, Texture.class); //NEW: Added minigame map
+		// texture asset
 		assets.finishLoading();
 		V_HEIGHT = Gdx.graphics.getHeight();
 		V_WIDTH = Gdx.graphics.getWidth();
@@ -103,7 +112,6 @@ public class Kroy extends Game
 		{
 		this.gameScreen = new PlayScreen(this);
 		this.mainMenu = new MenuScreen(this, batch);
-		this.selectFireEngine = new SelectFireEngineScreen(this, batch);
 		this.fireEngineDestroyedScreen = new TitleScreen(this,
 														 batch,
 														 Kroy.FIRE_ENGINE_DESTROYED_TITLE);
@@ -113,6 +121,17 @@ public class Kroy extends Game
 		this.winScreen = new TitleScreen(this, batch, Kroy.YOUVE_WON_TITLE);
 		this.pauseScreen = new PauseScreen(this, batch);
 		}
+
+	/**
+	 * NEW Method @author Archie Godfrey
+	 * Rather than dispose entites individually, dispose of the whole minigame and
+	 * create a new instance everytime we enter
+	 * 
+	 * @return A fresh version of the minigame
+	 */
+	public MiniGameScreen getNewMinigameScreen() {
+		return new MiniGameScreen(this, batch);
+	}
 
 	@Override
 	public void dispose()

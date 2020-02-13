@@ -177,11 +177,14 @@ public class FireEngine extends BoxGameEntity
 		}
 
 	/**
+	 * UPDATED Method @author Archie Godfrey
+	 * Method is now public so it can be overriden in FireEngineFront
+	 * 
 	 * Method called to represent fire engine death, updates scores, the
 	 * current screen shown and what state the game will be in after the
 	 * screens shown.
 	 */
-	private void onDeath()
+	public void onDeath()
 		{
 		if (this.isAlive) { //
 			this.isAlive = false;
@@ -235,6 +238,24 @@ public class FireEngine extends BoxGameEntity
 		this.currentHealth = this.maxHealth;
 		this.currentWater = this.maxWater;
 		}
-
-
+	
+	/**
+	 * NEW Method @author Archie Godfrey
+	 * 
+	 * Set whether the fire engine is alive or not
+	 * 
+	 * @param alive True if alive, false if dead
+	 */
+	public void setAlive(boolean alive) {
+		this.isAlive = alive;
 	}
+
+	/**
+	 * NEW Method @author Archie Godfrey
+	 * 
+	 * Get whether the fire engine is alive or not
+	 */
+	public boolean getAlive() {
+		return this.isAlive;
+	}
+}

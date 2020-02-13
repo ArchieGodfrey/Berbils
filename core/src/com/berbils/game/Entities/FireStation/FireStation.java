@@ -13,6 +13,13 @@ import com.berbils.game.Screens.PlayScreen;
  */
 public class FireStation extends BoxGameEntity
 	{
+
+	/**
+	 * NEW Field @author Archie Godfrey
+	 * Boolean to determine whether the firetruck should be repaired
+	 */
+	private boolean shouldRepairFireEngine = true;
+
 	/**
 	 * Creates a Box2D body, fixture and then an attached sprite using the
 	 * passed in arguments with the appropriate properties for this type of
@@ -57,10 +64,21 @@ public class FireStation extends BoxGameEntity
 		{
 		FireEngine fireEngine = ( (FireEngine) fixture.getUserData() );
 		if (fireEngine.leftFireStation) {
-			fireEngine.reset();
+			// NEW Line - only repair fire engines if before 8 minutes
+			if (this.shouldRepairFireEngine) {
+				fireEngine.reset();
+			}
 			this.screen.setFireEngSpawnPoint(this.position);
 			this.spriteHandler.destroySpriteAndBody(fixture);
-			this.screen.getGame().setScreen(this.screen.getGame().selectFireEngine);
+			this.screen.setSelectionOverlayVisibility(true);
 		}
 		}
+
+	/**
+	 * NEW Method @author Archie Godfrey
+	 * Stop repairing firetrucks when they return to the firestation
+	*/
+	public void stopRepairs() {
+		this.shouldRepairFireEngine = false;
+	}
 	}

@@ -1,6 +1,7 @@
 package com.berbils.game.Scenes;
 
-import com.badlogic.gdx.Gdx;
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -11,132 +12,80 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.berbils.game.Entities.FireEngines.FireEngine;
 import com.berbils.game.Kroy;
-import com.berbils.game.Screens.PlayScreen;
 
 /**
  * Creates the Heads up Display for the user
  */
 public class HUD implements Disposable
 	{
-	public Stage stage;
-	Label waterLabel;
-	Label healthLabel;
-	Label scoreLabel;
-	Label FPSLabel;
-	Label ScoreLabel;
+	private Stage stage;
 	private Viewport viewport;
-	private Integer health;
-	private Integer water;
-	private Integer score;
-	private Integer FPS;
-	private FireEngine player;
-	private PlayScreen screen;
+	private ArrayList<Label> labels;
 
 	/**
-	 *Creates the viewport, labels and stage for the HUD
+	 * UPDATED @author Archie Godfrey
+	 * Changed paramaters to be more self contained
+	 * 
+	 * Creates the viewport, labels and stage for the HUD
 	 *
 	 * @param sb		spriteBatch
 	 *
-	 * @param player	The player
-	 *
-	 * @param screen	The screen that the player is on
+	 * @param numberOfLabels The number of labels to be drawn to the screen
 	 */
-	public HUD(SpriteBatch sb, FireEngine player, PlayScreen screen)
+	public HUD(SpriteBatch sb, int numberOfLabels)
 		{
-		health = player.currentHealth;
-		water = player.currentWater;
-		this.screen = screen;
-		viewport = new FitViewport(Kroy.V_WIDTH,
+		this.viewport = new FitViewport(Kroy.V_WIDTH,
 								   Kroy.V_HEIGHT,
 								   new OrthographicCamera());
-		stage = new Stage(viewport, sb);
+		this.stage = new Stage(this.viewport, sb);
 		Table table = new Table();
 		table.top();
 		table.setFillParent(true); // Table is size of stage
-		healthLabel =
-			new Label(
-				String.format("%s %03d", "Health: ", health),
-				new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-		waterLabel =
-			new Label(
-				String.format("%s %3d", "Water: ", water),
-				new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-		FPSLabel = new Label(String.format("%s %3d", "FPS: ", FPS),
-							 new Label.LabelStyle(new BitmapFont(),
-												  Color.WHITE));
 
-		ScoreLabel = new Label(String.format("%s %4d", "Score: ", score),
-							 new Label.LabelStyle(new BitmapFont(),
-												  Color.WHITE));
-		table.add(waterLabel).padTop(10).expandX();
-		table.add(FPSLabel).padTop(10).expandX();
-		table.add(ScoreLabel).padTop(10).expandX();
-		table.add(healthLabel).padTop(10).expandX();
+		this.labels = new ArrayList<Label>();
+
+		// Create predefined number of labels and add them to the stage and list
+		for (int i = 0; i < numberOfLabels; i++) {
+			Label label = new Label(String.format("%s %03d", "Temp: ", i), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+			this.labels.add(label);
+			table.add(label).padTop(10).expandX();
+		}
 		stage.addActor(table);
 		}
 
 	/**
-	 *  Updates all the labels
+	 * NEW Method @author Archie Godfrey
+	 * Updates all the labels with names and values given by two equal length arrays
+	 * 
+	 * @param labelNames	The name to be displayed for each label
+	 * @param labelValues	The value to be displayed for each label
 	 */
-	public void update()
+	public void update(String[] labelNames, int[] labelValues)
 		{
-		this.updateHealth(player.currentHealth);
-		this.updateWater(player.currentWater);
-		this.updateFPS(Gdx.graphics.getFramesPerSecond());
-		this.updateScore(this.screen.getPlayerScore());
+			if (labelNames.length == this.labels.size() && labelValues.length == this.labels.size()) {
+				for (int i = 0; i < this.labels.size(); i++) {
+					this.labels.get(i).setText(String.format("%s %s %3d", labelNames[i], ": ", labelValues[i]));
+				}
+				this.stage.draw();
+			} else {
+				System.out.println("Not enough label names or values supplied");
+			}
 		}
 
 	/**
-	 * Updates the health label
-	 * @param health new player health value
+	 * NEW Method @author Archie Godfrey
+	 * Get the stage the HUD is using
+	 * 
+	 * @return the stage the HUD is using
 	 */
-	private void updateHealth(Integer health)
-		{
-		healthLabel.setText(String.format("%s %3d", "Health: ", health));
-		}
-
-	/**
-	 * Updates the water label
-	 * @param water	player's fire engine current water value
-	 */
-	private void updateWater(Integer water)
-		{
-		waterLabel.setText(String.format("%s %3d", "Water: ", water));
-		}
-
-	/**
-	 * Updates the fps label
-	 * @param fps the fps value
-	 */
-	private void updateFPS(Integer fps)
-		{
-		FPSLabel.setText(String.format("%s %3d", "FPS: ", fps));
-		}
-
-	/**
-	 * Updates the score label
-	 * @param score	the new score value
-	 */
-	private void updateScore(int score)
-		{
-		ScoreLabel.setText(String.format("%s %3d", "Score: ", score));
-		}
-
-	/**
-	 * Sets the player to be the new player passedin
-	 *
-	 * @param player new FireEngine instance the player is using
-	 */
-	public void setPlayer(FireEngine player)
-		{
-		this.player = player;
-		}
+	public Stage getStage() {
+		return this.stage;
+	}
 
 	@Override
 	public void dispose()
 		{
-		stage.dispose();
+		this.stage.dispose();
 		}
 	}

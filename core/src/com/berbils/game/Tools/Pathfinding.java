@@ -69,21 +69,34 @@ public class Pathfinding {
 	}
 	
 	public ArrayList<Vector2> find(Vector2 start, Vector2 goal) {
+
+		//Parameters are not integer floats but grid is
+		if (start == null || goal == null) {
+			System.out.println("Start or goal == null");
+			return null;
+		}
+		start.x = (float) Math.floor(start.x);
+		start.y = (float) Math.floor(start.y);
+		goal.x = (float) Math.floor(goal.x);
+		goal.y = (float) Math.floor(goal.y);
 		// Nodes that have been visited, but not expanded
 		ArrayList<Vector2> openNodes = new ArrayList<Vector2>();
 		// Add first node
 		openNodes.add(start);
 		// Nodes that have been visited and expanded
-		ArrayList<Vector2> closeNodes = null;
+		ArrayList<Vector2> closeNodes = new ArrayList<Vector2>();
 		
 		if (!navigationGrid.contains(start) || !navigationGrid.contains(goal)) {
 			// Start or end node is not navigable or does not exist.
+			System.out.println("Does not contain start or end node");
 			return null;
 		}
+
+		
 		
 		// Find path
 		while (!openNodes.isEmpty()) {
-			
+			System.out.println(openNodes.isEmpty());
 			// Get closest neighbour as current node
 			Vector2 currentNode = openNodes.get(0);
 			

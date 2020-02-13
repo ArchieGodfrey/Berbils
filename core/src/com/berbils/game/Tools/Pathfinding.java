@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
 public class Pathfinding {
 	
@@ -22,12 +23,13 @@ public class Pathfinding {
 		TiledMapTileLayer mapNavLayer = (TiledMapTileLayer) map.getLayers().get("navigation");
 		int mapWidth = map.getProperties().get("width", Integer.class);
 		int mapHeight = map.getProperties().get("height", Integer.class);
-		
+
 		// Iterate through all tiles
 		for (int x = 0; x < mapWidth; x++) {
 			for (int y = 0; y < mapHeight; y++) {
 				// Working with individual tile
-				if (mapNavLayer.getCell(x, y).getTile().getProperties().get("walkable").equals(true)) {
+				Cell cell = mapNavLayer.getCell(x, y);				
+				if (cell != null && cell.getTile() != null && (int) cell.getTile().getProperties().get("walkable") == 0) {
 					// Tile is walkable
 					navigationGrid.add(new Vector2(x, y));
 				}			
@@ -37,7 +39,7 @@ public class Pathfinding {
 	
 	private ArrayList<Vector2> getNeighbourNodes(Vector2 currentNode) {	
 		// Create neighbours list
-		ArrayList<Vector2> neighbourNodes = null;
+		ArrayList<Vector2> neighbourNodes = new ArrayList<Vector2>();
 		
 		// Calculate possible neighbouring nodes
 		Vector2 leftNode = new Vector2(currentNode.x - 1, currentNode.y);
@@ -65,7 +67,7 @@ public class Pathfinding {
 	
 	public ArrayList<Vector2> find(Vector2 start, Vector2 goal) {
 		// Nodes that have been visited, but not expanded
-		ArrayList<Vector2> openNodes = null;
+		ArrayList<Vector2> openNodes = new ArrayList<Vector2>();
 		// Add first node
 		openNodes.add(start);
 		// Nodes that have been visited and expanded

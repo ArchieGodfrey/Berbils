@@ -60,4 +60,25 @@ public class PauseScreen extends BasicMenu
 					}
 				});
 		}
+
+		/**
+		 * NEW Method @author Archie Godfrey
+		 * 
+		 * Update the pause screen to return to a specified screen
+		 * rather than defaulting to the main game
+		 * 
+		 * @param game 		The game instance
+		 * @param screen	The screen instance to return to
+		 */
+		public void returnToScreen(final Kroy game, final PlayScreen screen) {
+			super.menuButtons.get(0).addListener(
+			new ClickListener()
+				{
+				@Override
+				public void clicked(InputEvent event, float x, float y)
+					{
+					game.setScreen(screen);
+					}
+				});
+		}
 	}

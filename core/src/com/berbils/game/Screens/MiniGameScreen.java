@@ -3,6 +3,7 @@ package com.berbils.game.Screens;
 import static com.berbils.game.Kroy.PPM;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -110,6 +111,17 @@ public class MiniGameScreen extends PlayScreen
 		// Create inital entities
 		createSpawner();
 		createPlayer();
+
+		// Creates a random number of aliens between 1-11
+		this.alienTotal = 1+ (int) (Math.random() * 10.0);
+		
+		//Create a single alien every 3 seconds
+		this.spawnTimer = Timer.schedule(new Task() {
+			@Override
+			public void run() {
+				createAlien();
+			}
+		}, 1, 3 );
     }
         
     /**
@@ -215,7 +227,8 @@ public class MiniGameScreen extends PlayScreen
 			this.alienTotal -= 1;
 		} else {
 			if (this.aliens.size() <= 0) {
-				// Return to main game
+				// Cancel timer and return to main game
+				this.cancelTimer();
 				this.getGame().setScreen(game.gameScreen);
 			}
 		}
@@ -276,16 +289,8 @@ public class MiniGameScreen extends PlayScreen
   public void show() {
 		System.out.println("Render Minigame");
 
-		// Creates a random number of aliens between 1-11
-		this.alienTotal = 1+ (int) (Math.random() * 10.0);
-		
-		//Create a single alien every 3 seconds
-		this.spawnTimer = Timer.schedule(new Task() {
-			@Override
-			public void run() {
-				createAlien();
-			}
-		}, 1, 3 );
+		// Set pause screen to return to minigame
+		this.game.pauseScreen.returnToScreen(this.game, this);
     }
 
   /**
@@ -308,6 +313,9 @@ public class MiniGameScreen extends PlayScreen
       if (player.currentWater > 0) {
         player.fire(new Vector2(mousePosInWorld.x, mousePosInWorld.y));
       }
+		}
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+      this.game.setScreen(this.game.pauseScreen);
     }
 
 		// Progress the world
@@ -348,6 +356,14 @@ public class MiniGameScreen extends PlayScreen
 		{
 		this.gamePort.update(width, height);
 		}
+
+	/**
+	 * Cancel the spawn timer when minigame ends
+	 */
+	public void cancelTimer()
+	{
+	this.spawnTimer.cancel();
+	}
 
 	/**
 	 * A getter for the camera for the game
@@ -393,7 +409,6 @@ public class MiniGameScreen extends PlayScreen
 	@Override
 	public void hide()
 		{
-			this.spawnTimer.cancel();
 		}
 
 	/** Disposes of everything */

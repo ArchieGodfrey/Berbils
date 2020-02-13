@@ -5,6 +5,7 @@ import com.berbils.game.Entities.EntityTypes.BoxGameEntity;
 import com.berbils.game.Entities.FireEngines.FireEngine;
 import com.berbils.game.Entities.ProjectileSpawners.Weapon;
 import com.berbils.game.Kroy;
+import com.berbils.game.Screens.MiniGameScreen;
 import com.berbils.game.Screens.PlayScreen;
 
 /**
@@ -15,6 +16,11 @@ import com.berbils.game.Screens.PlayScreen;
  */
 public class FireEngineFront extends FireEngine
 	{
+
+	/**
+		Variable to keep track of the current minigame instance
+	*/
+	private MiniGameScreen miniGameScreen;
 	/**
 	 * This constructor assigns required variables and sets up the weapon class
 	 * instance for use.It only creates a fixture and body definition, no
@@ -45,7 +51,7 @@ public class FireEngineFront extends FireEngine
 	 *                         created
 	 */
 	public FireEngineFront(
-		PlayScreen screen,
+		MiniGameScreen screen,
 		Vector2 dimensions,
 		Weapon weapon,
 		int maxWater,
@@ -54,6 +60,7 @@ public class FireEngineFront extends FireEngine
 		String textureFilePath)
 		{
 		super(screen, dimensions, weapon, maxWater, speed, maxHealth, textureFilePath);
+		this.miniGameScreen = screen;
 		}
 
 	/**
@@ -67,8 +74,9 @@ public class FireEngineFront extends FireEngine
 		if (this.getAlive()) {
 			this.setAlive(false);
 			Kroy game = this.screen.getGame();
-			this.screen.updatePlayerScore(-200);
-			this.screen.getGame().setScreen(game.gameScreen);
+			game.gameScreen.updatePlayerScore(-200);
+			this.miniGameScreen.cancelTimer();
+			game.setScreen(game.gameScreen);
 		}
 		}
 

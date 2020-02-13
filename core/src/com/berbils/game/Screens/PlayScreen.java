@@ -238,7 +238,14 @@ public class PlayScreen implements Screen
 		}
 
   @Override
-  public void show() {}
+  public void show() {
+		/**
+		 * NEW Line @author Archie Godfrey
+		 * Update the pause screen to return to the main
+		 * game if that is the current screen showing
+		 */
+		this.game.pauseScreen.returnToScreen(this.game, this);
+	}
 
   /**
    * Updates the camera every tick to follow the player
@@ -394,7 +401,7 @@ public class PlayScreen implements Screen
     this.slowLargeExplosiveProjectile =
         new ExplodingBulletCircle(0.5f, 0.25f, 20, 1, 2.5f, 5, Kroy.EXPLOSIVE_PROJECTILE_TEXTURE, this);
     this.waterProjectile =
-        new SimpleBulletCircle(5f, 0.25f, 10, 3, Kroy.WATER_PROJECTILE_TEX,
+        new SimpleBulletCircle(5f, 0.25f, 1000, 3, Kroy.WATER_PROJECTILE_TEX,
 							   this);
 	  this.largewaterProjectile =
 			  new SimpleBulletCircle(4f, 0.4f, 20, 3.5f, Kroy.WATER_PROJECTILE_TEX, this);

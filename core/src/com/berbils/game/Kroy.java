@@ -62,7 +62,8 @@ public class Kroy extends Game
 	public static AssetManager assets;
 	public SpriteBatch batch;
 	public PlayScreen gameScreen;
-	public BasicMenu mainMenu, selectFireEngine, pauseScreen;
+	public BasicMenu mainMenu, selectFireEngine;
+	public PauseScreen pauseScreen;
 	public TitleScreen fireEngineDestroyedScreen;
 	public TitleScreen gameOverScreen;
 	public TitleScreen winScreen;

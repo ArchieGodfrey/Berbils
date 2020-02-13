@@ -270,6 +270,12 @@ public class Tower extends CircleGameEntity
 				this.explosionOnDeath.explode(this.position);
 				this.isAlive = false;
 				this.setTarget(null);
+				/**
+				 * NEW Line @author Archie Godfrey
+				 * After first fire engine is destroyed start a
+				 * 8 minute timer
+				*/
+				this.screen.startGameEndTimer(); 
 				this.screen.updatePlayerScore(1000);
 				this.screen.destroyBody(this.towerSensor.getFixture().getBody());
 				this.spriteHandler.destroySprite(this.healthBar);

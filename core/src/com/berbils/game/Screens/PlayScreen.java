@@ -18,6 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.berbils.game.Entities.FireEngines.FireEngine;
@@ -269,7 +271,20 @@ public class PlayScreen implements Screen
 
     gameCam.position.set(position);
     gameCam.update();
-  }
+	}
+	
+	/**
+	 * NEW Method @author Archie Godfrey
+	 * Create a timer that will stop repairs to fire engines after 8 minutes
+	 */
+	public void startGameEndTimer() {
+		Timer.schedule(new Task() {
+			@Override
+			public void run() {
+				fireStation.stopRepairs();
+			}
+		}, 0, 8*60 );
+	}
 
   /**
    * Updates the Play Screen every tick

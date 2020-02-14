@@ -187,7 +187,7 @@ public class Tower extends CircleGameEntity
 			public void run() {
 				upgradeTower();
 			}
-		}, 0, 60 );
+		}, 60, 60 );
 		}
 
 	/**
@@ -217,6 +217,7 @@ public class Tower extends CircleGameEntity
 		this.maxHealth *= 1.1;
 		this.range *= 1.1;
 		// Recreate sensor as diamater increased
+		this.screen.destroyBody(this.towerSensor.getFixture().getBody());
 		createSensor();
 	}
 

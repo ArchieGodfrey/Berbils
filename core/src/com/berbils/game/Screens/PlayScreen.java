@@ -24,6 +24,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.berbils.game.Entities.FireEngines.FireEngine;
 import com.berbils.game.Entities.FireStation.FireStation;
+import com.berbils.game.Entities.Patrol.Patrol;
 import com.berbils.game.Entities.ProjectileSpawners.*;
 import com.berbils.game.Entities.ProjectileSpawners.ProjectileTypes.*;
 import com.berbils.game.Entities.Towers.Tower;
@@ -117,6 +118,11 @@ public class PlayScreen implements Screen
 	/** Array List storing all pre-defined projectiles */
 	private ArrayList<Projectiles> projectileList = new ArrayList<>();
 
+	/** NEW Field @author Archie Godfrey 
+	 * Array List storing all pre-defined patrols 
+	*/
+	private ArrayList<Patrol> patrolList = new ArrayList<Patrol>();
+
 	/** Array List storing all pre-defined Weapons */
 	private ArrayList<Weapon> weaponList = new ArrayList<>();
 	// Box2d Object Managers
@@ -135,8 +141,6 @@ public class PlayScreen implements Screen
 
 	/** The players score */
 	private int playerScore;
-
-	private Pathfinding pathfinder;
 
 	/**
 	 * NEW METHOD
@@ -205,7 +209,6 @@ public class PlayScreen implements Screen
 		{
 		maploader = new MapLoader("CityMap/Map.tmx");
 		renderer = new OrthoCachedTiledMapRenderer(maploader.map, 1 / Kroy.PPM);
-		this.pathfinder = new Pathfinding(maploader.map);
 		}
 
 	/**
@@ -242,6 +245,8 @@ public class PlayScreen implements Screen
 		this.createTowers();
 		this.createFireEngines();
 		this.createFireStation();
+		// NEW Line
+		this.createPatrols();
 		}
 
   @Override
@@ -315,6 +320,13 @@ public class PlayScreen implements Screen
 
     for (Projectiles projectiles : projectileList) {
       projectiles.update(delta);
+		}
+		
+		/**
+		 * NEW @author Archie Godfrey
+		 */
+		for (Patrol patrol : this.patrolList) {
+      patrol.update();
     }
 
     inputManager.handlePlayerInput(player, delta, this.game);
@@ -366,9 +378,6 @@ public class PlayScreen implements Screen
 		update(delta);
 		renderer.render();
 
-		ArrayList<Vector2> path = this.pathfinder.find(this.player.getBody().getPosition(), this.towers.get(0).getBody().getPosition());
-		System.out.println(path);
-
 		// Render HUD
 		game.batch.setProjectionMatrix(gameCam.combined);
 
@@ -411,7 +420,20 @@ public class PlayScreen implements Screen
       this.world.destroyBody(this.toBeDeleted.get(i));
       this.toBeDeleted.remove(i);
     }
-  }
+	}
+	
+	/**
+	 * NEW METHOD @author Archie Godfrey
+	 */
+	private void createPatrols() {
+		this.patrolList.add(
+			new Patrol(this, new Vector2(1.5f, 1), 15, new Vector2(0,0), this.maploader.getEngineSpawn(),Kroy.HEAVY_FIRE_ENGINE_TEX)
+		);
+
+		for (Patrol patrol : this.patrolList) {
+      patrol.spawn(this.maploader.getEngineSpawn());
+    }
+	}
 
 	/**
 	 * Creates pre defined projectiles and adds them to screen projectile list
@@ -666,6 +688,17 @@ public class PlayScreen implements Screen
 		{
 		return this.game;
 		}
+
+	/**
+	 * NEW METHOD @author Archie Godfrey
+	 * Getter for the map loader
+	 *
+	 * @return returns the map loader
+	 */
+	public MapLoader getMapLoader()
+	{
+	return this.maploader;
+	}
 
 	/**
 	 * NEW METHOD

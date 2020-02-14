@@ -4,6 +4,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.berbils.game.Entities.FireEngines.FireEngine;
 import com.berbils.game.Entities.FireStation.FireStation;
 import com.berbils.game.Entities.Minigame.Alien;
+import com.berbils.game.Entities.Patrol.Patrol;
 import com.berbils.game.Entities.ProjectileSpawners.ProjectileTypes.Projectiles;
 import com.berbils.game.Entities.Towers.Tower;
 import com.berbils.game.Kroy;
@@ -66,8 +67,7 @@ public class GameContactListener implements ContactListener
 		}
 		// START OF NEW CODE: Fire engine touching a patrol
 		else if (this.fireEngineContactPatrol(fixtureAUserData, fixtureBUserData)) {
-			this.getPatrolObject(fixtureAUserData, fixtureBUserData)
-				.collided(this.getFireEngineFixture(fixtureA, fixtureB));
+			this.getPatrolObject(fixtureAUserData, fixtureBUserData).collided();
 		}
 		else if (this.fireEngineContactAlien(fixtureAUserData, fixtureBUserData)) {
 			this.getFireEngineObject(fixtureAUserData, fixtureBUserData).onDeath();
@@ -108,9 +108,7 @@ public class GameContactListener implements ContactListener
 		else if (this.fireEngContactTowerSensor(fixtureAUserData,
 												fixtureBUserData)
 			&& this.getTowerFixture(fixtureA, fixtureB).isSensor()) {
-			// TEMPORARY: Uncomment and remove
-			this.getTowerObject(fixtureAUserData, fixtureBUserData).transitionToMiniGame();
-			//this.getTowerObject(fixtureAUserData, fixtureBUserData).setTarget(null);
+			this.getTowerObject(fixtureAUserData, fixtureBUserData).setTarget(null);
 		}
 		// Fire engine left fire station
 		else if (this.fireEngineContactFireStation(fixtureAUserData,
@@ -174,24 +172,23 @@ public class GameContactListener implements ContactListener
 
 		/**
 		 * NEW METHOD
-		 * TEMPORARY: Update Tower to Patrol
-		 * Gets the @{@link Tower} object out of the two objects collided
+		 * Gets the @{@link Patrol} object out of the two objects collided
 		 *
 		 * @param obj1 one of the objects in the collision
 		 * @param obj2 one of the objects in the collision
-		 * @return Returns which of the objects are a {@link Tower}, the first
-		 * 		   object if they are both {@link Tower}s
+		 * @return Returns which of the objects are a {@link Patrol}, the first
+		 * 		   object if they are both {@link Patrol}s
 		 */
-		private Tower getPatrolObject(Object obj1, Object obj2)
+		private Patrol getPatrolObject(Object obj1, Object obj2)
 		{
-		if (obj1 instanceof Tower) {
-			return (Tower) obj1;
+		if (obj1 instanceof Patrol) {
+			return (Patrol) obj1;
 		}
-		else if (obj2 instanceof Tower) {
-			return (Tower) obj2;
+		else if (obj2 instanceof Patrol) {
+			return (Patrol) obj2;
 		}
 		else {
-			throw new IllegalArgumentException("Neither arguments are towers");
+			throw new IllegalArgumentException("Neither arguments are patrols");
 		}
 	}
 
@@ -385,9 +382,9 @@ public class GameContactListener implements ContactListener
 	 * 		   fire engine, else false
 	 */
 	private boolean fireEngineContactPatrol(Object obj1, Object obj2)
-	{ // TEMPORARY: Update Tower to Patrol when implemented
-	return ( ( obj1 instanceof FireEngine && obj2 instanceof Tower )
-		|| ( obj1 instanceof Tower && obj2 instanceof FireEngine ) );
+	{
+	return ( ( obj1 instanceof FireEngine && obj2 instanceof Patrol )
+		|| ( obj1 instanceof Patrol && obj2 instanceof FireEngine ) );
 	}
 
 	/**

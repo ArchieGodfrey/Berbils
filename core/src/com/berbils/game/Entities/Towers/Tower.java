@@ -9,9 +9,6 @@ import com.berbils.game.Entities.ProjectileSpawners.Weapon;
 import com.berbils.game.Kroy;
 import com.berbils.game.Screens.PlayScreen;
 
-//TEMPORARY
-import com.badlogic.gdx.physics.box2d.Fixture;
-
 /**
  * Creates a tower game object, an enemy object that attacks if the player
  * gets within a set range
@@ -333,22 +330,4 @@ public class Tower extends CircleGameEntity
 			1f), this.healthBar);
 		this.explosionOnDeath.update(deltaTime);
 		}
-
-		/**
-		 * TEMPORARY: Remove when Patrol implemented
-		 */
-		public void transitionToMiniGame()
-		{
-			System.out.println("Transition");
-			this.screen.getGame().setScreen(this.screen.getGame().getNewMinigameScreen());
-		}
-
-		/**
-		 * TEMPORARY: Remove when Patrol implemented
-		 *
-		 * @param fixture The fixture that collided with the object instance
-		 */
-		public void collided(Fixture fixture)
-		{
-	}
 }

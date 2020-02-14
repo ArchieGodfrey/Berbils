@@ -140,7 +140,7 @@ public class Pathfinding {
 					}
 				} else if (closeNodes.containsKey(childNode)) {
 					// If child in closed list
-					if (closeNodes.get(childNode) > closeNodes.get(currentNode) + 1) {
+					if (closeNodes.get(childNode) > openNodes.get(currentNode) + 1) {
 						// Change child cost if shorter
 						closeNodes.replace(childNode, closeNodes.get(currentNode) + 1);
 						parentOf.put(childNode, currentNode);
@@ -153,6 +153,7 @@ public class Pathfinding {
 			}
 			// Add current node to closed list
 			closeNodes.put(currentNode, openNodes.get(currentNode));
+			openNodes.remove(currentNode);
 		}
 		
 		return path;

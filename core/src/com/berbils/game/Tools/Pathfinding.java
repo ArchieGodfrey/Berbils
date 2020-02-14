@@ -13,6 +13,15 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * The pathfinding module includes a loading function Pathfinding() that loads the
+ * navigation layer of a map and for cells with the "walkable" property adds them
+ * to a navigationGrid. The .find function can then be used to return a list of 
+ * Vector2 cells on route to a given destination.
+ * 
+ * @author Joshua
+ *
+ */
 public class Pathfinding {
 	
 	private ArrayList<Vector2> navigationGrid = new ArrayList<Vector2>();
@@ -41,6 +50,16 @@ public class Pathfinding {
 		}
 	}
 	
+	/**
+	 * Get neighbouring nodes to the current node.
+	 * Checks if nodes on left, right, top and bottom exist, and returns a list of
+	 * the existing nodes neighbouring.
+	 * 
+	 * @author Josh
+	 * 
+	 * @param currentNode	The node to check surrounding nodes of
+	 * @return				A list of neighbouring nodes that are walkable
+	 */
 	private ArrayList<Vector2> getNeighbourNodes(Vector2 currentNode) {	
 		// Create neighbours list
 		ArrayList<Vector2> neighbourNodes = new ArrayList<Vector2>();
@@ -74,6 +93,8 @@ public class Pathfinding {
 	 * (x, y) arguments. For instance, you could use this function as
 	 * ArrayList path = find (new Vector2(x1, y1), new Vector2(x2, y2));
 	 * 
+	 * @author Josh
+	 * 
 	 * @param start		The starting node of the path
 	 * @param goal		The goal node of the path
 	 * @return			A list of all tiles needed to reach the goal node
@@ -85,6 +106,7 @@ public class Pathfinding {
 			System.out.println("Start or goal == null");
 			return null;
 		}
+		
 		start.x = (float) Math.floor(start.x);
 		start.y = (float) Math.floor(start.y);
 		goal.x = (float) Math.floor(goal.x);
@@ -110,6 +132,7 @@ public class Pathfinding {
 		
 		// Record of parent nodes
 		Map<Vector2, Vector2> parentOf = new HashMap<Vector2, Vector2>();
+		parentOf.put(start,  null);
 		
 		// List to return
 		ArrayList<Vector2> path = new ArrayList<Vector2>();
@@ -125,6 +148,7 @@ public class Pathfinding {
 			if (currentNode == goal) {
 				while (parentOf.get(currentNode) != null) {
 					path.add(currentNode);
+					System.out.println(currentNode);
 					currentNode = parentOf.get(currentNode);
 				}
 			}

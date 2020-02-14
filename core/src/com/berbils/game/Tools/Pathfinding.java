@@ -148,7 +148,6 @@ public class Pathfinding {
 			if (currentNode == goal) {
 				while (parentOf.get(currentNode) != null) {
 					path.add(currentNode);
-					System.out.println(currentNode);
 					currentNode = parentOf.get(currentNode);
 				}
 			}
@@ -188,8 +187,7 @@ public class Pathfinding {
 	 * Based on: https://stackoverflow.com/questions/8119366/sorting-hashmap-by-values
 	 * 
 	 * @param unsortedMap	An unsorted map
-	 * @param order
-	 * @return
+	 * @return				The key in the map with the lowest associated integer value
 	 */
 	private static Vector2 getFirstInMap(Map<Vector2, Integer> unsortedMap) {
 		// Create list from map pairs

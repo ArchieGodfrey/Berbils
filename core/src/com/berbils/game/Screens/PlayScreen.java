@@ -196,11 +196,13 @@ public class PlayScreen implements Screen
 	 * the map borders. The box2D Debug renderer is also initalised here
 	 * </p>
 	 */
+
 	private void createBox2DWorld()
 		{
 		// Create a world with 0 forces applied to it
 		world = new World(new Vector2(0, 0), true);
-		this.world.setContactListener(new GameContactListener());
+		/** NEW Line @author Matteo Barberis */
+		this.world.setContactListener(new GameContactListener(this));
 		this.spriteHandler = new SpriteHandler(this,
 											   Kroy.CITY_MAP_TEX,
 											   maploader.getDims().cpy());
@@ -297,9 +299,14 @@ public class PlayScreen implements Screen
 			new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
+
+					// destroys current fireengine
+					fireStation.destroyEngine();
+					
 					selectFireEngine(index);
 					Gdx.input.setInputProcessor(null);
 					setSelectionOverlayVisibility(false);
+
 				}
 			});
 		}
@@ -325,6 +332,8 @@ public class PlayScreen implements Screen
 	  {
 		update(delta);
 		renderer.render();
+		System.out.println(this.player.leftFireStation);
+
 
 		// Render HUD
 		game.batch.setProjectionMatrix(gameCam.combined);
@@ -632,5 +641,9 @@ public class PlayScreen implements Screen
 	public World getWorld()
 		{
 		return world;
+		}
+
+		public void resetEngineStats(){
+			player.reset();
 		}
 	}

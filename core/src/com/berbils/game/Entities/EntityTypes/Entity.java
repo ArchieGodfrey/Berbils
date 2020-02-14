@@ -329,9 +329,4 @@ public abstract class Entity
 		}
 
 
-
-
-
-
-
 	}

@@ -10,9 +10,19 @@ import com.berbils.game.Screens.PlayScreen;
 
 public class GameContactListener implements ContactListener
 	{
-	public GameContactListener()
+		
+		/** NEW Line @author Matteo Barberis */
+		PlayScreen s;
+		
+		 /**
+	 * 	UPDATED Method @author Matteo Barberis
+	 * 	GameContactListener takes reference of PlayScreen as parameter
+	 */
+		public GameContactListener(PlayScreen s)
 		{
 		super();
+		/** NEW Line @author Matteo Barberis */
+		this.s = s;
 		}
 
 	/***
@@ -101,6 +111,10 @@ public class GameContactListener implements ContactListener
 												   fixtureBUserData)) {
 			this.getFireEngineObject(fixtureAUserData,
 									 fixtureBUserData).leftFireStation = true;
+									 /** NEW Lines @author Matteo Barberis */
+									 s.setSelectionOverlayVisibility(false);
+									 s.resetEngineStats();
+		
 		}
 		else {
 			return;

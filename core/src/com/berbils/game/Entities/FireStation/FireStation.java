@@ -31,6 +31,11 @@ public class FireStation extends BoxGameEntity
 	 * 	 * 	                     NOTE - If this is null a sprite will
 	 * 	 * 	                     not be created
 	 */
+
+	 /** NEW Line @author Matteo Barberis */
+	 //keeps track of the current fireEngine
+	 private Fixture f;
+
 	public FireStation(PlayScreen screen, Vector2 pos, Vector2 sizeDims, String textureFilePath)
 		{
 		super(screen,
@@ -55,12 +60,26 @@ public class FireStation extends BoxGameEntity
 	 */
 	public void collided(Fixture fixture)
 		{
+		
+		/** NEW Line @author Matteo Barberis */
+		f = fixture;
+
 		FireEngine fireEngine = ( (FireEngine) fixture.getUserData() );
 		if (fireEngine.leftFireStation) {
-			fireEngine.reset();
-			this.screen.setFireEngSpawnPoint(this.position);
-			this.spriteHandler.destroySpriteAndBody(fixture);
 			this.screen.setSelectionOverlayVisibility(true);
 		}
 		}
+
+			/**
+		 * NEW Method @author Matteo Barberis
+		 * moved code to reset and destroy old fire engine
+		 * in a new method that now is called when a menu button is pressed
+		 */
+		public void destroyEngine(){
+			FireEngine fireEngine = ( (FireEngine) f.getUserData() );
+			fireEngine.reset();
+			this.screen.setFireEngSpawnPoint(this.position);
+			this.spriteHandler.destroySpriteAndBody(f);
+		}
+
 	}

@@ -1,8 +1,13 @@
 package com.berbils.game.Tools;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
-import java.util.TreeMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -10,7 +15,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Pathfinding {
 	
-	private ArrayList<Vector2> navigationGrid;
+	private ArrayList<Vector2> navigationGrid = new ArrayList<Vector2>();
 	
 	/**
 	 * Constructor for pathfinding.
@@ -28,7 +33,6 @@ public class Pathfinding {
 		for (int x = 0; x < mapWidth; x++) {
 			for (int y = 0; y < mapHeight; y++) {
 				// Working with individual tile
-				System.out.println(mapNavLayer.getCell(x, y).getTile().getProperties().get("walkable"));
 				if (mapNavLayer.getCell(x, y).getTile().getProperties().get("walkable").equals(true)) {
 					// Tile is walkable
 					navigationGrid.add(new Vector2(x, y));
@@ -39,7 +43,7 @@ public class Pathfinding {
 	
 	private ArrayList<Vector2> getNeighbourNodes(Vector2 currentNode) {	
 		// Create neighbours list
-		ArrayList<Vector2> neighbourNodes = null;
+		ArrayList<Vector2> neighbourNodes = new ArrayList<Vector2>();
 		
 		// Calculate possible neighbouring nodes
 		Vector2 leftNode = new Vector2(currentNode.x - 1, currentNode.y);
@@ -97,26 +101,25 @@ public class Pathfinding {
 		}
 		
 		// Nodes that have been visited, but not expanded
-		TreeMap<Vector2, Integer> openNodes = new TreeMap<Vector2, Integer>();
+		Map<Vector2, Integer> openNodes = new HashMap<Vector2, Integer>();
 		// Add first node
 		openNodes.put(start, (int) 0);
 		
 		// Nodes that have been visited and expanded
-		TreeMap<Vector2, Integer> closeNodes = new TreeMap<Vector2, Integer>();
+		Map<Vector2, Integer> closeNodes = new HashMap<Vector2, Integer>();
 		
 		// Record of parent nodes
-		HashMap<Vector2, Vector2> parentOf = new HashMap<Vector2, Vector2>();
+		Map<Vector2, Vector2> parentOf = new HashMap<Vector2, Vector2>();
 		
 		// List to return
-		ArrayList<Vector2> path = null;
+		ArrayList<Vector2> path = new ArrayList<Vector2>();
 		path.add(start);
 		
 		// Find path
 		while (!openNodes.isEmpty()) {
 			
 			// Get closest neighbour as current node
-			
-			Vector2 currentNode = openNodes.firstEntry().getKey();
+			Vector2 currentNode = getFirstInMap(openNodes);
 			
 			// If goal node closest, solution found
 			if (currentNode == goal) {
@@ -155,4 +158,26 @@ public class Pathfinding {
 		return path;
 	}
 	
+	/**
+	 * Get the first key in a map by sorting keys by their associated values.
+	 * Based on: https://stackoverflow.com/questions/8119366/sorting-hashmap-by-values
+	 * 
+	 * @param unsortedMap	An unsorted map
+	 * @param order
+	 * @return
+	 */
+	private static Vector2 getFirstInMap(Map<Vector2, Integer> unsortedMap) {
+		// Create list from map pairs
+        List<Entry<Vector2, Integer>> list = new LinkedList<Entry<Vector2, Integer>>(unsortedMap.entrySet());
+        
+        // Sort list based on pair values (integers)
+        Collections.sort(list, new Comparator<Entry<Vector2, Integer>>() {
+            public int compare(Entry<Vector2, Integer> o1, Entry<Vector2, Integer> o2) {
+                return o1.getValue().compareTo(o2.getValue());
+            }
+        });
+        
+        // Return Vector2
+        return list.get(0).getKey();
+    }
 }

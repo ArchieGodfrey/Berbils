@@ -89,13 +89,13 @@ loadScripts(document, 'script');</script>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
@@ -145,29 +145,6 @@ implements com.badlogic.gdx.utils.Disposable</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- =========== FIELD SUMMARY =========== -->
-<section role="region">
-<ul class="blockList">
-<li class="blockList"><a id="field.summary">
-<!--   -->
-</a>
-<h3>Field Summary</h3>
-<table class="memberSummary">
-<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colSecond" scope="col">Field</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>com.badlogic.gdx.scenes.scene2d.Stage</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stage">stage</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-</table>
-</li>
-</ul>
-</section>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <section role="region">
 <ul class="blockList">
@@ -182,11 +159,13 @@ implements com.badlogic.gdx.utils.Disposable</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.badlogic.gdx.graphics.g2d.SpriteBatch,com.berbils.game.Entities.FireEngines.FireEngine,com.berbils.game.Screens.PlayScreen)">HUD</a></span>&#8203;(com.badlogic.gdx.graphics.g2d.SpriteBatch&nbsp;sb,
-   <a href="../Entities/FireEngines/FireEngine.html" title="class in com.berbils.game.Entities.FireEngines">FireEngine</a>&nbsp;player,
-   <a href="../Screens/PlayScreen.html" title="class in com.berbils.game.Screens">PlayScreen</a>&nbsp;screen)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.badlogic.gdx.graphics.g2d.SpriteBatch,int)">HUD</a></span>&#8203;(com.badlogic.gdx.graphics.g2d.SpriteBatch&nbsp;sb,
+   int&nbsp;numberOfLabels)</code></th>
 <td class="colLast">
-<div class="block">Creates the viewport, labels and stage for the HUD</div>
+<div class="block">UPDATED @author Archie Godfrey
+ Changed paramaters to be more self contained
+ 
+ Creates the viewport, labels and stage for the HUD</div>
 </td>
 </tr>
 </table>
@@ -213,17 +192,20 @@ implements com.badlogic.gdx.utils.Disposable</pre>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPlayer(com.berbils.game.Entities.FireEngines.FireEngine)">setPlayer</a></span>&#8203;(<a href="../Entities/FireEngines/FireEngine.html" title="class in com.berbils.game.Entities.FireEngines">FireEngine</a>&nbsp;player)</code></th>
+<td class="colFirst"><code>com.badlogic.gdx.scenes.scene2d.Stage</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getStage()">getStage</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Sets the player to be the new player passedin</div>
+<div class="block">NEW Method @author Archie Godfrey
+ Get the stage the HUD is using</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update()">update</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(java.lang.String%5B%5D,int%5B%5D)">update</a></span>&#8203;(java.lang.String[]&nbsp;labelNames,
+      int[]&nbsp;labelValues)</code></th>
 <td class="colLast">
-<div class="block">Updates all the labels</div>
+<div class="block">NEW Method @author Archie Godfrey
+ Updates all the labels with names and values given by two equal length arrays</div>
 </td>
 </tr>
 </table>
@@ -243,25 +225,6 @@ implements com.badlogic.gdx.utils.Disposable</pre>
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
-<!-- ============ FIELD DETAIL =========== -->
-<section role="region">
-<ul class="blockList">
-<li class="blockList"><a id="field.detail">
-<!--   -->
-</a>
-<h3>Field Detail</h3>
-<a id="stage">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>stage</h4>
-<pre>public&nbsp;com.badlogic.gdx.scenes.scene2d.Stage stage</pre>
-</li>
-</ul>
-</li>
-</ul>
-</section>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <section role="region">
 <ul class="blockList">
@@ -269,21 +232,22 @@ implements com.badlogic.gdx.utils.Disposable</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(com.badlogic.gdx.graphics.g2d.SpriteBatch,com.berbils.game.Entities.FireEngines.FireEngine,com.berbils.game.Screens.PlayScreen)">
+<a id="&lt;init&gt;(com.badlogic.gdx.graphics.g2d.SpriteBatch,int)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>HUD</h4>
 <pre>public&nbsp;HUD&#8203;(com.badlogic.gdx.graphics.g2d.SpriteBatch&nbsp;sb,
-           <a href="../Entities/FireEngines/FireEngine.html" title="class in com.berbils.game.Entities.FireEngines">FireEngine</a>&nbsp;player,
-           <a href="../Screens/PlayScreen.html" title="class in com.berbils.game.Screens">PlayScreen</a>&nbsp;screen)</pre>
-<div class="block">Creates the viewport, labels and stage for the HUD</div>
+           int&nbsp;numberOfLabels)</pre>
+<div class="block">UPDATED @author Archie Godfrey
+ Changed paramaters to be more self contained
+ 
+ Creates the viewport, labels and stage for the HUD</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>sb</code> - spriteBatch</dd>
-<dd><code>player</code> - The player</dd>
-<dd><code>screen</code> - The screen that the player is on</dd>
+<dd><code>numberOfLabels</code> - The number of labels to be drawn to the screen</dd>
 </dl>
 </li>
 </ul>
@@ -297,27 +261,35 @@ implements com.badlogic.gdx.utils.Disposable</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="update()">
+<a id="update(java.lang.String[],int[])">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>update</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;update()</pre>
-<div class="block">Updates all the labels</div>
+<pre class="methodSignature">public&nbsp;void&nbsp;update&#8203;(java.lang.String[]&nbsp;labelNames,
+                   int[]&nbsp;labelValues)</pre>
+<div class="block">NEW Method @author Archie Godfrey
+ Updates all the labels with names and values given by two equal length arrays</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>labelNames</code> - The name to be displayed for each label</dd>
+<dd><code>labelValues</code> - The value to be displayed for each label</dd>
+</dl>
 </li>
 </ul>
-<a id="setPlayer(com.berbils.game.Entities.FireEngines.FireEngine)">
+<a id="getStage()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>setPlayer</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setPlayer&#8203;(<a href="../Entities/FireEngines/FireEngine.html" title="class in com.berbils.game.Entities.FireEngines">FireEngine</a>&nbsp;player)</pre>
-<div class="block">Sets the player to be the new player passedin</div>
+<h4>getStage</h4>
+<pre class="methodSignature">public&nbsp;com.badlogic.gdx.scenes.scene2d.Stage&nbsp;getStage()</pre>
+<div class="block">NEW Method @author Archie Godfrey
+ Get the stage the HUD is using</div>
 <dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>player</code> - new FireEngine instance the player is using</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the stage the HUD is using</dd>
 </dl>
 </li>
 </ul>
@@ -386,13 +358,13 @@ implements com.badlogic.gdx.utils.Disposable</pre>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>

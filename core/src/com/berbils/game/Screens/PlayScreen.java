@@ -49,7 +49,7 @@ public class PlayScreen implements Screen
 
 	/** the current index of the fire engine selected, this index relates to
 	 * the button to select it on the SelectFireEngineScreen */
-	public int fireEngineSelectedIndex;
+	private int fireEngineSelectedIndex;
 
 	/** the number of fire engines alive in this screen instance */
 	private int fireEnginesAlive;
@@ -90,8 +90,8 @@ public class PlayScreen implements Screen
 
 
 	/** Pre-defined weapon types for the Play Screen */
-	public Weapon basicWeapon,spokeWeapon,randomDirWeapon,baseFireEngWeapon,
-		largeFireEngWeapon;
+	public Weapon basicWeapon,spokeWeapon,randomDirWeapon,smallFireEngWeapon,
+		baseFireEngWeapon, mediumFireEngWeapon, largeFireEngWeapon;
 	// Game objects
 	/** Array containing all fire engine instances */;
 	private ArrayList<FireEngine> fireEngineArrayList = new ArrayList<>();
@@ -336,8 +336,8 @@ public class PlayScreen implements Screen
 	/** NEW Method @author Archie Godfrey */
 	private void createSelectionMenu() {
 		/** An array containing the text that will appear on its own button */
-		String[] menuOptions = new String[] { "Regular Fire Engine",
-			"Large Fire Engine", "Small Fire Engine", "Medium Fire Engine"
+		String[] menuOptions = new String[] { "Small Fire Engine", "Regular Fire Engine",
+		"Medium Fire Engine", "Large Fire Engine"
 		};
 		// Create menuButtons
 		ArrayList<TextButton> menuButtons = Utils.createMenuOptions(menuOptions);
@@ -349,10 +349,10 @@ public class PlayScreen implements Screen
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					// destroys current fireengine
-					//fireStation.destroyEngine(player);
+					fireStation.destroyEngine(player);
 					Gdx.input.setInputProcessor(null);
 					selectFireEngine(index);
-					//setSelectionOverlayVisibility(false);
+					setSelectionOverlayVisibility(false);
 				}
 			});
 		}
@@ -425,6 +425,7 @@ public class PlayScreen implements Screen
 	
 	/**
 	 * NEW METHOD @author Archie Godfrey
+	 * Creates the patrols that roam the map
 	 */
 	private void createPatrols() {
 		this.patrolList.add(
@@ -452,8 +453,6 @@ public class PlayScreen implements Screen
 	  this.largewaterProjectile =
 			  new SimpleBulletCircle(4f, 0.4f, 20, 3.5f, Kroy.WATER_PROJECTILE_TEX, this);
 
-
-
     this.projectileList.add(this.standardProjectile);
     this.projectileList.add(this.slowLargeExplosiveProjectile);
     this.projectileList.add(smallFastProjectile);
@@ -462,15 +461,20 @@ public class PlayScreen implements Screen
   }
 
 	/**
+	 * UPDATED @author Archie Godfrey
+	 * Updated the weapon stats
+	 * 
 	 * Creates the pre-defined weapons and adds them to weaponList
 	 */
 	private void createWeapons() {
     this.basicWeapon = new BasicProjectileSpawner(2, this.standardProjectile);
     this.spokeWeapon = new SpokeProjectileSpawner(3, this.smallFastProjectile, 4);
     this.randomDirWeapon =
-        new RandomDirProjectileSpawner( 0.5, this.slowLargeExplosiveProjectile, 6);
-    this.baseFireEngWeapon = new BasicProjectileSpawner( 20, this.waterProjectile);
-    this.largeFireEngWeapon = new BasicProjectileSpawner( 10, this.largewaterProjectile);
+				new RandomDirProjectileSpawner( 0.5, this.slowLargeExplosiveProjectile, 6);
+		this.smallFireEngWeapon = new BasicProjectileSpawner( 20, this.waterProjectile);
+		this.baseFireEngWeapon = new BasicProjectileSpawner( 15, this.waterProjectile);
+		this.mediumFireEngWeapon = new BasicProjectileSpawner( 10, this.largewaterProjectile);
+    this.largeFireEngWeapon = new BasicProjectileSpawner( 1, this.slowLargeExplosiveProjectile);
 
     this.weaponList.add(basicWeapon);
     this.weaponList.add(spokeWeapon);
@@ -489,7 +493,8 @@ public class PlayScreen implements Screen
 
 	/**
 	 * 	UPDATED Method @author Archie Godfrey
-	 * 	Removed local instances of fire engines, now all are stored in the global array
+	 * 	Removed local instances of fire engines, now all are stored in the global array.
+	 *  Also add new fire engines and updated weapons
 	 * 
 	 *  Creates instances of pre-defined fire engines but doesnt spawn their
 	 *  sprites or Box2d bodies/fixtures then adds them to the
@@ -498,24 +503,23 @@ public class PlayScreen implements Screen
   	private void createFireEngines() {
 		this.fireEngineArrayList.add(
 			new FireEngine(
-				this, new Vector2(1, 0.5f), this.baseFireEngWeapon, 400, 20, 100,
-				Kroy.BASE_FIRE_ENGINE_TEX)
-		);
-		this.fireEngineArrayList.add(
-				new FireEngine(
-					this, new Vector2(1.5f, 1), this.largeFireEngWeapon, 800, 15, 200,
-					Kroy.HEAVY_FIRE_ENGINE_TEX)
-		);
-		// TEMPORARY - Update with actual new fireengines
-		this.fireEngineArrayList.add(
-			new FireEngine(
-				this, new Vector2(1, 0.5f), this.baseFireEngWeapon, 400, 20, 100,
+				this, new Vector2(0.75f, 0.4f), this.smallFireEngWeapon, 300, 25, 80,
 				Kroy.ORANGE_FIRE_ENGINE_TEX)
 		);
 		this.fireEngineArrayList.add(
+				new FireEngine(
+					this, new Vector2(1, 0.5f), this.baseFireEngWeapon, 400, 20, 100,
+					Kroy.BASE_FIRE_ENGINE_TEX)
+		);
+		this.fireEngineArrayList.add(
 			new FireEngine(
-				this, new Vector2(1, 0.5f), this.baseFireEngWeapon, 400, 20, 100,
+				this, new Vector2(1.5f, 1), this.mediumFireEngWeapon, 600, 15, 150,
 				Kroy.GREEN_FIRE_ENGINE_TEX)
+		);
+		this.fireEngineArrayList.add(
+			new FireEngine(
+				this, new Vector2(2, 1.5f), this.largeFireEngWeapon, 800, 10, 200,
+				Kroy.HEAVY_FIRE_ENGINE_TEX)
 		);
 	  }
 
@@ -563,8 +567,6 @@ public class PlayScreen implements Screen
 		 */
 		this.hud.getStage().getViewport().update(width, height, false);
 		}
-
-
 
 	@Override
      public void pause()
@@ -614,7 +616,6 @@ public class PlayScreen implements Screen
 		this.player = this.fireEngineArrayList.get(index);
 		this.player.leftFireStation = false;
 		this.player.spawn(this.fireEngSpawnPos);
-		System.out.println("select");
 		this.fireEngineSelectedIndex = index;
 		}
 
@@ -641,6 +642,17 @@ public class PlayScreen implements Screen
     	}
 		}
 	}
+
+	/**
+	 * NEW METHOD @author Archie Godfrey
+	 * Getter for all fire engines
+	 *
+	 * @return returns all fire engines in the array
+	 */
+	public ArrayList<FireEngine> getFireEngines()
+		{
+		return this.fireEngineArrayList;
+		}
 
 	/**
 	 * Sets the fire engine spawn point

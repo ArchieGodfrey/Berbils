@@ -206,8 +206,8 @@ public class FireEngine extends BoxGameEntity
 														game.gameScreen);
 				this.spriteHandler.destroySpriteAndBody(this.entityFixture);
 				this.screen.updatePlayerScore(-200);
-				this.screen.getGame().setScreen(game.fireEngineDestroyedScreen);
-
+				this.screen.setSelectionOverlayVisibility(true);
+				game.setScreen(game.fireEngineDestroyedScreen);
 			}
 		}
 		}

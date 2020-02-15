@@ -207,7 +207,8 @@ public class MiniGameScreen extends PlayScreen
 	 * Create a UFO to spawn in the aliens
 	 */
 	private void createSpawner(){
-		this.spawner = new Spawner(this, new Vector2(1, 0.5f), 30, Kroy.BASE_FIRE_ENGINE_TEX);
+		this.spawner = new Spawner(this, new Vector2(1.5f, 1 ), 30,
+								   Kroy.MINIGAME_UFO_TEX);
 		this.spawner.spawn(new Vector2((this.maploader.getDims().cpy().x / 4), 12));
 	}
 
@@ -221,7 +222,8 @@ public class MiniGameScreen extends PlayScreen
 			// Stop the UFO and then randomise it's next direction
 			this.spawner.randomiseTrajectory();
 			// Create an alien and spawn it
-			Alien alien = new Alien(this, new Vector2(1.5f, 0.75f), 5, 100, Kroy.BASE_FIRE_ENGINE_TEX);
+			Alien alien = new Alien(this, new Vector2(1.5f, 1f), 5, 100,
+									Kroy.MINIGAME_ALIEN_TEX);
 			alien.spawn(this.spawner.getBody().getPosition());
 			this.aliens.add(alien);
 			this.alienTotal -= 1;
@@ -279,7 +281,6 @@ public class MiniGameScreen extends PlayScreen
 				alien.moveTowards(this.player.getBody().getPosition());
 			}
 		}
-
 		// Allow UFO to move again if all aliens beamed down
 		// When no more aliens, fly away
 		this.spawner.move(allowUFOMovement, this.alienTotal <= 0);

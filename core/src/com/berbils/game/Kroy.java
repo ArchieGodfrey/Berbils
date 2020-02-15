@@ -58,6 +58,8 @@ public class Kroy extends Game
 	public static String GAME_PAUSED_TITLE = "ScreenTitles/GamePaused.png";
 	public static String CITY_MAP_TEX = "CityMap/CityMap2.png";
 	public static String MINIGAME_MAP_TEX = "MinigameMap/minigame.png"; //NEW
+	public static String MINIGAME_UFO_TEX = "MinigameMap/ufo1.png"; //NEW
+	public static String MINIGAME_ALIEN_TEX = "MinigameMap/alien.png"; //NEW
 	// : Added minigame map texture
 	public static AssetManager assets;
 	public SpriteBatch batch;
@@ -100,6 +102,10 @@ public class Kroy extends Game
 		assets.load(GAME_PAUSED_TITLE, Texture.class);
 		assets.load(CITY_MAP_TEX, Texture.class);
 		assets.load(MINIGAME_MAP_TEX, Texture.class); //NEW: Added minigame map
+		assets.load(MINIGAME_UFO_TEX, Texture.class); //New: Added minigame
+		// ufo texture
+		assets.load(MINIGAME_ALIEN_TEX, Texture.class); //New: Added minigame
+		// alien
 		// texture asset
 		assets.finishLoading();
 		V_HEIGHT = Gdx.graphics.getHeight();

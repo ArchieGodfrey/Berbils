@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":9};
+var data = {"i0":9,"i1":9,"i2":9,"i3":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -159,6 +159,25 @@ extends java.lang.Object</pre>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>static java.util.ArrayList&lt;com.badlogic.gdx.scenes.scene2d.ui.TextButton&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createMenuOptions(java.lang.String%5B%5D)">createMenuOptions</a></span>&#8203;(java.lang.String[]&nbsp;menuOptions)</code></th>
+<td class="colLast">
+<div class="block">NEW Method @author Archie Godfrey
+ Create an array of textbuttons with text
+ from the given array of strings</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>static com.badlogic.gdx.scenes.scene2d.ui.Table</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createTable(java.util.ArrayList,com.badlogic.gdx.math.Vector2,float)">createTable</a></span>&#8203;(java.util.ArrayList&lt;com.badlogic.gdx.scenes.scene2d.ui.TextButton&gt;&nbsp;menuButtons,
+           com.badlogic.gdx.math.Vector2&nbsp;titleSize,
+           float&nbsp;padding)</code></th>
+<td class="colLast">
+<div class="block">NEW Method @author Archie Godfrey
+ Creates a table to present an array of buttons</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>static com.badlogic.gdx.scenes.scene2d.utils.Drawable</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getColoredDrawable(int,int,com.badlogic.gdx.graphics.Color)">getColoredDrawable</a></span>&#8203;(int&nbsp;width,
                   int&nbsp;height,
@@ -201,12 +220,51 @@ extends java.lang.Object</pre>
 <a id="getColoredDrawable(int,int,com.badlogic.gdx.graphics.Color)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>getColoredDrawable</h4>
 <pre class="methodSignature">public static&nbsp;com.badlogic.gdx.scenes.scene2d.utils.Drawable&nbsp;getColoredDrawable&#8203;(int&nbsp;width,
                                                                                 int&nbsp;height,
                                                                                 com.badlogic.gdx.graphics.Color&nbsp;color)</pre>
+</li>
+</ul>
+<a id="createTable(java.util.ArrayList,com.badlogic.gdx.math.Vector2,float)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>createTable</h4>
+<pre class="methodSignature">public static&nbsp;com.badlogic.gdx.scenes.scene2d.ui.Table&nbsp;createTable&#8203;(java.util.ArrayList&lt;com.badlogic.gdx.scenes.scene2d.ui.TextButton&gt;&nbsp;menuButtons,
+                                                                   com.badlogic.gdx.math.Vector2&nbsp;titleSize,
+                                                                   float&nbsp;padding)</pre>
+<div class="block">NEW Method @author Archie Godfrey
+ Creates a table to present an array of buttons</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>menuButtons</code> - The buttons to display</dd>
+<dd><code>titleSize</code> - The padding above the table</dd>
+<dd><code>padding</code> - The padding between rows</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A table that can be added to a stage</dd>
+</dl>
+</li>
+</ul>
+<a id="createMenuOptions(java.lang.String[])">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>createMenuOptions</h4>
+<pre class="methodSignature">public static&nbsp;java.util.ArrayList&lt;com.badlogic.gdx.scenes.scene2d.ui.TextButton&gt;&nbsp;createMenuOptions&#8203;(java.lang.String[]&nbsp;menuOptions)</pre>
+<div class="block">NEW Method @author Archie Godfrey
+ Create an array of textbuttons with text
+ from the given array of strings</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>menuOptions</code> - An array of strings containing the text to display on the buttons</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The menuOptions as buttons</dd>
+</dl>
 </li>
 </ul>
 </li>

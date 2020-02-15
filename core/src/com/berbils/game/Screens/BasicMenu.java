@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -30,13 +28,10 @@ public abstract class BasicMenu implements Screen
 	private Viewport viewport;
 
 	/** The stage, where the buttons are displayed */
-	private Stage stage;
+	protected Stage stage;
 
 	/** The amount of padding at the top of each button */
 	private float padding;
-
-	/** The skin used for the buttons */
-	private Skin skin;
 
 	/** The title texture */
 	private Texture title;
@@ -66,21 +61,22 @@ public abstract class BasicMenu implements Screen
 	 */
 	public BasicMenu(SpriteBatch spriteBatch, String titlePath, String[] menuOptions)
 		{
-		this.menuButtons = new ArrayList<>();
-		int noOfItemRows = menuOptions.length + 1;
-		this.padding = Kroy.V_HEIGHT / noOfItemRows / 2;
+		/** 
+		 * NEW Lines @author Archie Godfrey 
+		 * Moved createMenuOptions into Utils
+		 * so it can be used throughout the game
+		 * */
+		this.menuButtons = Utils.createMenuOptions(menuOptions);
+		this.spriteBatch = spriteBatch;
 		this.viewport = new FitViewport(Kroy.V_WIDTH, Kroy.V_HEIGHT);
 		this.stage = new Stage(viewport, spriteBatch);
-		skin = new Skin(Gdx.files.internal("uiskin.json"));
 		this.title = Kroy.assets.get(titlePath);
+		int noOfItemRows = menuOptions.length + 1;
+		this.padding = Kroy.V_HEIGHT / noOfItemRows / 2;
 		this.titleSize = new Vector2(Kroy.V_WIDTH / 2,
 									 Kroy.V_HEIGHT / noOfItemRows);
 		this.titlePos = new Vector2(Kroy.V_WIDTH / 4,
 									Kroy.V_HEIGHT - this.titleSize.y);
-		for (String option : menuOptions) {
-			this.menuButtons.add(new TextButton(option, skin));
-		}
-		this.spriteBatch = spriteBatch;
 		}
 
 	/**
@@ -102,16 +98,8 @@ public abstract class BasicMenu implements Screen
 		{
 		this.stage = new Stage(viewport, spriteBatch);
 		Gdx.input.setInputProcessor(this.stage);
-		Table mainTable = new Table();
-		stage.addActor(mainTable);
-		mainTable.setFillParent(true);
-		mainTable.top();
-		// need to pad as the title takes up the top x amount of spae
-		mainTable.pad(this.titleSize.y);
-		for (TextButton eachButton : this.menuButtons) {
-			mainTable.row();
-			mainTable.add(eachButton).padTop(this.padding);
-		}
+		/** NEW Line @author Archie Godfrey */
+		stage.addActor(Utils.createTable(this.menuButtons, this.titleSize, this.padding));
 		}
 
 	/***

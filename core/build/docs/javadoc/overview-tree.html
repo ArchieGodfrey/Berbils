@@ -100,6 +100,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li><a href="com/berbils/game/Entities/EntityTypes/package-tree.html">com.berbils.game.Entities.EntityTypes</a>, </li>
 <li><a href="com/berbils/game/Entities/FireEngines/package-tree.html">com.berbils.game.Entities.FireEngines</a>, </li>
 <li><a href="com/berbils/game/Entities/FireStation/package-tree.html">com.berbils.game.Entities.FireStation</a>, </li>
+<li><a href="com/berbils/game/Entities/Minigame/package-tree.html">com.berbils.game.Entities.Minigame</a>, </li>
+<li><a href="com/berbils/game/Entities/Patrol/package-tree.html">com.berbils.game.Entities.Patrol</a>, </li>
 <li><a href="com/berbils/game/Entities/ProjectileSpawners/package-tree.html">com.berbils.game.Entities.ProjectileSpawners</a>, </li>
 <li><a href="com/berbils/game/Entities/ProjectileSpawners/ProjectileTypes/package-tree.html">com.berbils.game.Entities.ProjectileSpawners.ProjectileTypes</a>, </li>
 <li><a href="com/berbils/game/Entities/Towers/package-tree.html">com.berbils.game.Entities.Towers</a>, </li>
@@ -119,15 +121,21 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul>
 <li class="circle">com.berbils.game.Screens.<a href="com/berbils/game/Screens/MenuScreen.html" title="class in com.berbils.game.Screens"><span class="typeNameLink">MenuScreen</span></a></li>
 <li class="circle">com.berbils.game.Screens.<a href="com/berbils/game/Screens/PauseScreen.html" title="class in com.berbils.game.Screens"><span class="typeNameLink">PauseScreen</span></a></li>
-<li class="circle">com.berbils.game.Screens.<a href="com/berbils/game/Screens/SelectFireEngineScreen.html" title="class in com.berbils.game.Screens"><span class="typeNameLink">SelectFireEngineScreen</span></a></li>
 </ul>
 </li>
 <li class="circle">com.berbils.game.Entities.EntityTypes.<a href="com/berbils/game/Entities/EntityTypes/Entity.html" title="class in com.berbils.game.Entities.EntityTypes"><span class="typeNameLink">Entity</span></a>
 <ul>
 <li class="circle">com.berbils.game.Entities.EntityTypes.<a href="com/berbils/game/Entities/EntityTypes/BoxGameEntity.html" title="class in com.berbils.game.Entities.EntityTypes"><span class="typeNameLink">BoxGameEntity</span></a>
 <ul>
-<li class="circle">com.berbils.game.Entities.FireEngines.<a href="com/berbils/game/Entities/FireEngines/FireEngine.html" title="class in com.berbils.game.Entities.FireEngines"><span class="typeNameLink">FireEngine</span></a></li>
+<li class="circle">com.berbils.game.Entities.Minigame.<a href="com/berbils/game/Entities/Minigame/Alien.html" title="class in com.berbils.game.Entities.Minigame"><span class="typeNameLink">Alien</span></a></li>
+<li class="circle">com.berbils.game.Entities.FireEngines.<a href="com/berbils/game/Entities/FireEngines/FireEngine.html" title="class in com.berbils.game.Entities.FireEngines"><span class="typeNameLink">FireEngine</span></a>
+<ul>
+<li class="circle">com.berbils.game.Entities.Minigame.<a href="com/berbils/game/Entities/Minigame/FireEngineFront.html" title="class in com.berbils.game.Entities.Minigame"><span class="typeNameLink">FireEngineFront</span></a></li>
+</ul>
+</li>
 <li class="circle">com.berbils.game.Entities.FireStation.<a href="com/berbils/game/Entities/FireStation/FireStation.html" title="class in com.berbils.game.Entities.FireStation"><span class="typeNameLink">FireStation</span></a></li>
+<li class="circle">com.berbils.game.Entities.Patrol.<a href="com/berbils/game/Entities/Patrol/Patrol.html" title="class in com.berbils.game.Entities.Patrol"><span class="typeNameLink">Patrol</span></a></li>
+<li class="circle">com.berbils.game.Entities.Minigame.<a href="com/berbils/game/Entities/Minigame/Spawner.html" title="class in com.berbils.game.Entities.Minigame"><span class="typeNameLink">Spawner</span></a></li>
 </ul>
 </li>
 <li class="circle">com.berbils.game.Entities.EntityTypes.<a href="com/berbils/game/Entities/EntityTypes/CircleGameEntity.html" title="class in com.berbils.game.Entities.EntityTypes"><span class="typeNameLink">CircleGameEntity</span></a>
@@ -154,7 +162,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="circle">com.berbils.game.Scenes.<a href="com/berbils/game/Scenes/HUD.html" title="class in com.berbils.game.Scenes"><span class="typeNameLink">HUD</span></a> (implements com.badlogic.gdx.utils.Disposable)</li>
 <li class="circle">com.berbils.game.Tools.<a href="com/berbils/game/Tools/InputManager.html" title="class in com.berbils.game.Tools"><span class="typeNameLink">InputManager</span></a></li>
 <li class="circle">com.berbils.game.Tools.<a href="com/berbils/game/Tools/MapLoader.html" title="class in com.berbils.game.Tools"><span class="typeNameLink">MapLoader</span></a></li>
-<li class="circle">com.berbils.game.Screens.<a href="com/berbils/game/Screens/PlayScreen.html" title="class in com.berbils.game.Screens"><span class="typeNameLink">PlayScreen</span></a> (implements com.badlogic.gdx.Screen)</li>
+<li class="circle">com.berbils.game.Tools.<a href="com/berbils/game/Tools/Pathfinding.html" title="class in com.berbils.game.Tools"><span class="typeNameLink">Pathfinding</span></a></li>
+<li class="circle">com.berbils.game.Screens.<a href="com/berbils/game/Screens/PlayScreen.html" title="class in com.berbils.game.Screens"><span class="typeNameLink">PlayScreen</span></a> (implements com.badlogic.gdx.Screen)
+<ul>
+<li class="circle">com.berbils.game.Screens.<a href="com/berbils/game/Screens/MiniGameScreen.html" title="class in com.berbils.game.Screens"><span class="typeNameLink">MiniGameScreen</span></a></li>
+</ul>
+</li>
 <li class="circle">com.berbils.game.Handlers.<a href="com/berbils/game/Handlers/SpriteHandler.html" title="class in com.berbils.game.Handlers"><span class="typeNameLink">SpriteHandler</span></a></li>
 <li class="circle">com.berbils.game.Screens.<a href="com/berbils/game/Screens/TitleScreen.html" title="class in com.berbils.game.Screens"><span class="typeNameLink">TitleScreen</span></a> (implements com.badlogic.gdx.Screen)</li>
 <li class="circle">com.berbils.game.<a href="com/berbils/game/Utils.html" title="class in com.berbils.game"><span class="typeNameLink">Utils</span></a></li>

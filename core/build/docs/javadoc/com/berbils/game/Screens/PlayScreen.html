@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -134,6 +134,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt>All Implemented Interfaces:</dt>
 <dd><code>com.badlogic.gdx.Screen</code></dd>
 </dl>
+<dl>
+<dt>Direct Known Subclasses:</dt>
+<dd><code><a href="MiniGameScreen.html" title="class in com.berbils.game.Screens">MiniGameScreen</a></code></dd>
+</dl>
 <hr>
 <pre>public class <span class="typeNameLabel">PlayScreen</span>
 extends java.lang.Object
@@ -233,6 +237,15 @@ implements com.badlogic.gdx.Screen</pre>
  creates game entities such as fire engines, fire stations etc.</div>
 </td>
 </tr>
+<tr class="rowColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.berbils.game.Kroy,com.badlogic.gdx.graphics.g2d.Batch)">PlayScreen</a></span>&#8203;(<a href="../Kroy.html" title="class in com.berbils.game">Kroy</a>&nbsp;game,
+          com.badlogic.gdx.graphics.g2d.Batch&nbsp;batch)</code></th>
+<td class="colLast">
+<div class="block">NEW METHOD
+ Creates an instance of PlayScreen that can be extended for
+ the MiniGameScreen.</div>
+</td>
+</tr>
 </table>
 </li>
 </ul>
@@ -293,44 +306,59 @@ implements com.badlogic.gdx.Screen</pre>
 </td>
 </tr>
 <tr id="i6" class="altColor">
+<td class="colFirst"><code><a href="../Tools/MapLoader.html" title="class in com.berbils.game.Tools">MapLoader</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMapLoader()">getMapLoader</a></span>()</code></th>
+<td class="colLast">
+<div class="block">NEW METHOD @author Archie Godfrey
+ Getter for the map loader</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPlayerScore()">getPlayerScore</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Getter for the players score</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSelectedFireEngineIndex()">getSelectedFireEngineIndex</a></span>()</code></th>
+<td class="colLast">
+<div class="block">NEW METHOD</div>
+</td>
+</tr>
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code><a href="../Handlers/SpriteHandler.html" title="class in com.berbils.game.Handlers">SpriteHandler</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSpriteHandler()">getSpriteHandler</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Getter for the screens sprite handler</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>com.badlogic.gdx.physics.box2d.World</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getWorld()">getWorld</a></span>()</code></th>
 <td class="colLast">
 <div class="block">A getter for the screen world</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hide()">hide</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#pause()">pause</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#render(float)">render</a></span>&#8203;(float&nbsp;delta)</code></th>
 <td class="colLast">
 <div class="block">Render To Play Screen</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resize(int,int)">resize</a></span>&#8203;(int&nbsp;width,
       int&nbsp;height)</code></th>
@@ -338,12 +366,12 @@ implements com.badlogic.gdx.Screen</pre>
 <div class="block">updates the gamePort width and height if the game window gets resized</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resume()">resume</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#selectFireEngine(int)">selectFireEngine</a></span>&#8203;(int&nbsp;index)</code></th>
 <td class="colLast">
@@ -351,19 +379,36 @@ implements com.badlogic.gdx.Screen</pre>
  leftFireStation variable and the fireEngineSelectedIndex;</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setFireEngSpawnPoint(com.badlogic.gdx.math.Vector2)">setFireEngSpawnPoint</a></span>&#8203;(com.badlogic.gdx.math.Vector2&nbsp;newSpawnPoint)</code></th>
 <td class="colLast">
 <div class="block">Sets the fire engine spawn point</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i18" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSelectionOverlayVisibility(boolean)">setSelectionOverlayVisibility</a></span>&#8203;(boolean&nbsp;show)</code></th>
+<td class="colLast">
+<div class="block">NEW Method @author Archie Godfrey
+ 
+ Sets the visibility of the fire engine overlay options</div>
+</td>
+</tr>
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#show()">show</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i20" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#startGameEndTimer()">startGameEndTimer</a></span>()</code></th>
+<td class="colLast">
+<div class="block">NEW Method @author Archie Godfrey
+ Create a timer that will stop repairs to fire engines after 8 minutes</div>
+</td>
+</tr>
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#towerDestroyed()">towerDestroyed</a></span>()</code></th>
 <td class="colLast">
@@ -371,7 +416,7 @@ implements com.badlogic.gdx.Screen</pre>
  updates towersAlive</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(float)">update</a></span>&#8203;(float&nbsp;delta)</code></th>
 <td class="colLast">
@@ -381,7 +426,7 @@ implements com.badlogic.gdx.Screen</pre>
  HUD.</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateCamera(float)">updateCamera</a></span>&#8203;(float&nbsp;delta)</code></th>
 <td class="colLast">
@@ -391,7 +436,7 @@ implements com.badlogic.gdx.Screen</pre>
  boundaries again</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updatePlayerScore(int)">updatePlayerScore</a></span>&#8203;(int&nbsp;scoreChange)</code></th>
 <td class="colLast">
@@ -503,6 +548,23 @@ implements com.badlogic.gdx.Screen</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
+<a id="&lt;init&gt;(com.berbils.game.Kroy,com.badlogic.gdx.graphics.g2d.Batch)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>PlayScreen</h4>
+<pre>public&nbsp;PlayScreen&#8203;(<a href="../Kroy.html" title="class in com.berbils.game">Kroy</a>&nbsp;game,
+                  com.badlogic.gdx.graphics.g2d.Batch&nbsp;batch)</pre>
+<div class="block">NEW METHOD
+ Creates an instance of PlayScreen that can be extended for
+ the MiniGameScreen.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>game</code> - the game instance</dd>
+</dl>
+</li>
+</ul>
 <a id="&lt;init&gt;(com.berbils.game.Kroy)">
 <!--   -->
 </a>
@@ -560,6 +622,17 @@ implements com.badlogic.gdx.Screen</pre>
                         (Excludes time taken to draw, render etc) since the
                         last Gdx delta call.</dd>
 </dl>
+</li>
+</ul>
+<a id="startGameEndTimer()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>startGameEndTimer</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;startGameEndTimer()</pre>
+<div class="block">NEW Method @author Archie Godfrey
+ Create a timer that will stop repairs to fire engines after 8 minutes</div>
 </li>
 </ul>
 <a id="update(float)">
@@ -741,6 +814,22 @@ implements com.badlogic.gdx.Screen</pre>
 </dl>
 </li>
 </ul>
+<a id="setSelectionOverlayVisibility(boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSelectionOverlayVisibility</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSelectionOverlayVisibility&#8203;(boolean&nbsp;show)</pre>
+<div class="block">NEW Method @author Archie Godfrey
+ 
+ Sets the visibility of the fire engine overlay options</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>show</code> - Whether to show the options (true) or hide them (false)</dd>
+</dl>
+</li>
+</ul>
 <a id="setFireEngSpawnPoint(com.badlogic.gdx.math.Vector2)">
 <!--   -->
 </a>
@@ -810,6 +899,36 @@ implements com.badlogic.gdx.Screen</pre>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>returns the game instance</dd>
+</dl>
+</li>
+</ul>
+<a id="getMapLoader()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMapLoader</h4>
+<pre class="methodSignature">public&nbsp;<a href="../Tools/MapLoader.html" title="class in com.berbils.game.Tools">MapLoader</a>&nbsp;getMapLoader()</pre>
+<div class="block">NEW METHOD @author Archie Godfrey
+ Getter for the map loader</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>returns the map loader</dd>
+</dl>
+</li>
+</ul>
+<a id="getSelectedFireEngineIndex()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSelectedFireEngineIndex</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;getSelectedFireEngineIndex()</pre>
+<div class="block">NEW METHOD</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>returns the index of the current
+ selected fire engine</dd>
 </dl>
 </li>
 </ul>

@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":6,"i8":10,"i9":10,"i10":6,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":6,"i8":10,"i9":10,"i10":6,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -437,13 +437,21 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i15" class="rowColor">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPosition(com.badlogic.gdx.math.Vector2)">setPosition</a></span>&#8203;(com.badlogic.gdx.math.Vector2&nbsp;newPosition)</code></th>
+<td class="colLast">
+<div class="block">NEW METHOD @author Archie Godfrey
+ Sets the position of the entity</div>
+</td>
+</tr>
+<tr id="i16" class="altColor">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSensor(boolean)">setSensor</a></span>&#8203;(boolean&nbsp;val)</code></th>
 <td class="colLast">
 <div class="block">Sets the currently assigned entity fixture to be a sensor(Generates
  collision callbacks but without colliding with any object)</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setShape(com.badlogic.gdx.physics.box2d.Shape)">setShape</a></span>&#8203;(com.badlogic.gdx.physics.box2d.Shape&nbsp;shape)</code></th>
 <td class="colLast">
@@ -451,14 +459,14 @@ extends java.lang.Object</pre>
  Sets the shape for the Bodies created by this entity</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSpawnPosition(com.badlogic.gdx.math.Vector2)">setSpawnPosition</a></span>&#8203;(com.badlogic.gdx.math.Vector2&nbsp;pos)</code></th>
 <td class="colLast">
 <div class="block">Set the position that all future bodies will be created at</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setUserData(java.lang.Object)">setUserData</a></span>&#8203;(java.lang.Object&nbsp;userData)</code></th>
 <td class="colLast">
@@ -466,7 +474,7 @@ extends java.lang.Object</pre>
  this entity</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#storeUserData(java.lang.Object)">storeUserData</a></span>&#8203;(java.lang.Object&nbsp;userData)</code></th>
 <td class="colLast">
@@ -864,6 +872,21 @@ extends java.lang.Object</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>catBits</code> - The category bits used for Box2D collision filtering</dd>
 <dd><code>maskBits</code> - The mask bits used for Box2D collision filtering</dd>
+</dl>
+</li>
+</ul>
+<a id="setPosition(com.badlogic.gdx.math.Vector2)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setPosition</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setPosition&#8203;(com.badlogic.gdx.math.Vector2&nbsp;newPosition)</pre>
+<div class="block">NEW METHOD @author Archie Godfrey
+ Sets the position of the entity</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>newPosition</code> - The new position the entity should be at</dd>
 </dl>
 </li>
 </ul>

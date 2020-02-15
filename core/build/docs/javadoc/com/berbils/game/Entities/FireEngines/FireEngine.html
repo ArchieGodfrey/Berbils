@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -140,6 +140,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="description">
 <ul class="blockList">
 <li class="blockList">
+<dl>
+<dt>Direct Known Subclasses:</dt>
+<dd><code><a href="../Minigame/FireEngineFront.html" title="class in com.berbils.game.Entities.Minigame">FireEngineFront</a></code></dd>
+</dl>
 <hr>
 <pre>public class <span class="typeNameLabel">FireEngine</span>
 extends <a href="../EntityTypes/BoxGameEntity.html" title="class in com.berbils.game.Entities.EntityTypes">BoxGameEntity</a></pre>
@@ -264,13 +268,44 @@ extends <a href="../EntityTypes/BoxGameEntity.html" title="class in com.berbils.
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#reset()">reset</a></span>()</code></th>
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAlive()">getAlive</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Resets the current health and current water atributes to their max values</div>
+<div class="block">NEW Method @author Archie Godfrey
+ 
+ Get whether the fire engine is alive or not</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onDeath()">onDeath</a></span>()</code></th>
+<td class="colLast">
+<div class="block">UPDATED Method @author Archie Godfrey
+ Method is now public so it can be overriden in FireEngineFront
+ 
+ Method called to represent fire engine death, updates scores, the
+ current screen shown and what state the game will be in after the
+ screens shown.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#reset(boolean)">reset</a></span>&#8203;(boolean&nbsp;resetStats)</code></th>
+<td class="colLast">
+<div class="block">UPDATED Method @author Archie Godfrey
+ Resets the current health and current water atributes to their max values</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAlive(boolean)">setAlive</a></span>&#8203;(boolean&nbsp;alive)</code></th>
+<td class="colLast">
+<div class="block">NEW Method @author Archie Godfrey
+ 
+ Set whether the fire engine is alive or not</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawn(com.badlogic.gdx.math.Vector2)">spawn</a></span>&#8203;(com.badlogic.gdx.math.Vector2&nbsp;spawnPos)</code></th>
 <td class="colLast">
@@ -278,7 +313,7 @@ extends <a href="../EntityTypes/BoxGameEntity.html" title="class in com.berbils.
  creates an attached sprite</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#takeDamage(int)">takeDamage</a></span>&#8203;(int&nbsp;damageTaken)</code></th>
 <td class="colLast">
@@ -292,14 +327,14 @@ extends <a href="../EntityTypes/BoxGameEntity.html" title="class in com.berbils.
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;com.berbils.game.Entities.EntityTypes.<a href="../EntityTypes/BoxGameEntity.html" title="class in com.berbils.game.Entities.EntityTypes">BoxGameEntity</a></h3>
-<code><a href="../EntityTypes/BoxGameEntity.html#defineBox2DEntity()">defineBox2DEntity</a>, <a href="../EntityTypes/BoxGameEntity.html#getSizeDims()">getSizeDims</a></code></li>
+<code><a href="../EntityTypes/BoxGameEntity.html#defineBox2DEntity()">defineBox2DEntity</a>, <a href="../EntityTypes/BoxGameEntity.html#getSizeDims()">getSizeDims</a>, <a href="../EntityTypes/BoxGameEntity.html#setScale(com.badlogic.gdx.math.Vector2)">setScale</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.com.berbils.game.Entities.EntityTypes.Entity">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;com.berbils.game.Entities.EntityTypes.<a href="../EntityTypes/Entity.html" title="class in com.berbils.game.Entities.EntityTypes">Entity</a></h3>
-<code><a href="../EntityTypes/Entity.html#createBodyCopy()">createBodyCopy</a>, <a href="../EntityTypes/Entity.html#createBox2DBody()">createBox2DBody</a>, <a href="../EntityTypes/Entity.html#createBox2Definition()">createBox2Definition</a>, <a href="../EntityTypes/Entity.html#createFixture()">createFixture</a>, <a href="../EntityTypes/Entity.html#createFixtureCopy()">createFixtureCopy</a>, <a href="../EntityTypes/Entity.html#createFixtureDefinition()">createFixtureDefinition</a>, <a href="../EntityTypes/Entity.html#createSprite()">createSprite</a>, <a href="../EntityTypes/Entity.html#getBody()">getBody</a>, <a href="../EntityTypes/Entity.html#getFixture()">getFixture</a>, <a href="../EntityTypes/Entity.html#setBodyDefAngularDampening(float)">setBodyDefAngularDampening</a>, <a href="../EntityTypes/Entity.html#setBodyDefLinearDampening(float)">setBodyDefLinearDampening</a>, <a href="../EntityTypes/Entity.html#setFixtureCategory(short,short)">setFixtureCategory</a>, <a href="../EntityTypes/Entity.html#setFixtureDefSensor(java.lang.Boolean)">setFixtureDefSensor</a>, <a href="../EntityTypes/Entity.html#setSensor(boolean)">setSensor</a>, <a href="../EntityTypes/Entity.html#setShape(com.badlogic.gdx.physics.box2d.Shape)">setShape</a>, <a href="../EntityTypes/Entity.html#setSpawnPosition(com.badlogic.gdx.math.Vector2)">setSpawnPosition</a>, <a href="../EntityTypes/Entity.html#setUserData(java.lang.Object)">setUserData</a>, <a href="../EntityTypes/Entity.html#storeUserData(java.lang.Object)">storeUserData</a></code></li>
+<code><a href="../EntityTypes/Entity.html#createBodyCopy()">createBodyCopy</a>, <a href="../EntityTypes/Entity.html#createBox2DBody()">createBox2DBody</a>, <a href="../EntityTypes/Entity.html#createBox2Definition()">createBox2Definition</a>, <a href="../EntityTypes/Entity.html#createFixture()">createFixture</a>, <a href="../EntityTypes/Entity.html#createFixtureCopy()">createFixtureCopy</a>, <a href="../EntityTypes/Entity.html#createFixtureDefinition()">createFixtureDefinition</a>, <a href="../EntityTypes/Entity.html#createSprite()">createSprite</a>, <a href="../EntityTypes/Entity.html#getBody()">getBody</a>, <a href="../EntityTypes/Entity.html#getFixture()">getFixture</a>, <a href="../EntityTypes/Entity.html#setBodyDefAngularDampening(float)">setBodyDefAngularDampening</a>, <a href="../EntityTypes/Entity.html#setBodyDefLinearDampening(float)">setBodyDefLinearDampening</a>, <a href="../EntityTypes/Entity.html#setFixtureCategory(short,short)">setFixtureCategory</a>, <a href="../EntityTypes/Entity.html#setFixtureDefSensor(java.lang.Boolean)">setFixtureDefSensor</a>, <a href="../EntityTypes/Entity.html#setPosition(com.badlogic.gdx.math.Vector2)">setPosition</a>, <a href="../EntityTypes/Entity.html#setSensor(boolean)">setSensor</a>, <a href="../EntityTypes/Entity.html#setShape(com.badlogic.gdx.physics.box2d.Shape)">setShape</a>, <a href="../EntityTypes/Entity.html#setSpawnPosition(com.badlogic.gdx.math.Vector2)">setSpawnPosition</a>, <a href="../EntityTypes/Entity.html#setUserData(java.lang.Object)">setUserData</a>, <a href="../EntityTypes/Entity.html#storeUserData(java.lang.Object)">storeUserData</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
@@ -457,6 +492,21 @@ extends <a href="../EntityTypes/BoxGameEntity.html" title="class in com.berbils.
 </dl>
 </li>
 </ul>
+<a id="onDeath()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>onDeath</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;onDeath()</pre>
+<div class="block">UPDATED Method @author Archie Godfrey
+ Method is now public so it can be overriden in FireEngineFront
+ 
+ Method called to represent fire engine death, updates scores, the
+ current screen shown and what state the game will be in after the
+ screens shown.</div>
+</li>
+</ul>
 <a id="spawn(com.badlogic.gdx.math.Vector2)">
 <!--   -->
 </a>
@@ -474,14 +524,48 @@ extends <a href="../EntityTypes/BoxGameEntity.html" title="class in com.berbils.
 </dl>
 </li>
 </ul>
-<a id="reset()">
+<a id="reset(boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>reset</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;reset&#8203;(boolean&nbsp;resetStats)</pre>
+<div class="block">UPDATED Method @author Archie Godfrey
+ Resets the current health and current water atributes to their max values</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>resetStats</code> - A boolean for whether the health and water of the
+                                                fire engine should be reset to full</dd>
+</dl>
+</li>
+</ul>
+<a id="setAlive(boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAlive</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAlive&#8203;(boolean&nbsp;alive)</pre>
+<div class="block">NEW Method @author Archie Godfrey
+ 
+ Set whether the fire engine is alive or not</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>alive</code> - True if alive, false if dead</dd>
+</dl>
+</li>
+</ul>
+<a id="getAlive()">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>reset</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;reset()</pre>
-<div class="block">Resets the current health and current water atributes to their max values</div>
+<h4>getAlive</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;getAlive()</pre>
+<div class="block">NEW Method @author Archie Godfrey
+ 
+ Get whether the fire engine is alive or not</div>
 </li>
 </ul>
 </li>

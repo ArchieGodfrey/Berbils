@@ -136,7 +136,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <dl>
 <dt>Direct Known Subclasses:</dt>
-<dd><code><a href="MenuScreen.html" title="class in com.berbils.game.Screens">MenuScreen</a></code>, <code><a href="PauseScreen.html" title="class in com.berbils.game.Screens">PauseScreen</a></code>, <code><a href="SelectFireEngineScreen.html" title="class in com.berbils.game.Screens">SelectFireEngineScreen</a></code></dd>
+<dd><code><a href="MenuScreen.html" title="class in com.berbils.game.Screens">MenuScreen</a></code>, <code><a href="PauseScreen.html" title="class in com.berbils.game.Screens">PauseScreen</a></code></dd>
 </dl>
 <hr>
 <pre>public abstract class <span class="typeNameLabel">BasicMenu</span>
@@ -169,6 +169,13 @@ implements com.badlogic.gdx.Screen</pre>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#menuButtons">menuButtons</a></span></code></th>
 <td class="colLast">
 <div class="block">The list of buttons that need to be drawn</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected com.badlogic.gdx.scenes.scene2d.Stage</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stage">stage</a></span></code></th>
+<td class="colLast">
+<div class="block">The stage, where the buttons are displayed</div>
 </td>
 </tr>
 </table>
@@ -293,11 +300,21 @@ implements com.badlogic.gdx.Screen</pre>
 <a id="menuButtons">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>menuButtons</h4>
 <pre>protected&nbsp;java.util.ArrayList&lt;com.badlogic.gdx.scenes.scene2d.ui.TextButton&gt; menuButtons</pre>
 <div class="block">The list of buttons that need to be drawn</div>
+</li>
+</ul>
+<a id="stage">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>stage</h4>
+<pre>protected&nbsp;com.badlogic.gdx.scenes.scene2d.Stage stage</pre>
+<div class="block">The stage, where the buttons are displayed</div>
 </li>
 </ul>
 </li>

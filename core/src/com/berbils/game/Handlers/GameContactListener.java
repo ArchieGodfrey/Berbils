@@ -6,23 +6,12 @@ import com.berbils.game.Entities.FireStation.FireStation;
 import com.berbils.game.Entities.ProjectileSpawners.ProjectileTypes.Projectiles;
 import com.berbils.game.Entities.Towers.Tower;
 import com.berbils.game.Kroy;
-import com.berbils.game.Screens.PlayScreen;
 
 public class GameContactListener implements ContactListener
-	{
-		
-		/** NEW Line @author Matteo Barberis */
-		PlayScreen s;
-		
-		 /**
-	 * 	UPDATED Method @author Matteo Barberis
-	 * 	GameContactListener takes reference of PlayScreen as parameter
-	 */
-		public GameContactListener(PlayScreen s)
+	{		
+		public GameContactListener()
 		{
 		super();
-		/** NEW Line @author Matteo Barberis */
-		this.s = s;
 		}
 
 	/***
@@ -110,11 +99,7 @@ public class GameContactListener implements ContactListener
 		else if (this.fireEngineContactFireStation(fixtureAUserData,
 												   fixtureBUserData)) {
 			this.getFireEngineObject(fixtureAUserData,
-									 fixtureBUserData).leftFireStation = true;
-									 /** NEW Lines @author Matteo Barberis */
-									 s.setSelectionOverlayVisibility(false);
-									 s.resetEngineStats();
-		
+									 fixtureBUserData).reset();
 		}
 		else {
 			return;

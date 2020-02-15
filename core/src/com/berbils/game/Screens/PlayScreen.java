@@ -201,8 +201,7 @@ public class PlayScreen implements Screen
 		{
 		// Create a world with 0 forces applied to it
 		world = new World(new Vector2(0, 0), true);
-		/** NEW Line @author Matteo Barberis */
-		this.world.setContactListener(new GameContactListener(this));
+		this.world.setContactListener(new GameContactListener());
 		this.spriteHandler = new SpriteHandler(this,
 											   Kroy.CITY_MAP_TEX,
 											   maploader.getDims().cpy());
@@ -299,12 +298,10 @@ public class PlayScreen implements Screen
 			new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
-
 					// destroys current fireengine
-					fireStation.destroyEngine();
+					fireStation.destroyEngine(player);
 					
 					selectFireEngine(index);
-					Gdx.input.setInputProcessor(null);
 					setSelectionOverlayVisibility(false);
 
 				}
@@ -332,8 +329,6 @@ public class PlayScreen implements Screen
 	  {
 		update(delta);
 		renderer.render();
-		System.out.println(this.player.leftFireStation);
-
 
 		// Render HUD
 		game.batch.setProjectionMatrix(gameCam.combined);
@@ -500,6 +495,11 @@ public class PlayScreen implements Screen
 	public void resize(int width, int height)
 		{
 		gamePort.update(width, height);
+		/**
+		 * NEW Line @author Archie Godfrey
+		 * Update the viewport so that buttons remain responsive
+		 */
+		this.hud.getStage().getViewport().update(width, height, false);
 		}
 
 
@@ -641,9 +641,5 @@ public class PlayScreen implements Screen
 	public World getWorld()
 		{
 		return world;
-		}
-
-		public void resetEngineStats(){
-			player.reset();
 		}
 	}

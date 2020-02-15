@@ -234,6 +234,8 @@ public class FireEngine extends BoxGameEntity
 		{
 		this.currentHealth = this.maxHealth;
 		this.currentWater = this.maxWater;
+		this.leftFireStation = true;
+		this.screen.setSelectionOverlayVisibility(false);
 		}
 
 

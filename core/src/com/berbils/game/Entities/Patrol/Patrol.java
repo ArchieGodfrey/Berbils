@@ -127,8 +127,7 @@ public class Patrol extends BoxGameEntity
 		 * destroy the patrol
 		 */
 		public void collided() {
-			//this.screen.getGame().setScreen(this.screen.getGame().getNewMinigameScreen());
-			this.screen.destroyBody(this.getFixture().getBody());
+			this.screen.getGame().setScreen(this.screen.getGame().getNewMinigameScreen());
 			this.spriteHandler.destroySpriteAndBody(this.getFixture());
 		}
 

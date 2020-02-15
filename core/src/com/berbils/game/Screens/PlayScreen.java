@@ -13,7 +13,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -35,7 +34,6 @@ import com.berbils.game.Utils;
 import com.berbils.game.Scenes.HUD;
 import com.berbils.game.Tools.InputManager;
 import com.berbils.game.Tools.MapLoader;
-import com.berbils.game.Tools.Pathfinding;
 
 import java.util.ArrayList;
 
@@ -434,7 +432,7 @@ public class PlayScreen implements Screen
 		);
 
 		for (Patrol patrol : this.patrolList) {
-      patrol.spawn(this.maploader.getEngineSpawn());
+      patrol.spawn(new Vector2(this.maploader.getEngineSpawn().x, this.maploader.getEngineSpawn().y + 3));
     }
 	}
 

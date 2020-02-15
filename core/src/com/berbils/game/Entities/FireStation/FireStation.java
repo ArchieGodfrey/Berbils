@@ -84,9 +84,7 @@ public class FireStation extends BoxGameEntity
 	 * @param fireEngine 	The fire engine to destroy
 	 */
 	public void destroyEngine(FireEngine fireEngine){
-		if (this.shouldRepairFireEngine) {
-			fireEngine.reset();
-		}
+		fireEngine.reset(this.shouldRepairFireEngine);
 		this.screen.setFireEngSpawnPoint(this.position);
 		this.spriteHandler.destroySpriteAndBody(fireEngine.getFixture());
 	}

@@ -351,11 +351,10 @@ public class PlayScreen implements Screen
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					// destroys current fireengine
-					fireStation.destroyEngine(player);
-					
+					//fireStation.destroyEngine(player);
+					Gdx.input.setInputProcessor(null);
 					selectFireEngine(index);
-					setSelectionOverlayVisibility(false);
-
+					//setSelectionOverlayVisibility(false);
 				}
 			});
 		}
@@ -617,6 +616,7 @@ public class PlayScreen implements Screen
 		this.player = this.fireEngineArrayList.get(index);
 		this.player.leftFireStation = false;
 		this.player.spawn(this.fireEngSpawnPos);
+		System.out.println("select");
 		this.fireEngineSelectedIndex = index;
 		}
 

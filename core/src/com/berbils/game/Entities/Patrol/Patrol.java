@@ -113,7 +113,7 @@ public class Patrol extends BoxGameEntity
          */
         public void update() {
             // Path to take
-            System.out.println(this.path);
+            //System.out.println(this.path);
 
 			if (this.path != null) {
 				// Move towards next point
@@ -127,7 +127,7 @@ public class Patrol extends BoxGameEntity
 		 * destroy the patrol
 		 */
 		public void collided() {
-			this.screen.getGame().setScreen(this.screen.getGame().getNewMinigameScreen());
+			//this.screen.getGame().setScreen(this.screen.getGame().getNewMinigameScreen());
 			this.screen.destroyBody(this.getFixture().getBody());
 			this.spriteHandler.destroySpriteAndBody(this.getFixture());
 		}

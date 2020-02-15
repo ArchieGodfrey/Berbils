@@ -33,7 +33,7 @@ public class GameContactListener implements ContactListener
 		if (fixtureA == null || fixtureB == null) {
 			return;
 		}
-		System.out.println("Collision start " + fixtureAUserData + " " + fixtureBUserData);
+
 		// Fire engine getting in range of a tower
 		if (this.fireEngContactTowerSensor(fixtureAUserData,
 												fixtureBUserData)) {
@@ -99,7 +99,6 @@ public class GameContactListener implements ContactListener
 
 		Object fixtureAUserData = fixtureA.getBody().getUserData();
 		Object fixtureBUserData = fixtureB.getBody().getUserData();
-		System.out.println("Collision end " + fixtureAUserData + " " + fixtureBUserData);
 
 		if (fixtureA == null || fixtureB == null) {
 			return;
@@ -113,8 +112,9 @@ public class GameContactListener implements ContactListener
 		// Fire engine left fire station
 		else if (this.fireEngineContactFireStation(fixtureAUserData,
 												   fixtureBUserData)) {
+			// Updated reset method @author Archie Godfrey
 			this.getFireEngineObject(fixtureAUserData,
-									 fixtureBUserData).reset();
+									 fixtureBUserData).reset(false);
 		}
 		else {
 			return;

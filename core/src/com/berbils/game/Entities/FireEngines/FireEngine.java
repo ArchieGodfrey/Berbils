@@ -195,7 +195,6 @@ public class FireEngine extends BoxGameEntity
 			* */
 			Kroy game = this.screen.getGame();
 			this.screen.fireEngineDestroyed();
-			game.selectFireEngine.removeButton(this.screen.fireEngineSelectedIndex);
 
 			if (this.screen.allFireEnginesDestroyed()) {
 				this.screen.getGame().setScreen(game.gameOverScreen);
@@ -204,7 +203,7 @@ public class FireEngine extends BoxGameEntity
 			}
 			else {
 				game.fireEngineDestroyedScreen.setTimer(2,
-														game.selectFireEngine);
+														game.gameScreen);
 				this.spriteHandler.destroySpriteAndBody(this.entityFixture);
 				this.screen.updatePlayerScore(-200);
 				this.screen.getGame().setScreen(game.fireEngineDestroyedScreen);
@@ -231,12 +230,18 @@ public class FireEngine extends BoxGameEntity
 		}
 
 	/**
+	 * UPDATED Method @author Archie Godfrey
 	 * Resets the current health and current water atributes to their max values
+	 * 
+	 * @param resetStats	A boolean for whether the health and water of the
+	 * 						fire engine should be reset to full
 	 */
-	public void reset()
+	public void reset(boolean resetStats)
 		{
-		this.currentHealth = this.maxHealth;
-		this.currentWater = this.maxWater;
+		if (resetStats) {
+			this.currentHealth = this.maxHealth;
+			this.currentWater = this.maxWater;
+		}
 		this.leftFireStation = true;
 		this.screen.setSelectionOverlayVisibility(false);
 		}

@@ -546,6 +546,17 @@ public class PlayScreen implements Screen
 		}
 
 	/**
+	 * NEW Method @author Archie Godfrey
+	 * Sets the players water by the amount passed in
+	 *
+	 * @param waterChange Can be any int, negative or positive
+	 */
+	public void setPlayerWater(int waterChange)
+		{
+			this.player.currentWater = waterChange;
+		}
+
+	/**
 	 *
 	 * Getter for the players score
 	 *

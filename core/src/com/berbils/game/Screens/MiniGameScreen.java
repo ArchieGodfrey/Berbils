@@ -231,6 +231,8 @@ public class MiniGameScreen extends PlayScreen
 			if (this.aliens.size() <= 0) {
 				// Cancel timer and return to main game
 				this.cancelTimer();
+				game.gameScreen.updatePlayerScore(this.getPlayerScore());
+				game.gameScreen.setPlayerWater(this.player.currentWater);
 				this.getGame().setScreen(game.gameScreen);
 			}
 		}

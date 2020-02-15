@@ -75,6 +75,7 @@ public class FireEngineFront extends FireEngine
 			this.setAlive(false);
 			Kroy game = this.screen.getGame();
 			game.gameScreen.updatePlayerScore(-200);
+			game.gameScreen.setPlayerStats(this.currentWater, this.currentHealth - 50);
 			this.miniGameScreen.cancelTimer();
 			game.setScreen(game.gameScreen);
 		}

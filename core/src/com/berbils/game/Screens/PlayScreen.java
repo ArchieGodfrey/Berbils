@@ -547,13 +547,15 @@ public class PlayScreen implements Screen
 
 	/**
 	 * NEW Method @author Archie Godfrey
-	 * Sets the players water by the amount passed in
+	 * Sets the players water and health stats
 	 *
-	 * @param waterChange Can be any int, negative or positive
+	 * @param water The new water level
+	 * @param health The new health level
 	 */
-	public void setPlayerWater(int waterChange)
+	public void setPlayerStats(int water, int health)
 		{
-			this.player.currentWater = waterChange;
+			this.player.currentWater = water;
+			this.player.currentHealth = health;
 		}
 
 	/**
@@ -653,17 +655,6 @@ public class PlayScreen implements Screen
     	}
 		}
 	}
-
-	/**
-	 * NEW METHOD @author Archie Godfrey
-	 * Getter for all fire engines
-	 *
-	 * @return returns all fire engines in the array
-	 */
-	public ArrayList<FireEngine> getFireEngines()
-		{
-		return this.fireEngineArrayList;
-		}
 
 	/**
 	 * Sets the fire engine spawn point

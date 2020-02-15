@@ -10,8 +10,8 @@ import com.berbils.game.Entities.Towers.Tower;
 import com.berbils.game.Kroy;
 
 public class GameContactListener implements ContactListener
-	{
-	public GameContactListener()
+	{		
+		public GameContactListener()
 		{
 		super();
 		}
@@ -114,7 +114,7 @@ public class GameContactListener implements ContactListener
 		else if (this.fireEngineContactFireStation(fixtureAUserData,
 												   fixtureBUserData)) {
 			this.getFireEngineObject(fixtureAUserData,
-									 fixtureBUserData).leftFireStation = true;
+									 fixtureBUserData).reset();
 		}
 		else {
 			return;

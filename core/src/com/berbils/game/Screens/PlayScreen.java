@@ -219,6 +219,7 @@ public class PlayScreen implements Screen
 	 * the map borders. The box2D Debug renderer is also initalised here
 	 * </p>
 	 */
+
 	private void createBox2DWorld()
 		{
 		// Create a world with 0 forces applied to it
@@ -349,9 +350,12 @@ public class PlayScreen implements Screen
 			new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
+					// destroys current fireengine
+					fireStation.destroyEngine(player);
+					
 					selectFireEngine(index);
-					Gdx.input.setInputProcessor(null);
 					setSelectionOverlayVisibility(false);
+
 				}
 			});
 		}
@@ -556,6 +560,11 @@ public class PlayScreen implements Screen
 	public void resize(int width, int height)
 		{
 		gamePort.update(width, height);
+		/**
+		 * NEW Line @author Archie Godfrey
+		 * Update the viewport so that buttons remain responsive
+		 */
+		this.hud.getStage().getViewport().update(width, height, false);
 		}
 
 

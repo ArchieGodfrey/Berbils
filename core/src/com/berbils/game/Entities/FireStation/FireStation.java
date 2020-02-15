@@ -64,12 +64,6 @@ public class FireStation extends BoxGameEntity
 		{
 		FireEngine fireEngine = ( (FireEngine) fixture.getUserData() );
 		if (fireEngine.leftFireStation) {
-			// NEW Line - only repair fire engines if before 8 minutes
-			if (this.shouldRepairFireEngine) {
-				fireEngine.reset();
-			}
-			this.screen.setFireEngSpawnPoint(this.position);
-			this.spriteHandler.destroySpriteAndBody(fixture);
 			this.screen.setSelectionOverlayVisibility(true);
 		}
 		}
@@ -80,5 +74,21 @@ public class FireStation extends BoxGameEntity
 	*/
 	public void stopRepairs() {
 		this.shouldRepairFireEngine = false;
+	}		
+
+	/**
+	 * NEW Method @author Matteo Barberis and @author Archie Godfrey
+	 * moved code to reset and destroy old fire engine
+	 * in a new method that now is called when a menu button is pressed
+	 * 
+	 * @param fireEngine 	The fire engine to destroy
+	 */
+	public void destroyEngine(FireEngine fireEngine){
+		if (this.shouldRepairFireEngine) {
+			fireEngine.reset();
+		}
+		this.screen.setFireEngSpawnPoint(this.position);
+		this.spriteHandler.destroySpriteAndBody(fireEngine.getFixture());
 	}
+
 	}

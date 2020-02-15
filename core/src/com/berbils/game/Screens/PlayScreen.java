@@ -2,27 +2,39 @@ package com.berbils.game.Screens;
 
 import static com.berbils.game.Kroy.PPM;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.berbils.game.Entities.FireEngines.FireEngine;
 import com.berbils.game.Entities.FireStation.FireStation;
+import com.berbils.game.Entities.Patrol.Patrol;
 import com.berbils.game.Entities.ProjectileSpawners.*;
 import com.berbils.game.Entities.ProjectileSpawners.ProjectileTypes.*;
 import com.berbils.game.Entities.Towers.Tower;
 import com.berbils.game.Handlers.GameContactListener;
 import com.berbils.game.Handlers.SpriteHandler;
 import com.berbils.game.Kroy;
+import com.berbils.game.Utils;
 import com.berbils.game.Scenes.HUD;
 import com.berbils.game.Tools.InputManager;
 import com.berbils.game.Tools.MapLoader;
+
 import java.util.ArrayList;
 
 /**
@@ -34,7 +46,6 @@ public class PlayScreen implements Screen
 	/** The game camera */
 	public OrthographicCamera gameCam;
 	// Set to public temporarily, can be private once more when tower loading from map is done
-
 
 	/** the current index of the fire engine selected, this index relates to
 	 * the button to select it on the SelectFireEngineScreen */
@@ -85,14 +96,6 @@ public class PlayScreen implements Screen
 	/** Array containing all fire engine instances */;
 	private ArrayList<FireEngine> fireEngineArrayList = new ArrayList<>();
 
-	/** large slower fire engine with a higher damage weapon and higher
-	 * health and water capacity
-	 */
-	private FireEngine largeFireEngine;
-
-	/** Standard fire engine with standard states */
-	private FireEngine normalFireEngine;
-
 	/** The player */
 	private FireEngine player;
 
@@ -113,6 +116,11 @@ public class PlayScreen implements Screen
 	/** Array List storing all pre-defined projectiles */
 	private ArrayList<Projectiles> projectileList = new ArrayList<>();
 
+	/** NEW Field @author Archie Godfrey 
+	 * Array List storing all pre-defined patrols 
+	*/
+	private ArrayList<Patrol> patrolList = new ArrayList<Patrol>();
+
 	/** Array List storing all pre-defined Weapons */
 	private ArrayList<Weapon> weaponList = new ArrayList<>();
 	// Box2d Object Managers
@@ -131,6 +139,18 @@ public class PlayScreen implements Screen
 
 	/** The players score */
 	private int playerScore;
+
+	/**
+	 * NEW METHOD
+	 * Creates an instance of PlayScreen that can be extended for
+	 * the MiniGameScreen.
+	 *
+	 * @param game the game instance
+	 */
+	public PlayScreen(Kroy game, Batch batch)
+		{
+			this.game = game;
+		}
 
 	/**
 	 * Creates the camera, loads the map in, creates the Box2D world and
@@ -153,7 +173,8 @@ public class PlayScreen implements Screen
 		this.fireEngSpawnPos = maploader.getEngineSpawn();
 		this.fireEnginesAlive = this.fireEngineArrayList.size();
 		this.towersAlive = this.towers.size;
-		hud = new HUD(game.batch, player, this);
+		/** NEW Line @author Archie Godfrey */
+		this.hud = new HUD(this.game.batch, 4);
 		this.playerScore = 0;
 		}
 
@@ -196,6 +217,7 @@ public class PlayScreen implements Screen
 	 * the map borders. The box2D Debug renderer is also initalised here
 	 * </p>
 	 */
+
 	private void createBox2DWorld()
 		{
 		// Create a world with 0 forces applied to it
@@ -222,10 +244,19 @@ public class PlayScreen implements Screen
 		this.createTowers();
 		this.createFireEngines();
 		this.createFireStation();
+		// NEW Line
+		this.createPatrols();
 		}
 
   @Override
-  public void show() {}
+  public void show() {
+		/**
+		 * NEW Line @author Archie Godfrey
+		 * Update the pause screen to return to the main
+		 * game if that is the current screen showing
+		 */
+		this.game.pauseScreen.returnToScreen(this.game, this);
+	}
 
   /**
    * Updates the camera every tick to follow the player
@@ -249,7 +280,20 @@ public class PlayScreen implements Screen
 
     gameCam.position.set(position);
     gameCam.update();
-  }
+	}
+	
+	/**
+	 * NEW Method @author Archie Godfrey
+	 * Create a timer that will stop repairs to fire engines after 8 minutes
+	 */
+	public void startGameEndTimer() {
+		Timer.schedule(new Task() {
+			@Override
+			public void run() {
+				fireStation.stopRepairs();
+			}
+		}, 0, 8*60 );
+	}
 
   /**
    * Updates the Play Screen every tick
@@ -275,13 +319,52 @@ public class PlayScreen implements Screen
 
     for (Projectiles projectiles : projectileList) {
       projectiles.update(delta);
+		}
+		
+		/**
+		 * NEW @author Archie Godfrey
+		 */
+		for (Patrol patrol : this.patrolList) {
+      patrol.update();
     }
 
-    hud.update();
     inputManager.handlePlayerInput(player, delta, this.game);
     renderer.setView(gameCam);
     updateCamera(delta);
-  }
+	}
+	
+	/** NEW Method @author Archie Godfrey */
+	private void createSelectionMenu() {
+		/** An array containing the text that will appear on its own button */
+		String[] menuOptions = new String[] { "Regular Fire Engine",
+			"Large Fire Engine", "Small Fire Engine", "Medium Fire Engine"
+		};
+		// Create menuButtons
+		ArrayList<TextButton> menuButtons = Utils.createMenuOptions(menuOptions);
+		// Add listeners to button press
+		for (int i = 0; i < menuButtons.size(); i ++) {
+			final int index = i;
+			menuButtons.get(i).addListener(
+			new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					// destroys current fireengine
+					//fireStation.destroyEngine(player);
+					Gdx.input.setInputProcessor(null);
+					selectFireEngine(index);
+					//setSelectionOverlayVisibility(false);
+				}
+			});
+		}
+		// Calculate styles for buttons then add to stage
+		int noOfItemRows = menuOptions.length + 1;
+		float padding = Kroy.V_HEIGHT / noOfItemRows / 2;
+		Vector2 titleSize = new Vector2(Kroy.V_WIDTH / 2, Kroy.V_HEIGHT / noOfItemRows);
+		Table selection = Utils.createTable(menuButtons, titleSize, padding);
+		// Set name so it can be found later
+		selection.setName("SELECTION_OVERLAY");
+		this.hud.getStage().addActor(selection);
+	}
 
   /**
    * Render To Play Screen
@@ -297,7 +380,6 @@ public class PlayScreen implements Screen
 		renderer.render();
 
 		// Render HUD
-		game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
 		game.batch.setProjectionMatrix(gameCam.combined);
 
 		// Draw Sprites
@@ -305,10 +387,16 @@ public class PlayScreen implements Screen
 		spriteHandler.updateAndDrawAllSprites(game.batch);
 		game.batch.end();
 
-		hud.stage.draw();
+		/**
+		 * NEW Method @author Archie Godfrey
+		 * Updated how the HUD is displayed
+		 */
+		String[] labelNames = { "Water", "FPS", "Score", "Health" };
+		int[] labelValues = { this.player.currentWater, Gdx.graphics.getFramesPerSecond(), this.getPlayerScore(), this.player.currentHealth };
+    this.hud.update(labelNames, labelValues);
 		// If change false to true, the box2D debug renderer will render box2D
 		// body outlines
-		if(false) {
+		if(true) {
 		b2dr.render(world, gameCam.combined.scl(PPM));
 		}
 	}
@@ -333,7 +421,20 @@ public class PlayScreen implements Screen
       this.world.destroyBody(this.toBeDeleted.get(i));
       this.toBeDeleted.remove(i);
     }
-  }
+	}
+	
+	/**
+	 * NEW METHOD @author Archie Godfrey
+	 */
+	private void createPatrols() {
+		this.patrolList.add(
+			new Patrol(this, new Vector2(1.5f, 1), 15, new Vector2(0,0), this.maploader.getEngineSpawn(),Kroy.HEAVY_FIRE_ENGINE_TEX)
+		);
+
+		for (Patrol patrol : this.patrolList) {
+      patrol.spawn(new Vector2(this.maploader.getEngineSpawn().x, this.maploader.getEngineSpawn().y + 3));
+    }
+	}
 
 	/**
 	 * Creates pre defined projectiles and adds them to screen projectile list
@@ -346,7 +447,7 @@ public class PlayScreen implements Screen
     this.slowLargeExplosiveProjectile =
         new ExplodingBulletCircle(0.5f, 0.25f, 20, 1, 2.5f, 5, Kroy.EXPLOSIVE_PROJECTILE_TEXTURE, this);
     this.waterProjectile =
-        new SimpleBulletCircle(5f, 0.25f, 10, 3, Kroy.WATER_PROJECTILE_TEX,
+        new SimpleBulletCircle(5f, 0.25f, 1000, 3, Kroy.WATER_PROJECTILE_TEX,
 							   this);
 	  this.largewaterProjectile =
 			  new SimpleBulletCircle(4f, 0.4f, 20, 3.5f, Kroy.WATER_PROJECTILE_TEX, this);
@@ -387,26 +488,35 @@ public class PlayScreen implements Screen
 		}
 
 	/**
+	 * 	UPDATED Method @author Archie Godfrey
+	 * 	Removed local instances of fire engines, now all are stored in the global array
+	 * 
 	 *  Creates instances of pre-defined fire engines but doesnt spawn their
 	 *  sprites or Box2d bodies/fixtures then adds them to the
 	 *  fireEngineArrayList
 	 */
   	private void createFireEngines() {
-		this.normalFireEngine =
+		this.fireEngineArrayList.add(
 			new FireEngine(
 				this, new Vector2(1, 0.5f), this.baseFireEngWeapon, 400, 20, 100,
-				Kroy.BASE_FIRE_ENGINE_TEX);
-
-		this.largeFireEngine =
+				Kroy.BASE_FIRE_ENGINE_TEX)
+		);
+		this.fireEngineArrayList.add(
+				new FireEngine(
+					this, new Vector2(1.5f, 1), this.largeFireEngWeapon, 800, 15, 200,
+					Kroy.HEAVY_FIRE_ENGINE_TEX)
+		);
+		// TEMPORARY - Update with actual new fireengines
+		this.fireEngineArrayList.add(
 			new FireEngine(
-				this, new Vector2(1.5f, 1), this.largeFireEngWeapon, 800, 15, 200,
-				Kroy.HEAVY_FIRE_ENGINE_TEX);
-
-
-		this.fireEngineArrayList.add(this.normalFireEngine);
-		this.fireEngineArrayList.add(this.largeFireEngine);
-
-		this.player = this.normalFireEngine;
+				this, new Vector2(1, 0.5f), this.baseFireEngWeapon, 400, 20, 100,
+				Kroy.ORANGE_FIRE_ENGINE_TEX)
+		);
+		this.fireEngineArrayList.add(
+			new FireEngine(
+				this, new Vector2(1, 0.5f), this.baseFireEngWeapon, 400, 20, 100,
+				Kroy.GREEN_FIRE_ENGINE_TEX)
+		);
 	  }
 
 	/**
@@ -447,6 +557,11 @@ public class PlayScreen implements Screen
 	public void resize(int width, int height)
 		{
 		gamePort.update(width, height);
+		/**
+		 * NEW Line @author Archie Godfrey
+		 * Update the viewport so that buttons remain responsive
+		 */
+		this.hud.getStage().getViewport().update(width, height, false);
 		}
 
 
@@ -499,9 +614,33 @@ public class PlayScreen implements Screen
 		this.player = this.fireEngineArrayList.get(index);
 		this.player.leftFireStation = false;
 		this.player.spawn(this.fireEngSpawnPos);
+		System.out.println("select");
 		this.fireEngineSelectedIndex = index;
-		this.hud.setPlayer(this.player);
 		}
+
+	/**
+	 * NEW Method @author Archie Godfrey
+	 * 
+	 * Sets the visibility of the fire engine overlay options
+	 *
+	 * @param show Whether to show the options (true) or hide them (false)
+	 */
+	public void setSelectionOverlayVisibility(boolean show)
+	{
+		// Show the selection overlay
+		if (show) {
+			// Allow the stage to recieve input
+			Gdx.input.setInputProcessor(this.hud.getStage());
+			this.createSelectionMenu();
+		} else {
+			// Hide the overlay by removing from the stage
+			for(Actor actor : this.hud.getStage().getActors()) {
+				if (actor.getName() == "SELECTION_OVERLAY") {
+					actor.remove();
+				}
+    	}
+		}
+	}
 
 	/**
 	 * Sets the fire engine spawn point
@@ -556,6 +695,31 @@ public class PlayScreen implements Screen
 		{
 		return this.game;
 		}
+
+	/**
+	 * NEW METHOD @author Archie Godfrey
+	 * Getter for the map loader
+	 *
+	 * @return returns the map loader
+	 */
+	public MapLoader getMapLoader()
+	{
+	return this.maploader;
+	}
+
+	/**
+	 * NEW METHOD
+	 * @author Archie Godfrey
+	 * Getter for the index of the current
+	 * selected fire engine
+	 *
+	 * @return returns the index of the current
+	 * selected fire engine
+	 */
+	public int getSelectedFireEngineIndex()
+	{
+	return this.fireEngineSelectedIndex;
+	}
 
 	/**
 	 * A getter for the screen world

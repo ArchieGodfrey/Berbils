@@ -241,6 +241,18 @@ public abstract class Entity
 		this.entityFixtureDefinition.filter.maskBits = maskBits;
 		}
 
+	/**
+	 * NEW METHOD @author Archie Godfrey
+	 * Sets the position of the entity
+	 *
+	 * @param newPosition The new position the entity should be at
+	 */
+	public void setPosition(Vector2 newPosition)
+		{
+		this.position = newPosition;
+		}
+
+
 	/**Stores the userData to be used for all future body and fixture
 	 * creations
 	 *
@@ -327,11 +339,6 @@ public abstract class Entity
 		this.entityFixture.setUserData(userData);
 		this.entityBody.setUserData(userData);
 		}
-
-
-
-
-
 
 
 	}

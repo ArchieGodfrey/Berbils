@@ -3,6 +3,8 @@ package com.berbils.game.Entities.Towers;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.berbils.game.Entities.EntityTypes.CircleGameEntity;
 import com.berbils.game.Entities.ProjectileSpawners.ProjectileTypes.Explosion;
 import com.berbils.game.Entities.ProjectileSpawners.Weapon;
@@ -175,6 +177,17 @@ public class Tower extends CircleGameEntity
 											  Kroy.EXPLOSION_TEX,
 											  50,
 											  25);
+		/**
+		 * NEW @author Archie Godfrey
+		 * Start a timer that updgrades the tower
+		 * every minute
+		 */
+		Timer.schedule(new Task() {
+			@Override
+			public void run() {
+				upgradeTower();
+			}
+		}, 60, 60 );
 		}
 
 	/**
@@ -195,6 +208,18 @@ public class Tower extends CircleGameEntity
 		this.towerSensor.setSensor(true);
 		this.towerSensor.setUserData(this);
 		}
+
+	/**
+	 * NEW Method @author Archie Godfrey
+	 * Every minute, upgrade the tower's stats by 10%
+	 */
+	private void upgradeTower() {
+		this.maxHealth *= 1.1;
+		this.range *= 1.1;
+		// Recreate sensor as diamater increased
+		this.screen.destroyBody(this.towerSensor.getFixture().getBody());
+		createSensor();
+	}
 
 	/**
 	 * Setter for the towers weapon, also sets the weapons collision filtering
@@ -267,6 +292,12 @@ public class Tower extends CircleGameEntity
 				this.explosionOnDeath.explode(this.position);
 				this.isAlive = false;
 				this.setTarget(null);
+				/**
+				 * NEW Line @author Archie Godfrey
+				 * After first fire engine is destroyed start a
+				 * 8 minute timer
+				*/
+				this.screen.startGameEndTimer(); 
 				this.screen.updatePlayerScore(1000);
 				this.screen.destroyBody(this.towerSensor.getFixture().getBody());
 				this.spriteHandler.destroySprite(this.healthBar);
@@ -324,4 +355,4 @@ public class Tower extends CircleGameEntity
 			1f), this.healthBar);
 		this.explosionOnDeath.update(deltaTime);
 		}
-	}
+}

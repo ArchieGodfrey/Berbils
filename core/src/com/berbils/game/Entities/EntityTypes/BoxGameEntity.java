@@ -127,5 +127,15 @@ public class BoxGameEntity extends Entity
 	@Override
 	public Vector2 getSizeDims() { return this.sizeDims.cpy(); }
 
+	/***
+	 * NEW METHOD @author Archie Godfrey
+	 * Setter for changing the size of an entity
+	 */
+	public void setScale(Vector2 scale) {
+		if (this.sizeDims != scale) {
+			this.sizeDims = scale;
+		}
+	}
+
 	}
 

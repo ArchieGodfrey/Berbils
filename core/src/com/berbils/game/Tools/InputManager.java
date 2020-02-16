@@ -66,7 +66,9 @@ public class InputManager {
       mousePos.x = mousePosInWorld.x;
       mousePos.y = mousePosInWorld.y;
 
-      if (player.currentWater > 0) {
+      //NEW line @author Matteo Barberis
+      //Checks health is less than 0, meaning the firetruck is destroyed and it cannot shoot
+      if (player.currentWater > 0 && player.currentHealth > 0) {
         player.fire(mousePos);
         // hud.updateWater(player.water);
       }

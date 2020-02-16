@@ -21,7 +21,9 @@ public class Patrol extends BoxGameEntity
 	 * The start and end positions for the patrol
 	 */
     private Vector2 start;
-    private Vector2 goal;
+	private Vector2 goal;
+	private boolean swapDirection;
+	private Pathfinding pathfinder;
 	
 	/**
 	 * The path it will move along
@@ -70,15 +72,16 @@ public class Patrol extends BoxGameEntity
 			2 // Sprite Layer is two as needs to be drwan on top of both
 						// towers and fire station
 		);
-		super.setFixtureCategory(Kroy.CAT_ENEMY, Kroy.MASK_ENEMY);
+		super.setFixtureCategory(Kroy.CAT_ENEMY, Kroy.MASK_UFO);
 		super.setBodyDefAngularDampening(10);
 		super.setBodyDefLinearDampening(10);
 
 		// Create the path the patrol will follow
-        Pathfinding pathfinder = new Pathfinding(this.screen.getMapLoader().map);
-        this.path = pathfinder.find(start, goal);
+        this.pathfinder = new Pathfinding(this.screen.getMapLoader().map);
+		this.path = pathfinder.find(start, goal);
         this.start = start;
-        this.goal = goal;
+		this.goal = goal;
+		this.swapDirection = false;
 		this.speed = speed;
         }
 
@@ -99,7 +102,7 @@ public class Patrol extends BoxGameEntity
 			Vector2 patrolCentre = new Vector2(this.getX() + this.getSizeDims().x / 2,this.getY() + this.getSizeDims().y / 2);
 
 			// Work out the vector between them and scale by speed
-			Vector2 trajectory = targetVector.sub(patrolCentre);
+			Vector2 trajectory = targetVector.cpy().sub(patrolCentre);
 			trajectory.nor().scl(this.speed);
 
 			// Apply force to the patrol
@@ -112,14 +115,37 @@ public class Patrol extends BoxGameEntity
          * Called every frame, move the patrol along it's path
          */
         public void update() {
-            // Path to take
-            //System.out.println(this.path);
+			
+			
+			if (this.path != null && this.path.size() > 1) {
+				Vector2 nextPosition = this.path.get(1);
+				
+				// 
+				float roundedX = (float) Math.floor(this.getX());
+				float roundedY = (float) Math.floor(this.getY());
 
-			if (this.path != null) {
-				// Move towards next point
-				moveTowards(this.path.get(0));
+				// If not at next position, move towards it
+				if (new Vector2(roundedX, roundedY) != nextPosition) {
+					System.out.println("start " + nextPosition);
+					//this.getBody().getPosition().set(nextPosition);
+					System.out.println("finish" + this.getBody().getPosition());
+					//this.path.remove(nextPosition);
+					moveTowards(nextPosition);
+				} else {
+					// Otherwise remove it from the path
+					//System.out.println(nextPosition);
+					this.path.remove(nextPosition);
+				}
+			} else if (this.path != null) {
+				System.out.println("swap true");
+				if (swapDirection) {
+					this.path = this.pathfinder.find(goal, start);
+					this.swapDirection = false;
+				} else {
+					this.path = this.pathfinder.find(goal, start);
+					this.swapDirection = true;
+				}
 			}
-
         }
 
 		/**
@@ -128,20 +154,15 @@ public class Patrol extends BoxGameEntity
 		 */
 		public void collided() {
 			this.screen.getGame().setScreen(this.screen.getGame().getNewMinigameScreen());
-			this.spriteHandler.destroySpriteAndBody(this.getFixture());
 		}
 
 	/**
 	 * This method sets the body position, then creates the body, fixture and
 	 * creates an attached sprite
-	 *
-	 * @param spawnPos The position in meters where the fire engine should be
-	 *                   created with the center of the fire engine being at
-	 *                   this position.
 	 */
-	public void spawn(Vector2 spawnPos)
+	public void spawn()
 		{
-		super.setSpawnPosition(spawnPos);
+		super.setSpawnPosition(this.start);
 		super.createBodyCopy();
 		super.createFixtureCopy();
 		super.setUserData(this);

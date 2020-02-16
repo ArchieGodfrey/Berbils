@@ -20,6 +20,7 @@ public class Kroy extends Game
 	public static final short CAT_PROJECTILE_FRIENDLY = 0x0010;
 	public static final short CAT_PROJECTILE_ENEMY = 0x0020;
 	public static final short CAT_COLLIDE_NOTHING = 0x0040;
+	public static final short MASK_UFO = 0x0025; // NEW Field @author Archie Godfrey
 	public static final short MASK_TOWER_SENSOR = CAT_FRIENDLY | CAT_ENEMY;
 	public static final short MASK_ENEMY = CAT_FRIENDLY | CAT_PROJECTILE_FRIENDLY | CAT_SCENERY;
 	public static final short MASK_FRIENDLY_PROJECTILE = CAT_ENEMY | CAT_SCENERY;

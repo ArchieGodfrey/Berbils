@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.berbils.game.Entities.EntityTypes.Entity;
 import com.berbils.game.Kroy;
 import com.berbils.game.Screens.PlayScreen;
+import com.berbils.game.Screens.MiniGameScreen;
 
 import java.util.ArrayList;
 import java.util.HashMap;

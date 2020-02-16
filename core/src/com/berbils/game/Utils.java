@@ -54,6 +54,16 @@ public final class Utils
 		// need to pad as the title takes up the top x amount of spae
 		mainTable.pad(titleSize.y);
 		for (TextButton eachButton : menuButtons) {
+
+			//NEW: Calculate how much padding each button needs to be the set width,
+			//and pad the button both left and right accordingly
+			float width = eachButton.getWidth();
+			float maxWidth = 196;
+			
+			float pad = (maxWidth-width)/2;
+			eachButton.padLeft(pad);
+			eachButton.padRight(pad);
+
 			mainTable.row();
 			mainTable.add(eachButton).padTop(padding);
 		}

@@ -256,6 +256,11 @@ public class PlayScreen implements Screen
 		 * game if that is the current screen showing
 		 */
 		this.game.pauseScreen.returnToScreen(this.game, this);
+
+		// NEW LINE
+		Gdx.input.setInputProcessor(this.hud.getStage());
+		
+		
 	}
 
   /**
@@ -376,6 +381,7 @@ public class PlayScreen implements Screen
   @Override
   public void render(float delta)
 	  {
+		
 		update(delta);
 		renderer.render();
 

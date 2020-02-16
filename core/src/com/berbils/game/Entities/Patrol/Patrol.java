@@ -21,7 +21,9 @@ public class Patrol extends BoxGameEntity
 	 * The start and end positions for the patrol
 	 */
     private Vector2 start;
-    private Vector2 goal;
+	private Vector2 goal;
+	private boolean swapDirection;
+	private Pathfinding pathfinder;
 	
 	/**
 	 * The path it will move along
@@ -70,15 +72,16 @@ public class Patrol extends BoxGameEntity
 			2 // Sprite Layer is two as needs to be drwan on top of both
 						// towers and fire station
 		);
-		super.setFixtureCategory(Kroy.CAT_ENEMY, Kroy.MASK_ENEMY);
+		super.setFixtureCategory(Kroy.CAT_ENEMY, Kroy.MASK_UFO);
 		super.setBodyDefAngularDampening(10);
 		super.setBodyDefLinearDampening(10);
 
 		// Create the path the patrol will follow
-        Pathfinding pathfinder = new Pathfinding(this.screen.getMapLoader().map);
+        this.pathfinder = new Pathfinding(this.screen.getMapLoader().map);
         this.path = pathfinder.find(start, goal);
         this.start = start;
-        this.goal = goal;
+		this.goal = goal;
+		this.swapDirection = false;
 		this.speed = speed;
         }
 
@@ -120,6 +123,20 @@ public class Patrol extends BoxGameEntity
 				moveTowards(this.path.get(0));
 			}
 
+			// When goal reached, move back to start
+			if (new Vector2(this.getX(), this.getY()) == this.goal && !this.swapDirection) {
+				this.swapDirection = true;
+				this.path = this.pathfinder.find(start, goal);
+				System.out.println("swap true");
+			}
+
+			// When start reached, move back to goal
+			if (new Vector2(this.getX(), this.getY()) == this.goal && !this.swapDirection) {
+				this.swapDirection = false;
+				this.path = this.pathfinder.find(goal, start);
+				System.out.println("swap false");
+			}
+
         }
 
 		/**
@@ -134,14 +151,10 @@ public class Patrol extends BoxGameEntity
 	/**
 	 * This method sets the body position, then creates the body, fixture and
 	 * creates an attached sprite
-	 *
-	 * @param spawnPos The position in meters where the fire engine should be
-	 *                   created with the center of the fire engine being at
-	 *                   this position.
 	 */
-	public void spawn(Vector2 spawnPos)
+	public void spawn()
 		{
-		super.setSpawnPosition(spawnPos);
+		super.setSpawnPosition(this.start);
 		super.createBodyCopy();
 		super.createFixtureCopy();
 		super.setUserData(this);

@@ -51,7 +51,7 @@
   <object id="23" name="building1" x="1.42227" y="85.3353" width="62.4467" height="49.2239"/>
   <object id="29" name="river1" x="532.667" y="0.166667" width="101.667" height="242.333"/>
   <object id="30" name="river2" x="491.5" y="-0.333333" width="46.3333" height="48.3333"/>
-  <object id="31" name="river3" x="633.667" y="199" width="53.3333" height="44.3333"/>
+  <object id="31" name="river3" x="633.667" y="199" width="68.4158" height="44.3333"/>
   <object id="33" name="minster1" x="1" y="193" width="208" height="191"/>
   <object id="34" name="minster2" x="157" y="158" width="70" height="68"/>
   <object id="35" name="minster3" x="157" y="352" width="69" height="71.6667"/>
@@ -83,7 +83,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="50" name="tower3" x="493.299" y="150.564" width="261.84" height="247.953">
+  <object id="50" name="tower3" x="511.862" y="159.846" width="261.84" height="247.953">
    <properties>
     <property name="health" type="int" value="1000"/>
     <property name="size" type="float" value="1"/>

@@ -81,7 +81,7 @@ public class Patrol extends BoxGameEntity
 		this.path = pathfinder.find(start, goal);
         this.start = start;
 		this.goal = goal;
-		this.swapDirection = false;
+		this.swapDirection = true;
 		this.speed = speed;
         }
 
@@ -115,34 +115,30 @@ public class Patrol extends BoxGameEntity
          * Called every frame, move the patrol along it's path
          */
         public void update() {
-			
-			
 			if (this.path != null && this.path.size() > 1) {
-				Vector2 nextPosition = this.path.get(1);
+				Vector2 nextPosition = this.path.get(0);
 				
-				// 
-				float roundedX = (float) Math.floor(this.getX());
-				float roundedY = (float) Math.floor(this.getY());
+				// Positions on the path are integer floats
+				float roundedX = (float) Math.ceil(this.getX());
+				float roundedY = (float) Math.ceil(this.getY());
 
+				// Difference between the next point and current position
+				Vector2 difference = nextPosition.cpy().sub(new Vector2(roundedX, roundedY));
 				// If not at next position, move towards it
-				if (new Vector2(roundedX, roundedY) != nextPosition) {
-					System.out.println("start " + nextPosition);
-					//this.getBody().getPosition().set(nextPosition);
-					System.out.println("finish" + this.getBody().getPosition());
-					//this.path.remove(nextPosition);
+				if (difference.len2() > 1) {
 					moveTowards(nextPosition);
 				} else {
 					// Otherwise remove it from the path
-					//System.out.println(nextPosition);
-					this.path.remove(nextPosition);
+					this.path.remove(0);
 				}
 			} else if (this.path != null) {
-				System.out.println("swap true");
+				// Swap direction when at the end
 				if (swapDirection) {
 					this.path = this.pathfinder.find(goal, start);
+					System.out.println(this.path);
 					this.swapDirection = false;
 				} else {
-					this.path = this.pathfinder.find(goal, start);
+					this.path = this.pathfinder.find(start, goal);
 					this.swapDirection = true;
 				}
 			}

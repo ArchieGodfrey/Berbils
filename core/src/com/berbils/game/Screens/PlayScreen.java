@@ -442,15 +442,19 @@ public class PlayScreen implements Screen
 	private void createPatrols() {
 		this.patrolList.add(
 			new Patrol(this, new Vector2(1, 1), 15,
-				new Vector2(7,16), new Vector2(7,0), Kroy.TOPDOWN_UFO_TEX)
+				new Vector2(7,18), new Vector2(7,0), Kroy.TOPDOWN_UFO_TEX)
 		);
 		this.patrolList.add(
 			new Patrol(this, new Vector2(1, 1), 15,
-				new Vector2(14,16), new Vector2(14,0), Kroy.TOPDOWN_UFO_TEX)
+				new Vector2(14,18), new Vector2(14,0), Kroy.TOPDOWN_UFO_TEX)
 		);
 		this.patrolList.add(
 			new Patrol(this, new Vector2(1, 1), 15,
-				new Vector2(21,16), new Vector2(21,0), Kroy.TOPDOWN_UFO_TEX)
+				new Vector2(22,1), new Vector2(29,11), Kroy.TOPDOWN_UFO_TEX)
+		);
+		this.patrolList.add(
+			new Patrol(this, new Vector2(1, 1), 15,
+				new Vector2(28,0), new Vector2(14, 12), Kroy.TOPDOWN_UFO_TEX)
 		);
 
 		for (Patrol patrol : this.patrolList) {

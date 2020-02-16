@@ -89,4 +89,14 @@ public class FireStation extends BoxGameEntity
 		this.spriteHandler.destroySpriteAndBody(fireEngine.getFixture());
 	}
 
+	/**
+	 * NEW Method @author Archie Godfrey
+	 * Returns the boolean to determine whether the firetruck should be repaired
+	 * 
+	 * @return whether the fire truck should be repaired or not
+	 */
+	public boolean getRepairFiretruck() {
+		return this.shouldRepairFireEngine;
+	}
+
 	}

@@ -305,7 +305,7 @@ public class PlayScreen implements Screen
 			public void run() {
 				fireStation.stopRepairs();
 			}
-		}, 0, 8*60 );
+		}, 8*60 );
 	}
 
   /**
@@ -348,7 +348,6 @@ public class PlayScreen implements Screen
 	
 	/** NEW Method @author Archie Godfrey */
 	private void createSelectionMenu() {
-		
 		
 		// Create menuButtons
 		ArrayList<TextButton> menuButtons = Utils.createMenuOptions(menuOptions);
@@ -668,7 +667,8 @@ public class PlayScreen implements Screen
 	{
 		// Show the selection overlay
 		if (show) {
-			
+			// Reset the player if before 8 minutes
+			this.player.reset(this.fireStation.getRepairFiretruck());
 			// Allow the stage to recieve input
 			Gdx.input.setInputProcessor(this.hud.getStage());
 			this.createSelectionMenu();

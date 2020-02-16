@@ -136,7 +136,6 @@ public class Pathfinding {
 		
 		// List to return
 		ArrayList<Vector2> path = new ArrayList<Vector2>();
-		path.add(start);
 		
 		// Find path
 		while (!openNodes.isEmpty()) {
@@ -177,6 +176,8 @@ public class Pathfinding {
 			path.add(currentNode);
 			currentNode = parentOf.get(currentNode);
 		}
+		
+		Collections.reverse(path);
 		
 		return path;
 	}

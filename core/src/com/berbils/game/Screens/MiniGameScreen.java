@@ -193,7 +193,7 @@ public class MiniGameScreen extends PlayScreen
 	private void createPlayer() {
 		switch (this.game.gameScreen.getSelectedFireEngineIndex()) {
 			case 3:
-				Projectiles slowLargeExplosiveProjectile = new ExplodingBulletCircle(3f, 0.5f, 50, 1, 4, 20, Kroy.EXPLOSIVE_PROJECTILE_TEXTURE, this);
+				Projectiles slowLargeExplosiveProjectile = new ExplodingBulletCircle(3f, 0.5f, 50, 1, 10, 20, Kroy.EXPLOSIVE_PROJECTILE_TEXTURE, this);
 				this.projectileList.add(slowLargeExplosiveProjectile);
 				Weapon largeFireEngWeapon = new BasicProjectileSpawner(1, slowLargeExplosiveProjectile);
 				this.player = new FireEngineFront(this, new Vector2(8, 6), largeFireEngWeapon, 800, 10, 200, Kroy.HEAVY_FIRE_ENGINE_TEX);
@@ -290,7 +290,8 @@ public class MiniGameScreen extends PlayScreen
 	private void moveEntities() {
 		// Only move UFO if not beaming aliens
 		boolean allowUFOMovement = true;
-	
+
+
     for (Alien alien : this.aliens) {
 			// If first spawned, move directly down until correct axis
 			if (alien.getBody().getPosition().y > 10) {
@@ -305,6 +306,7 @@ public class MiniGameScreen extends PlayScreen
 		// When no more aliens, fly away
 		this.spawner.move(allowUFOMovement, this.alienTotal <= 0);
 	}
+
 
   @Override
   public void show() {

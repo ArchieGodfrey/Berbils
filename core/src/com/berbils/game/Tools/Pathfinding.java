@@ -144,14 +144,6 @@ public class Pathfinding {
 			// Get closest neighbour as current node
 			Vector2 currentNode = getFirstInMap(openNodes);
 			
-			// If goal node closest, solution found
-			if (currentNode == goal) {
-				while (parentOf.get(currentNode) != null) {
-					path.add(currentNode);
-					currentNode = parentOf.get(currentNode);
-				}
-			}
-			
 			// Explore successor nodes
 			for (Vector2 childNode : getNeighbourNodes(currentNode)) {
 				if (openNodes.containsKey(childNode)) {
@@ -177,6 +169,13 @@ public class Pathfinding {
 			// Add current node to closed list
 			closeNodes.put(currentNode, openNodes.get(currentNode));
 			openNodes.remove(currentNode);
+		}
+		
+		// Backtrack from goal node reached to find path
+		Vector2 currentNode = goal;
+		while (parentOf.get(currentNode) != null) {
+			path.add(currentNode);
+			currentNode = parentOf.get(currentNode);
 		}
 		
 		return path;

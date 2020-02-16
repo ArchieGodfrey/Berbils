@@ -429,7 +429,8 @@ public class PlayScreen implements Screen
 	 */
 	private void createPatrols() {
 		this.patrolList.add(
-			new Patrol(this, new Vector2(1.5f, 1), 15, new Vector2(0,0), this.maploader.getEngineSpawn(),Kroy.HEAVY_FIRE_ENGINE_TEX)
+			new Patrol(this, new Vector2(1, 1), 15, new Vector2(0,0),
+					   this.maploader.getEngineSpawn(),Kroy.TOPDOWN_UFO_TEX)
 		);
 
 		for (Patrol patrol : this.patrolList) {

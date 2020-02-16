@@ -61,6 +61,7 @@ public class Kroy extends Game
 	public static String MINIGAME_UFO_TEX = "MinigameMap/ufo1.png"; //NEW
 	public static String MINIGAME_ALIEN_TEX = "MinigameMap/alien.png"; //NEW
 	// : Added minigame map texture
+	public static String TOPDOWN_UFO_TEX = "ufo_above.png" ;//NEW
 	public static AssetManager assets;
 	public SpriteBatch batch;
 	public PlayScreen gameScreen;
@@ -106,6 +107,7 @@ public class Kroy extends Game
 		// ufo texture
 		assets.load(MINIGAME_ALIEN_TEX, Texture.class); //New: Added minigame
 		// alien
+		assets.load(TOPDOWN_UFO_TEX, Texture.class); //NEW: Added UFO texture
 		// texture asset
 		assets.finishLoading();
 		V_HEIGHT = Gdx.graphics.getHeight();

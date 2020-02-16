@@ -196,6 +196,9 @@ public class FireEngine extends BoxGameEntity
 			Kroy game = this.screen.getGame();
 			this.screen.fireEngineDestroyed();
 
+			//NEW line @author Matteo Barberis
+			this.screen.removeOptionFromMenu();
+
 			if (this.screen.allFireEnginesDestroyed()) {
 				this.screen.getGame().setScreen(game.gameOverScreen);
 				game.gameOverScreen.setTimer(2, game.mainMenu);

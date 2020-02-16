@@ -139,6 +139,14 @@ public class PlayScreen implements Screen
 
 	/** The players score */
 	private int playerScore;
+	
+	// NEW line @author Matteo Barberis
+	// changed the array from local to global
+	/** An array containing the text that will appear on its own button */
+	public String[] menuOptions = new String[] { "Small Fire Engine", "Regular Fire Engine",
+	"Medium Fire Engine", "Large Fire Engine"
+	};
+
 
 	/**
 	 * NEW METHOD
@@ -255,11 +263,11 @@ public class PlayScreen implements Screen
 		 * Update the pause screen to return to the main
 		 * game if that is the current screen showing
 		 */
+
+		//NEW line @author Matteo Barberis
+		Gdx.input.setInputProcessor(this.hud.getStage());
 		this.game.pauseScreen.returnToScreen(this.game, this);
 
-		// NEW LINE
-		Gdx.input.setInputProcessor(this.hud.getStage());
-		
 		
 	}
 
@@ -340,10 +348,8 @@ public class PlayScreen implements Screen
 	
 	/** NEW Method @author Archie Godfrey */
 	private void createSelectionMenu() {
-		/** An array containing the text that will appear on its own button */
-		String[] menuOptions = new String[] { "Small Fire Engine", "Regular Fire Engine",
-		"Medium Fire Engine", "Large Fire Engine"
-		};
+		
+		
 		// Create menuButtons
 		ArrayList<TextButton> menuButtons = Utils.createMenuOptions(menuOptions);
 		// Add listeners to button press
@@ -354,8 +360,8 @@ public class PlayScreen implements Screen
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					// destroys current fireengine
-					fireStation.destroyEngine(player);
 					Gdx.input.setInputProcessor(null);
+					fireStation.destroyEngine(player);
 					selectFireEngine(index);
 					setSelectionOverlayVisibility(false);
 				}
@@ -381,7 +387,7 @@ public class PlayScreen implements Screen
   @Override
   public void render(float delta)
 	  {
-		
+
 		update(delta);
 		renderer.render();
 
@@ -650,9 +656,11 @@ public class PlayScreen implements Screen
 	{
 		// Show the selection overlay
 		if (show) {
+			
 			// Allow the stage to recieve input
 			Gdx.input.setInputProcessor(this.hud.getStage());
 			this.createSelectionMenu();
+		
 		} else {
 			// Hide the overlay by removing from the stage
 			for(Actor actor : this.hud.getStage().getActors()) {
@@ -751,4 +759,28 @@ public class PlayScreen implements Screen
 		{
 		return world;
 		}
-	}
+
+
+		// NEW mehod @author Matteo Barberis
+		//call this from fireengine
+		public void removeOptionFromMenu(){
+			int n = getSelectedFireEngineIndex();
+			//remove firetruck
+			this.fireEngineArrayList.remove(n);
+			ArrayList<String> t = new ArrayList<>();
+
+			for (int i = 0; i <menuOptions.length; i++){
+				if (n != i) {
+					t.add(menuOptions[i]);
+				}
+
+			}
+
+			menuOptions = new String[t.size()];
+			for (int i = 0; i <menuOptions.length; i++){
+				menuOptions[i] = t.get(i);
+			}
+
+			}
+		}
+

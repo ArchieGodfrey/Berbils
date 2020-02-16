@@ -16,7 +16,7 @@ public class MenuScreen extends BasicMenu
 	 */
 	private static String titlePath = Kroy.KROY_TITLE_TITLE;
 	/** An array containing the text that will appear on its own button */
-	private static String[] menuOptions = new String[] { "New Game", "Quit" };
+	private static String[] menuOptions = new String[] { "| New Game |", "|       Quit      |" };
 
 	/**
 	 * Creates the menu and assigns functions to each of the menu buttons

@@ -55,7 +55,7 @@ public final class Utils
 		mainTable.pad(titleSize.y);
 		for (TextButton eachButton : menuButtons) {
 
-			//Calculate how much padding each button needs to be the set width,
+			//NEW: Calculate how much padding each button needs to be the set width,
 			//and pad the button both left and right accordingly
 			float width = eachButton.getWidth();
 			float maxWidth = 196;

@@ -135,7 +135,6 @@ public class Patrol extends BoxGameEntity
 				// Swap direction when at the end
 				if (swapDirection) {
 					this.path = this.pathfinder.find(goal, start);
-					System.out.println(this.path);
 					this.swapDirection = false;
 				} else {
 					this.path = this.pathfinder.find(start, goal);

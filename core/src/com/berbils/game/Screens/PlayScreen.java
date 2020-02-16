@@ -407,7 +407,7 @@ public class PlayScreen implements Screen
     this.hud.update(labelNames, labelValues);
 		// If change false to true, the box2D debug renderer will render box2D
 		// body outlines
-		if(true) {
+		if(false) {
 		b2dr.render(world, gameCam.combined.scl(PPM));
 		}
 	}

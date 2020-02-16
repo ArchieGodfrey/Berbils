@@ -36,6 +36,11 @@ public class Patrol extends BoxGameEntity
 	public float speed;
 
 	/**
+	 * Time before next minigame can trigger
+	 */
+	public float delayBeforeNextEncounter;
+
+	/**
 	 * This constructor assigns required variables for use.
 	 * It only creates a fixture and body definition, no
 	 * sprite, body or fixture generation.
@@ -115,6 +120,11 @@ public class Patrol extends BoxGameEntity
          * Called every frame, move the patrol along it's path
          */
         public void update() {
+
+			// Decrease timeout if greater than 0
+			if (this.delayBeforeNextEncounter > 0) this.delayBeforeNextEncounter -= 1;
+
+			// If there is a path, follow it
 			if (this.path != null && this.path.size() > 1) {
 				Vector2 nextPosition = this.path.get(0);
 				
@@ -148,7 +158,10 @@ public class Patrol extends BoxGameEntity
 		 * destroy the patrol
 		 */
 		public void collided() {
-			this.screen.getGame().setScreen(this.screen.getGame().getNewMinigameScreen());
+			if (this.delayBeforeNextEncounter <= 0) {
+				this.delayBeforeNextEncounter = 100;
+				this.screen.getGame().setScreen(this.screen.getGame().getNewMinigameScreen());
+			}
 		}
 
 	/**

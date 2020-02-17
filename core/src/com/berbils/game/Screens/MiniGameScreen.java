@@ -373,7 +373,7 @@ public class MiniGameScreen extends PlayScreen
 
 		// If change false to true, the box2D debug renderer will render box2D
 		// body outlines
-		if(true) {
+		if(false) {
 			b2dr.render(this.world, this.gameCam.combined.scl(PPM));
 		}
 	}

@@ -36,6 +36,7 @@ import com.berbils.game.Tools.InputManager;
 import com.berbils.game.Tools.MapLoader;
 
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Creates the game screen
@@ -139,6 +140,11 @@ public class PlayScreen implements Screen
 
 	/** The players score */
 	private int playerScore;
+
+	/**
+	 * 
+	 */
+	private boolean demoMode;
 	
 	// NEW line @author Matteo Barberis
 	// changed the array from local to global
@@ -339,9 +345,15 @@ public class PlayScreen implements Screen
 		 */
 		for (Patrol patrol : this.patrolList) {
       patrol.update();
-    }
-
-    inputManager.handlePlayerInput(player, delta, this.game);
+		}
+		
+		// If in demo mode, disable player input and just follow a path
+		if (!this.demoMode) {
+			inputManager.handlePlayerInput(player, delta, this.game);
+		} else {
+			this.player.update();
+		}
+    
     renderer.setView(gameCam);
     updateCamera(delta);
 	}
@@ -470,7 +482,7 @@ public class PlayScreen implements Screen
     this.smallFastProjectile =
         new SimpleBulletCircle(0.5f, 0.25f, 5, 3, Kroy.EXPLOSIVE_PROJECTILE_TEXTURE, this);
     this.slowLargeExplosiveProjectile =
-        new ExplodingBulletCircle(0.5f, 0.25f, 20, 1, 2.5f, 5, Kroy.EXPLOSIVE_PROJECTILE_TEXTURE, this);
+        new ExplodingBulletCircle(2.5f, 0.25f, 20, 1, 2.5f, 5, Kroy.EXPLOSIVE_PROJECTILE_TEXTURE, this);
     this.waterProjectile =
         new SimpleBulletCircle(5f, 0.25f, 20, 3, Kroy.WATER_PROJECTILE_TEX,
 							   this);
@@ -537,12 +549,12 @@ public class PlayScreen implements Screen
 		);
 		this.fireEngineArrayList.add(
 			new FireEngine(
-				this, new Vector2(1.5f, 1), this.mediumFireEngWeapon, 600, 15, 150,
+				this, new Vector2(1.5f, 1), this.mediumFireEngWeapon, 600, 18, 150,
 				Kroy.GREEN_FIRE_ENGINE_TEX)
 		);
 		this.fireEngineArrayList.add(
 			new FireEngine(
-				this, new Vector2(2, 1.5f), this.largeFireEngWeapon, 800, 10, 200,
+				this, new Vector2(2, 1.5f), this.largeFireEngWeapon, 800, 15, 200,
 				Kroy.HEAVY_FIRE_ENGINE_TEX)
 		);
 	  }
@@ -658,6 +670,24 @@ public class PlayScreen implements Screen
 
 	/**
 	 * NEW Method @author Archie Godfrey
+	 * Selects and spawns the fire engine, also updates the HUD, the
+	 * leftFireStation variable and the fireEngineSelectedIndex;
+	 *
+	 * @param index Fire Engine to be selected to be instantiated and used by
+	 *              the player
+	 */
+	public void startDemoMode()
+	{
+	this.player = this.fireEngineArrayList.get(1);
+	this.player.leftFireStation = false;
+	this.player.createPath(this.fireEngSpawnPos, new Vector2(29,11));
+	this.player.spawn(this.fireEngSpawnPos);
+	this.fireEngineSelectedIndex = 1;
+	this.demoMode = true;
+	}
+
+	/**
+	 * NEW Method @author Archie Godfrey
 	 * 
 	 * Sets the visibility of the fire engine overlay options
 	 *
@@ -666,7 +696,7 @@ public class PlayScreen implements Screen
 	public void setSelectionOverlayVisibility(boolean show)
 	{
 		// Show the selection overlay
-		if (show) {
+		if (show && !this.demoMode) {
 			// Reset the player if before 8 minutes
 			this.player.reset(this.fireStation.getRepairFiretruck());
 			// Allow the stage to recieve input
@@ -763,6 +793,19 @@ public class PlayScreen implements Screen
 	}
 
 	/**
+	 * NEW METHOD
+	 * @author Archie Godfrey
+	 * Getter for the boolean that determine if
+	 * its in demo mode or not
+	 *
+	 * @return returns true if in demo, false if not
+	 */
+	public boolean getDemoMode()
+	{
+	return this.demoMode;
+	}
+
+	/**
 	 * A getter for the screen world
 	 *
 	 * @return returns the world
@@ -773,8 +816,9 @@ public class PlayScreen implements Screen
 		}
 
 
-		// NEW mehod @author Matteo Barberis
-		//call this from fireengine
+		/** NEW method @author Matteo Barberis
+		 * Removes a firetruck option from the menu
+		 */
 		public void removeOptionFromMenu(){
 			int n = getSelectedFireEngineIndex();
 			//remove firetruck

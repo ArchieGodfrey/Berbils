@@ -22,7 +22,15 @@ public class Patrol extends BoxGameEntity
 	 */
     private Vector2 start;
 	private Vector2 goal;
+
+	/**
+	 * Whether the patrols moves from goal-to-start or start-to-goal
+	 */
 	private boolean swapDirection;
+
+	/**
+	 * The instance to generate paths
+	 */
 	private Pathfinding pathfinder;
 	
 	/**
@@ -158,7 +166,7 @@ public class Patrol extends BoxGameEntity
 		 * destroy the patrol
 		 */
 		public void collided() {
-			if (this.delayBeforeNextEncounter <= 0) {
+			if (this.delayBeforeNextEncounter <= 0 && !this.screen.getDemoMode()) {
 				this.delayBeforeNextEncounter = 100;
 				this.screen.getGame().setScreen(this.screen.getGame().getNewMinigameScreen());
 			}

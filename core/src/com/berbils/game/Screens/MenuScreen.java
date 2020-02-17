@@ -16,7 +16,7 @@ public class MenuScreen extends BasicMenu
 	 */
 	private static String titlePath = Kroy.KROY_TITLE_TITLE;
 	/** An array containing the text that will appear on its own button */
-	private static String[] menuOptions = new String[] { "New Game", "Quit" };
+	private static String[] menuOptions = new String[] { "New Game", "Demo", "Quit" };
 
 	/**
 	 * Creates the menu and assigns functions to each of the menu buttons
@@ -38,6 +38,16 @@ public class MenuScreen extends BasicMenu
 					}
 				});
 		super.menuButtons.get(1).addListener(
+			new ClickListener()
+				{
+				@Override
+				public void clicked(InputEvent event, float x, float y)
+					{
+					game.gameScreen.startDemoMode();
+					game.setScreen(game.gameScreen);
+					}
+				});
+		super.menuButtons.get(2).addListener(
 			new ClickListener()
 				{
 				@Override

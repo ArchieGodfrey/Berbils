@@ -20,7 +20,6 @@ public class Kroy extends Game
 	public static final short CAT_PROJECTILE_FRIENDLY = 0x0010;
 	public static final short CAT_PROJECTILE_ENEMY = 0x0020;
 	public static final short CAT_COLLIDE_NOTHING = 0x0040;
-	public static final short MASK_UFO = 0x0025; // NEW Field @author Archie Godfrey
 	public static final short MASK_TOWER_SENSOR = CAT_FRIENDLY | CAT_ENEMY;
 	public static final short MASK_ENEMY = CAT_FRIENDLY | CAT_PROJECTILE_FRIENDLY | CAT_SCENERY;
 	public static final short MASK_FRIENDLY_PROJECTILE = CAT_ENEMY | CAT_SCENERY;
@@ -28,6 +27,7 @@ public class Kroy extends Game
 	public static final short MASK_FRIENDLY =
 		CAT_ENEMY | CAT_SCENERY | CAT_PROJECTILE_ENEMY | CAT_TOWER_SENSOR | CAT_FRIENDLY;
 	public static final short MASK_COLLIDE_NOTHING = 0x0000;
+	public static final short MASK_UFO = 0x0025; // NEW Field @author Archie Godfrey
 	public static final short MASK_SCENERY = -1;
 	public static final String TUT_TOWER_ENGAGED_TEX = "TowerTextures/tutorialTowerEngaged.png";
 	public static final String TUT_TOWER_DISENGAGED_TEX = "TowerTextures/tutorialTowerDisengaged.png";

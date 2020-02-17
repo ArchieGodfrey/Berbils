@@ -73,7 +73,7 @@
   </object>
  </objectgroup>
  <objectgroup id="5" name="towers">
-  <object id="49" name="tower1" x="832.102" y="179.956" width="200.418" height="200.418">
+  <object id="49" name="tower1" x="804.257" y="196.199" width="200.418" height="200.418">
    <properties>
     <property name="health" type="int" value="1000"/>
     <property name="size" type="float" value="1"/>
@@ -83,7 +83,7 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="50" name="tower3" x="511.862" y="159.846" width="261.84" height="247.953">
+  <object id="50" name="tower3" x="516.503" y="137.802" width="261.84" height="247.953">
    <properties>
     <property name="health" type="int" value="1000"/>
     <property name="size" type="float" value="1"/>

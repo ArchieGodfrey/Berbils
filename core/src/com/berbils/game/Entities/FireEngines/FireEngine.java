@@ -1,10 +1,13 @@
 package com.berbils.game.Entities.FireEngines;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.math.Vector2;
 import com.berbils.game.Entities.EntityTypes.BoxGameEntity;
 import com.berbils.game.Entities.ProjectileSpawners.Weapon;
 import com.berbils.game.Kroy;
 import com.berbils.game.Screens.PlayScreen;
+import com.berbils.game.Tools.Pathfinding;
 
 /**
  * A class used to generate Box Entitys and a sprite with in built resources
@@ -60,6 +63,27 @@ public class FireEngine extends BoxGameEntity
 	 * required to prevent multiple accidental onDeath() calls
 	 */
 	private boolean isAlive;
+
+	/**
+	 * The start and end positions for the fire engine
+	 */
+    private Vector2 start;
+	private Vector2 goal;
+
+	/**
+	 * Whether the fireengine moves from goal-to-start or start-to-goal
+	 */
+	private boolean swapDirection;
+
+	/**
+	 * The instance to generate paths
+	 */
+	private Pathfinding pathfinder;
+	
+	/**
+	 * The path it will move along
+	 */
+    private ArrayList<Vector2> path;
 
 	/**
 	 * This constructor assigns required variables and sets up the weapon class
@@ -231,6 +255,80 @@ public class FireEngine extends BoxGameEntity
 		super.setUserData(this);
 		super.createSprite();
 		}
+
+
+	/**Get the x coordinate of the patrol**/
+	private float getX(){return this.getBody().getPosition().x;}
+
+	/**Get the y coordinate of the patrol**/
+	private float getY(){return this.getBody().getPosition().y;}
+
+	/**
+	 * Method for moving the patrol towards a specified point
+	 *
+	 * @param targetVector the position ot move the patrol to
+	 */
+	public void moveTowards(Vector2 targetVector)
+		{
+			// Get the centre of the Fire Engine
+			Vector2 fireEngineCentre = new Vector2(this.getX() + this.getSizeDims().x / 2,this.getY() + this.getSizeDims().y / 2);
+
+			// Work out the vector between them and scale by speed
+			Vector2 trajectory = targetVector.cpy().sub(fireEngineCentre);
+			trajectory.nor().scl(this.speed);
+
+			// Apply force to the Fire Engine
+			this.getBody().applyForceToCenter(trajectory, true);
+		}
+        
+
+        /**
+         * Called every frame, move the Fire Engine along it's path
+         */
+        public void update() {
+			// If there is a path, follow it
+			if (this.path != null && this.path.size() > 1) {
+				Vector2 nextPosition = this.path.get(0);
+				
+				// Positions on the path are integer floats
+				float roundedX = (float) Math.ceil(this.getX());
+				float roundedY = (float) Math.ceil(this.getY());
+
+				// Difference between the next point and current position
+				Vector2 difference = nextPosition.cpy().sub(new Vector2(roundedX, roundedY));
+				// If not at next position, move towards it
+				if (difference.len2() > 1) {
+					moveTowards(nextPosition);
+				} else {
+					// Otherwise remove it from the path
+					this.path.remove(0);
+				}
+			} else if (this.path != null) {
+				// Swap direction when at the end
+				if (swapDirection) {
+					this.path = this.pathfinder.find(goal, start);
+					this.swapDirection = false;
+				} else {
+					this.path = this.pathfinder.find(start, goal);
+					this.swapDirection = true;
+				}
+			}
+		}
+	
+	/**
+	 * NEW Method @author Archie Godfrey
+	 * 
+	 * Set the path the fire engine will follow
+	 * 
+	 * @param path 	The path to follow
+	 */
+	public void createPath(Vector2 start,Vector2 goal) {
+		super.setFixtureCategory(Kroy.CAT_FRIENDLY, Kroy.MASK_UFO);
+		this.start = start;
+		this.goal = goal;
+		this.pathfinder = new Pathfinding(this.screen.getMapLoader().map);
+		this.path = this.pathfinder.find(start, goal);
+	}
 
 	/**
 	 * UPDATED Method @author Archie Godfrey

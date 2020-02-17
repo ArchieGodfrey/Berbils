@@ -111,7 +111,10 @@ public abstract class Weapon
 		return ( TimeUtils.timeSinceMillis(startTime) > this.fireDelay );
 		}
 
-	/** All projectile spawners must have an attack method */
+	/** All projectile spawners must have an attack method 
+	 * @param spawnPos The spawn point for the projectiles
+	 * @param target	The target the projectiles will travel to
+	*/
 	public abstract void attack(Vector2 spawnPos, Vector2 target);
 
 	/**

@@ -350,6 +350,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Creates a sprite-only sprite</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/berbils/game/Entities/FireEngines/FireEngine.html#createPath(com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2)">createPath(Vector2, Vector2)</a></span> - Method in class com.berbils.game.Entities.FireEngines.<a href="com/berbils/game/Entities/FireEngines/FireEngine.html" title="class in com.berbils.game.Entities.FireEngines">FireEngine</a></dt>
+<dd>
+<div class="block">NEW Method @author Archie Godfrey
+ 
+ Set the path the fire engine will follow</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Entities/EntityTypes/Entity.html#createSprite()">createSprite()</a></span> - Method in class com.berbils.game.Entities.EntityTypes.<a href="com/berbils/game/Entities/EntityTypes/Entity.html" title="class in com.berbils.game.Entities.EntityTypes">Entity</a></dt>
 <dd>
 <div class="block">Creates a sprite attached to the entitity
@@ -399,6 +405,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">All entity subclasses need a method for creating atleast a Box2D
  body and fixture definition</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/berbils/game/Entities/Patrol/Patrol.html#delayBeforeNextEncounter">delayBeforeNextEncounter</a></span> - Variable in class com.berbils.game.Entities.Patrol.<a href="com/berbils/game/Entities/Patrol/Patrol.html" title="class in com.berbils.game.Entities.Patrol">Patrol</a></dt>
+<dd>
+<div class="block">Time before next minigame can trigger</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Entities/ProjectileSpawners/ProjectileTypes/Projectiles.html#deleteInitialSpawnPoint(com.badlogic.gdx.physics.box2d.Fixture)">deleteInitialSpawnPoint(Fixture)</a></span> - Method in class com.berbils.game.Entities.ProjectileSpawners.ProjectileTypes.<a href="com/berbils/game/Entities/ProjectileSpawners/ProjectileTypes/Projectiles.html" title="class in com.berbils.game.Entities.ProjectileSpawners.ProjectileTypes">Projectiles</a></dt>
 <dd>
@@ -572,7 +582,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Screens/PlayScreen.html#fireEngineDestroyed()">fireEngineDestroyed()</a></span> - Method in class com.berbils.game.Screens.<a href="com/berbils/game/Screens/PlayScreen.html" title="class in com.berbils.game.Screens">PlayScreen</a></dt>
 <dd>
-<div class="block">Tells you whether all Fire engines on this screen have been destroyed</div>
+<div class="block">Decreases the number of alive fire engines</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Kroy.html#fireEngineDestroyedScreen">fireEngineDestroyedScreen</a></span> - Variable in class com.berbils.game.<a href="com/berbils/game/Kroy.html" title="class in com.berbils.game">Kroy</a></dt>
 <dd>&nbsp;</dd>
@@ -586,11 +596,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">This constructor assigns required variables and sets up the weapon class
  instance for use.It only creates a fixture and body definition, no
  sprite, body or fixture generation.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="com/berbils/game/Screens/PlayScreen.html#fireEngineSelectedIndex">fireEngineSelectedIndex</a></span> - Variable in class com.berbils.game.Screens.<a href="com/berbils/game/Screens/PlayScreen.html" title="class in com.berbils.game.Screens">PlayScreen</a></dt>
-<dd>
-<div class="block">the current index of the fire engine selected, this index relates to
- the button to select it on the SelectFireEngineScreen</div>
 </dd>
 <dt><a href="com/berbils/game/Entities/FireStation/FireStation.html" title="class in com.berbils.game.Entities.FireStation"><span class="typeNameLink">FireStation</span></a> - Class in <a href="com/berbils/game/Entities/FireStation/package-summary.html">com.berbils.game.Entities.FireStation</a></dt>
 <dd>
@@ -663,6 +668,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Getter for the damage the projectile does</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/berbils/game/Screens/PlayScreen.html#getDemoMode()">getDemoMode()</a></span> - Method in class com.berbils.game.Screens.<a href="com/berbils/game/Screens/PlayScreen.html" title="class in com.berbils.game.Screens">PlayScreen</a></dt>
+<dd>
+<div class="block">NEW METHOD</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Tools/MapLoader.html#getDims()">getDims()</a></span> - Method in class com.berbils.game.Tools.<a href="com/berbils/game/Tools/MapLoader.html" title="class in com.berbils.game.Tools">MapLoader</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Tools/MapLoader.html#getEngineSpawn()">getEngineSpawn()</a></span> - Method in class com.berbils.game.Tools.<a href="com/berbils/game/Tools/MapLoader.html" title="class in com.berbils.game.Tools">MapLoader</a></dt>
@@ -701,6 +710,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/berbils/game/Entities/ProjectileSpawners/ProjectileTypes/Projectiles.html#getProjectileSpeed()">getProjectileSpeed()</a></span> - Method in class com.berbils.game.Entities.ProjectileSpawners.ProjectileTypes.<a href="com/berbils/game/Entities/ProjectileSpawners/ProjectileTypes/Projectiles.html" title="class in com.berbils.game.Entities.ProjectileSpawners.ProjectileTypes">Projectiles</a></dt>
 <dd>
 <div class="block">Getter for the projectile speed of the objected</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/berbils/game/Entities/FireStation/FireStation.html#getRepairFiretruck()">getRepairFiretruck()</a></span> - Method in class com.berbils.game.Entities.FireStation.<a href="com/berbils/game/Entities/FireStation/FireStation.html" title="class in com.berbils.game.Entities.FireStation">FireStation</a></dt>
+<dd>
+<div class="block">NEW Method @author Archie Godfrey
+ Returns the boolean to determine whether the firetruck should be repaired</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Screens/PlayScreen.html#getSelectedFireEngineIndex()">getSelectedFireEngineIndex()</a></span> - Method in class com.berbils.game.Screens.<a href="com/berbils/game/Screens/PlayScreen.html" title="class in com.berbils.game.Screens">PlayScreen</a></dt>
 <dd>
@@ -861,6 +875,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Kroy.html#MASK_TOWER_SENSOR">MASK_TOWER_SENSOR</a></span> - Static variable in class com.berbils.game.<a href="com/berbils/game/Kroy.html" title="class in com.berbils.game">Kroy</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/berbils/game/Kroy.html#MASK_UFO">MASK_UFO</a></span> - Static variable in class com.berbils.game.<a href="com/berbils/game/Kroy.html" title="class in com.berbils.game">Kroy</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Entities/EntityTypes/Entity.html#maskBits">maskBits</a></span> - Variable in class com.berbils.game.Entities.EntityTypes.<a href="com/berbils/game/Entities/EntityTypes/Entity.html" title="class in com.berbils.game.Entities.EntityTypes">Entity</a></dt>
 <dd>
 <div class="block">The mask bits used for Box2D collision filtering</div>
@@ -870,9 +886,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">The max distance in meters the projectile can travel before being
         destroyed, acting the same as if it had collided</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/berbils/game/Screens/PlayScreen.html#mediumFireEngWeapon">mediumFireEngWeapon</a></span> - Variable in class com.berbils.game.Screens.<a href="com/berbils/game/Screens/PlayScreen.html" title="class in com.berbils.game.Screens">PlayScreen</a></dt>
+<dd>
+<div class="block">Pre-defined weapon types for the Play Screen</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Screens/BasicMenu.html#menuButtons">menuButtons</a></span> - Variable in class com.berbils.game.Screens.<a href="com/berbils/game/Screens/BasicMenu.html" title="class in com.berbils.game.Screens">BasicMenu</a></dt>
 <dd>
 <div class="block">The list of buttons that need to be drawn</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/berbils/game/Screens/PlayScreen.html#menuOptions">menuOptions</a></span> - Variable in class com.berbils.game.Screens.<a href="com/berbils/game/Screens/PlayScreen.html" title="class in com.berbils.game.Screens">PlayScreen</a></dt>
+<dd>
+<div class="block">An array containing the text that will appear on its own button</div>
 </dd>
 <dt><a href="com/berbils/game/Screens/MenuScreen.html" title="class in com.berbils.game.Screens"><span class="typeNameLink">MenuScreen</span></a> - Class in <a href="com/berbils/game/Screens/package-summary.html">com.berbils.game.Screens</a></dt>
 <dd>
@@ -880,9 +904,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Screens/MenuScreen.html#%3Cinit%3E(com.berbils.game.Kroy,com.badlogic.gdx.graphics.g2d.SpriteBatch)">MenuScreen(Kroy, SpriteBatch)</a></span> - Constructor for class com.berbils.game.Screens.<a href="com/berbils/game/Screens/MenuScreen.html" title="class in com.berbils.game.Screens">MenuScreen</a></dt>
 <dd>
-<div class="block">Creates the menu and assigns functions to each of the menu buttons</div>
+<div class="block">Updated Method @author Archie Godfrey
+ Added new button for demo
+ 
+ Creates the menu and assigns functions to each of the menu buttons</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/berbils/game/Kroy.html#MINIGAME_ALIEN_TEX">MINIGAME_ALIEN_TEX</a></span> - Static variable in class com.berbils.game.<a href="com/berbils/game/Kroy.html" title="class in com.berbils.game">Kroy</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Kroy.html#MINIGAME_MAP_TEX">MINIGAME_MAP_TEX</a></span> - Static variable in class com.berbils.game.<a href="com/berbils/game/Kroy.html" title="class in com.berbils.game">Kroy</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/berbils/game/Kroy.html#MINIGAME_UFO_TEX">MINIGAME_UFO_TEX</a></span> - Static variable in class com.berbils.game.<a href="com/berbils/game/Kroy.html" title="class in com.berbils.game">Kroy</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/berbils/game/Screens/MiniGameScreen.html" title="class in com.berbils.game.Screens"><span class="typeNameLink">MiniGameScreen</span></a> - Class in <a href="com/berbils/game/Screens/package-summary.html">com.berbils.game.Screens</a></dt>
 <dd>
@@ -891,11 +922,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Screens/MiniGameScreen.html#%3Cinit%3E(com.berbils.game.Kroy,com.badlogic.gdx.graphics.g2d.Batch)">MiniGameScreen(Kroy, Batch)</a></span> - Constructor for class com.berbils.game.Screens.<a href="com/berbils/game/Screens/MiniGameScreen.html" title="class in com.berbils.game.Screens">MiniGameScreen</a></dt>
 <dd>
-<div class="block">TODO</div>
+<div class="block">Constructor for the minigame.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Entities/Minigame/Spawner.html#move(boolean,boolean)">move(boolean, boolean)</a></span> - Method in class com.berbils.game.Entities.Minigame.<a href="com/berbils/game/Entities/Minigame/Spawner.html" title="class in com.berbils.game.Entities.Minigame">Spawner</a></dt>
 <dd>
 <div class="block">Move the spawner from one side of the screen to another</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/berbils/game/Entities/FireEngines/FireEngine.html#moveTowards(com.badlogic.gdx.math.Vector2)">moveTowards(Vector2)</a></span> - Method in class com.berbils.game.Entities.FireEngines.<a href="com/berbils/game/Entities/FireEngines/FireEngine.html" title="class in com.berbils.game.Entities.FireEngines">FireEngine</a></dt>
+<dd>
+<div class="block">NEW Method @author Archie Godfrey
+ Method for moving the patrol towards a specified point</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Entities/Minigame/Alien.html#moveTowards(com.badlogic.gdx.math.Vector2)">moveTowards(Vector2)</a></span> - Method in class com.berbils.game.Entities.Minigame.<a href="com/berbils/game/Entities/Minigame/Alien.html" title="class in com.berbils.game.Entities.Minigame">Alien</a></dt>
 <dd>
@@ -1076,6 +1112,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Removes the button at the index passed</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/berbils/game/Screens/PlayScreen.html#removeOptionFromMenu()">removeOptionFromMenu()</a></span> - Method in class com.berbils.game.Screens.<a href="com/berbils/game/Screens/PlayScreen.html" title="class in com.berbils.game.Screens">PlayScreen</a></dt>
+<dd>
+<div class="block">NEW method @author Matteo Barberis
+ Removes a firetruck option from the menu</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Kroy.html#render()">render()</a></span> - Method in class com.berbils.game.<a href="com/berbils/game/Kroy.html" title="class in com.berbils.game">Kroy</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Tools/FrameRate.html#render()">render()</a></span> - Method in class com.berbils.game.Tools.<a href="com/berbils/game/Tools/FrameRate.html" title="class in com.berbils.game.Tools">FrameRate</a></dt>
@@ -1195,6 +1236,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Sets the current projectiles velocity</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/berbils/game/Screens/PlayScreen.html#setPlayerStats(int,int)">setPlayerStats(int, int)</a></span> - Method in class com.berbils.game.Screens.<a href="com/berbils/game/Screens/PlayScreen.html" title="class in com.berbils.game.Screens">PlayScreen</a></dt>
+<dd>
+<div class="block">NEW Method @author Archie Godfrey
+ Sets the players water and health stats</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Entities/EntityTypes/Entity.html#setPosition(com.badlogic.gdx.math.Vector2)">setPosition(Vector2)</a></span> - Method in class com.berbils.game.Entities.EntityTypes.<a href="com/berbils/game/Entities/EntityTypes/Entity.html" title="class in com.berbils.game.Entities.EntityTypes">Entity</a></dt>
 <dd>
 <div class="block">NEW METHOD @author Archie Godfrey
@@ -1278,6 +1324,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">The size dimensions of the entity in meters</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/berbils/game/Screens/PlayScreen.html#smallFireEngWeapon">smallFireEngWeapon</a></span> - Variable in class com.berbils.game.Screens.<a href="com/berbils/game/Screens/PlayScreen.html" title="class in com.berbils.game.Screens">PlayScreen</a></dt>
+<dd>
+<div class="block">Pre-defined weapon types for the Play Screen</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/berbils/game/Entities/Patrol/Patrol.html#spawn()">spawn()</a></span> - Method in class com.berbils.game.Entities.Patrol.<a href="com/berbils/game/Entities/Patrol/Patrol.html" title="class in com.berbils.game.Entities.Patrol">Patrol</a></dt>
+<dd>
+<div class="block">This method sets the body position, then creates the body, fixture and
+ creates an attached sprite</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Entities/FireEngines/FireEngine.html#spawn(com.badlogic.gdx.math.Vector2)">spawn(Vector2)</a></span> - Method in class com.berbils.game.Entities.FireEngines.<a href="com/berbils/game/Entities/FireEngines/FireEngine.html" title="class in com.berbils.game.Entities.FireEngines">FireEngine</a></dt>
 <dd>
 <div class="block">This method sets the body position, then creates the body, fixture and
@@ -1294,11 +1349,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
  creates an attached sprite</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Entities/Minigame/Spawner.html#spawn(com.badlogic.gdx.math.Vector2)">spawn(Vector2)</a></span> - Method in class com.berbils.game.Entities.Minigame.<a href="com/berbils/game/Entities/Minigame/Spawner.html" title="class in com.berbils.game.Entities.Minigame">Spawner</a></dt>
-<dd>
-<div class="block">This method sets the body position, then creates the body, fixture and
- creates an attached sprite</div>
-</dd>
-<dt><span class="memberNameLink"><a href="com/berbils/game/Entities/Patrol/Patrol.html#spawn(com.badlogic.gdx.math.Vector2)">spawn(Vector2)</a></span> - Method in class com.berbils.game.Entities.Patrol.<a href="com/berbils/game/Entities/Patrol/Patrol.html" title="class in com.berbils.game.Entities.Patrol">Patrol</a></dt>
 <dd>
 <div class="block">This method sets the body position, then creates the body, fixture and
  creates an attached sprite</div>
@@ -1371,6 +1421,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">The stage, where the buttons are displayed</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/berbils/game/Screens/PlayScreen.html#startDemoMode()">startDemoMode()</a></span> - Method in class com.berbils.game.Screens.<a href="com/berbils/game/Screens/PlayScreen.html" title="class in com.berbils.game.Screens">PlayScreen</a></dt>
+<dd>
+<div class="block">NEW Method @author Archie Godfrey
+ Starts the game in demo mode, the fire engine will drive itself</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Screens/PlayScreen.html#startGameEndTimer()">startGameEndTimer()</a></span> - Method in class com.berbils.game.Screens.<a href="com/berbils/game/Screens/PlayScreen.html" title="class in com.berbils.game.Screens">PlayScreen</a></dt>
 <dd>
 <div class="block">NEW Method @author Archie Godfrey
@@ -1424,6 +1479,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Creates the viewport,stage and calculates padding value.Also calculates
  the title position and size</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/berbils/game/Kroy.html#TOPDOWN_UFO_TEX">TOPDOWN_UFO_TEX</a></span> - Static variable in class com.berbils.game.<a href="com/berbils/game/Kroy.html" title="class in com.berbils.game">Kroy</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/berbils/game/Entities/Towers/Tower.html" title="class in com.berbils.game.Entities.Towers"><span class="typeNameLink">Tower</span></a> - Class in <a href="com/berbils/game/Entities/Towers/package-summary.html">com.berbils.game.Entities.Towers</a></dt>
 <dd>
 <div class="block">Creates a tower game object, an enemy object that attacks if the player
@@ -1449,6 +1506,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">U</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="com/berbils/game/Entities/FireEngines/FireEngine.html#update()">update()</a></span> - Method in class com.berbils.game.Entities.FireEngines.<a href="com/berbils/game/Entities/FireEngines/FireEngine.html" title="class in com.berbils.game.Entities.FireEngines">FireEngine</a></dt>
+<dd>
+<div class="block">NEW Method @author Archie Godfrey
+ Called every frame, move the Fire Engine along it's path</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/berbils/game/Entities/Patrol/Patrol.html#update()">update()</a></span> - Method in class com.berbils.game.Entities.Patrol.<a href="com/berbils/game/Entities/Patrol/Patrol.html" title="class in com.berbils.game.Entities.Patrol">Patrol</a></dt>
 <dd>
 <div class="block">Called every frame, move the patrol along it's path</div>

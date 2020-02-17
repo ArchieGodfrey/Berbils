@@ -160,6 +160,7 @@ public class PlayScreen implements Screen
 	 * the MiniGameScreen.
 	 *
 	 * @param game the game instance
+	 * @param batch the sprite batch to draw to
 	 */
 	public PlayScreen(Kroy game, Batch batch)
 		{
@@ -393,7 +394,7 @@ public class PlayScreen implements Screen
    *
    * <p>This method draws the world, all sprites and HUD
    *
-   * @param delta
+   * @param delta The delta time between frames
    */
   @Override
   public void render(float delta)
@@ -725,9 +726,7 @@ public class PlayScreen implements Screen
 		}
 
 	/**
-	 *  Tells you whether all Fire engines on this screen have been destroyed
-	 *
-	 * @return Returns true if there are zero or less fire engines alive
+	 *  Decreases the number of alive fire engines
 	 */
 	public void fireEngineDestroyed()
 		{

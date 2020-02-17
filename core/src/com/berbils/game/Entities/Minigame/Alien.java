@@ -88,6 +88,8 @@ public class Alien extends BoxGameEntity
 	/***
 	 * NEW METHOD @author Archie Godfrey
 	 * Method for changing the size of an entity
+	 * 
+	 * @param scale	The new scale for the entity
 	 */
 	public void scaleEntity(float scale) {
 		Vector2 newScale = new Vector2(originalScale.x * scale, originalScale.y * scale);

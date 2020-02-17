@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -178,30 +178,43 @@ implements com.badlogic.gdx.Screen</pre>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fireEngineSelectedIndex">fireEngineSelectedIndex</a></span></code></th>
-<td class="colLast">
-<div class="block">the current index of the fire engine selected, this index relates to
- the button to select it on the SelectFireEngineScreen</div>
-</td>
-</tr>
-<tr class="rowColor">
 <td class="colFirst"><code>com.badlogic.gdx.graphics.OrthographicCamera</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#gameCam">gameCam</a></span></code></th>
 <td class="colLast">
 <div class="block">The game camera</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="../Entities/ProjectileSpawners/Weapon.html" title="class in com.berbils.game.Entities.ProjectileSpawners">Weapon</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#largeFireEngWeapon">largeFireEngWeapon</a></span></code></th>
 <td class="colLast">
 <div class="block">Pre-defined weapon types for the Play Screen</div>
 </td>
 </tr>
+<tr class="altColor">
+<td class="colFirst"><code><a href="../Entities/ProjectileSpawners/Weapon.html" title="class in com.berbils.game.Entities.ProjectileSpawners">Weapon</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#mediumFireEngWeapon">mediumFireEngWeapon</a></span></code></th>
+<td class="colLast">
+<div class="block">Pre-defined weapon types for the Play Screen</div>
+</td>
+</tr>
 <tr class="rowColor">
+<td class="colFirst"><code>java.lang.String[]</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#menuOptions">menuOptions</a></span></code></th>
+<td class="colLast">
+<div class="block">An array containing the text that will appear on its own button</div>
+</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code><a href="../Entities/ProjectileSpawners/Weapon.html" title="class in com.berbils.game.Entities.ProjectileSpawners">Weapon</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#randomDirWeapon">randomDirWeapon</a></span></code></th>
+<td class="colLast">
+<div class="block">Pre-defined weapon types for the Play Screen</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code><a href="../Entities/ProjectileSpawners/Weapon.html" title="class in com.berbils.game.Entities.ProjectileSpawners">Weapon</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#smallFireEngWeapon">smallFireEngWeapon</a></span></code></th>
 <td class="colLast">
 <div class="block">Pre-defined weapon types for the Play Screen</div>
 </td>
@@ -295,17 +308,24 @@ implements com.badlogic.gdx.Screen</pre>
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fireEngineDestroyed()">fireEngineDestroyed</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Tells you whether all Fire engines on this screen have been destroyed</div>
+<div class="block">Decreases the number of alive fire engines</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDemoMode()">getDemoMode</a></span>()</code></th>
+<td class="colLast">
+<div class="block">NEW METHOD</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="../Kroy.html" title="class in com.berbils.game">Kroy</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGame()">getGame</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Getter for the game instance</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="../Tools/MapLoader.html" title="class in com.berbils.game.Tools">MapLoader</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMapLoader()">getMapLoader</a></span>()</code></th>
 <td class="colLast">
@@ -313,52 +333,60 @@ implements com.badlogic.gdx.Screen</pre>
  Getter for the map loader</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPlayerScore()">getPlayerScore</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Getter for the players score</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSelectedFireEngineIndex()">getSelectedFireEngineIndex</a></span>()</code></th>
 <td class="colLast">
 <div class="block">NEW METHOD</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code><a href="../Handlers/SpriteHandler.html" title="class in com.berbils.game.Handlers">SpriteHandler</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSpriteHandler()">getSpriteHandler</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Getter for the screens sprite handler</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>com.badlogic.gdx.physics.box2d.World</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getWorld()">getWorld</a></span>()</code></th>
 <td class="colLast">
 <div class="block">A getter for the screen world</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hide()">hide</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#pause()">pause</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeOptionFromMenu()">removeOptionFromMenu</a></span>()</code></th>
+<td class="colLast">
+<div class="block">NEW method @author Matteo Barberis
+ Removes a firetruck option from the menu</div>
+</td>
+</tr>
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#render(float)">render</a></span>&#8203;(float&nbsp;delta)</code></th>
 <td class="colLast">
 <div class="block">Render To Play Screen</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resize(int,int)">resize</a></span>&#8203;(int&nbsp;width,
       int&nbsp;height)</code></th>
@@ -366,12 +394,12 @@ implements com.badlogic.gdx.Screen</pre>
 <div class="block">updates the gamePort width and height if the game window gets resized</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resume()">resume</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#selectFireEngine(int)">selectFireEngine</a></span>&#8203;(int&nbsp;index)</code></th>
 <td class="colLast">
@@ -379,14 +407,23 @@ implements com.badlogic.gdx.Screen</pre>
  leftFireStation variable and the fireEngineSelectedIndex;</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setFireEngSpawnPoint(com.badlogic.gdx.math.Vector2)">setFireEngSpawnPoint</a></span>&#8203;(com.badlogic.gdx.math.Vector2&nbsp;newSpawnPoint)</code></th>
 <td class="colLast">
 <div class="block">Sets the fire engine spawn point</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i20" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPlayerStats(int,int)">setPlayerStats</a></span>&#8203;(int&nbsp;water,
+              int&nbsp;health)</code></th>
+<td class="colLast">
+<div class="block">NEW Method @author Archie Godfrey
+ Sets the players water and health stats</div>
+</td>
+</tr>
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSelectionOverlayVisibility(boolean)">setSelectionOverlayVisibility</a></span>&#8203;(boolean&nbsp;show)</code></th>
 <td class="colLast">
@@ -395,12 +432,20 @@ implements com.badlogic.gdx.Screen</pre>
  Sets the visibility of the fire engine overlay options</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#show()">show</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i23" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#startDemoMode()">startDemoMode</a></span>()</code></th>
+<td class="colLast">
+<div class="block">NEW Method @author Archie Godfrey
+ Starts the game in demo mode, the fire engine will drive itself</div>
+</td>
+</tr>
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#startGameEndTimer()">startGameEndTimer</a></span>()</code></th>
 <td class="colLast">
@@ -408,7 +453,7 @@ implements com.badlogic.gdx.Screen</pre>
  Create a timer that will stop repairs to fire engines after 8 minutes</div>
 </td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#towerDestroyed()">towerDestroyed</a></span>()</code></th>
 <td class="colLast">
@@ -416,7 +461,7 @@ implements com.badlogic.gdx.Screen</pre>
  updates towersAlive</div>
 </td>
 </tr>
-<tr id="i22" class="altColor">
+<tr id="i26" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(float)">update</a></span>&#8203;(float&nbsp;delta)</code></th>
 <td class="colLast">
@@ -426,7 +471,7 @@ implements com.badlogic.gdx.Screen</pre>
  HUD.</div>
 </td>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i27" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateCamera(float)">updateCamera</a></span>&#8203;(float&nbsp;delta)</code></th>
 <td class="colLast">
@@ -436,7 +481,7 @@ implements com.badlogic.gdx.Screen</pre>
  boundaries again</div>
 </td>
 </tr>
-<tr id="i24" class="altColor">
+<tr id="i28" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updatePlayerScore(int)">updatePlayerScore</a></span>&#8203;(int&nbsp;scoreChange)</code></th>
 <td class="colLast">
@@ -477,17 +522,6 @@ implements com.badlogic.gdx.Screen</pre>
 <div class="block">The game camera</div>
 </li>
 </ul>
-<a id="fireEngineSelectedIndex">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>fireEngineSelectedIndex</h4>
-<pre>public&nbsp;int fireEngineSelectedIndex</pre>
-<div class="block">the current index of the fire engine selected, this index relates to
- the button to select it on the SelectFireEngineScreen</div>
-</li>
-</ul>
 <a id="basicWeapon">
 <!--   -->
 </a>
@@ -518,6 +552,16 @@ implements com.badlogic.gdx.Screen</pre>
 <div class="block">Pre-defined weapon types for the Play Screen</div>
 </li>
 </ul>
+<a id="smallFireEngWeapon">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>smallFireEngWeapon</h4>
+<pre>public&nbsp;<a href="../Entities/ProjectileSpawners/Weapon.html" title="class in com.berbils.game.Entities.ProjectileSpawners">Weapon</a> smallFireEngWeapon</pre>
+<div class="block">Pre-defined weapon types for the Play Screen</div>
+</li>
+</ul>
 <a id="baseFireEngWeapon">
 <!--   -->
 </a>
@@ -528,14 +572,34 @@ implements com.badlogic.gdx.Screen</pre>
 <div class="block">Pre-defined weapon types for the Play Screen</div>
 </li>
 </ul>
+<a id="mediumFireEngWeapon">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>mediumFireEngWeapon</h4>
+<pre>public&nbsp;<a href="../Entities/ProjectileSpawners/Weapon.html" title="class in com.berbils.game.Entities.ProjectileSpawners">Weapon</a> mediumFireEngWeapon</pre>
+<div class="block">Pre-defined weapon types for the Play Screen</div>
+</li>
+</ul>
 <a id="largeFireEngWeapon">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>largeFireEngWeapon</h4>
 <pre>public&nbsp;<a href="../Entities/ProjectileSpawners/Weapon.html" title="class in com.berbils.game.Entities.ProjectileSpawners">Weapon</a> largeFireEngWeapon</pre>
 <div class="block">Pre-defined weapon types for the Play Screen</div>
+</li>
+</ul>
+<a id="menuOptions">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>menuOptions</h4>
+<pre>public&nbsp;java.lang.String[] menuOptions</pre>
+<div class="block">An array containing the text that will appear on its own button</div>
 </li>
 </ul>
 </li>
@@ -562,6 +626,7 @@ implements com.badlogic.gdx.Screen</pre>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>game</code> - the game instance</dd>
+<dd><code>batch</code> - the sprite batch to draw to</dd>
 </dl>
 </li>
 </ul>
@@ -669,7 +734,7 @@ implements com.badlogic.gdx.Screen</pre>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code>render</code>&nbsp;in interface&nbsp;<code>com.badlogic.gdx.Screen</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>delta</code> - </dd>
+<dd><code>delta</code> - The delta time between frames</dd>
 </dl>
 </li>
 </ul>
@@ -699,6 +764,23 @@ implements com.badlogic.gdx.Screen</pre>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>scoreChange</code> - Can be any int, negative or positive</dd>
+</dl>
+</li>
+</ul>
+<a id="setPlayerStats(int,int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setPlayerStats</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setPlayerStats&#8203;(int&nbsp;water,
+                           int&nbsp;health)</pre>
+<div class="block">NEW Method @author Archie Godfrey
+ Sets the players water and health stats</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>water</code> - The new water level</dd>
+<dd><code>health</code> - The new health level</dd>
 </dl>
 </li>
 </ul>
@@ -814,6 +896,17 @@ implements com.badlogic.gdx.Screen</pre>
 </dl>
 </li>
 </ul>
+<a id="startDemoMode()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>startDemoMode</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;startDemoMode()</pre>
+<div class="block">NEW Method @author Archie Godfrey
+ Starts the game in demo mode, the fire engine will drive itself</div>
+</li>
+</ul>
 <a id="setSelectionOverlayVisibility(boolean)">
 <!--   -->
 </a>
@@ -860,7 +953,7 @@ implements com.badlogic.gdx.Screen</pre>
 <li class="blockList">
 <h4>fireEngineDestroyed</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;fireEngineDestroyed()</pre>
-<div class="block">Tells you whether all Fire engines on this screen have been destroyed</div>
+<div class="block">Decreases the number of alive fire engines</div>
 </li>
 </ul>
 <a id="towerDestroyed()">
@@ -932,10 +1025,24 @@ implements com.badlogic.gdx.Screen</pre>
 </dl>
 </li>
 </ul>
+<a id="getDemoMode()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getDemoMode</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;getDemoMode()</pre>
+<div class="block">NEW METHOD</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>returns true if in demo, false if not</dd>
+</dl>
+</li>
+</ul>
 <a id="getWorld()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>getWorld</h4>
 <pre class="methodSignature">public&nbsp;com.badlogic.gdx.physics.box2d.World&nbsp;getWorld()</pre>
@@ -944,6 +1051,17 @@ implements com.badlogic.gdx.Screen</pre>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>returns the world</dd>
 </dl>
+</li>
+</ul>
+<a id="removeOptionFromMenu()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>removeOptionFromMenu</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;removeOptionFromMenu()</pre>
+<div class="block">NEW method @author Matteo Barberis
+ Removes a firetruck option from the menu</div>
 </li>
 </ul>
 </li>

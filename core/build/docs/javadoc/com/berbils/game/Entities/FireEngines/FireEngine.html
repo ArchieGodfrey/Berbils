@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -260,6 +260,16 @@ extends <a href="../EntityTypes/BoxGameEntity.html" title="class in com.berbils.
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createPath(com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2)">createPath</a></span>&#8203;(com.badlogic.gdx.math.Vector2&nbsp;start,
+          com.badlogic.gdx.math.Vector2&nbsp;goal)</code></th>
+<td class="colLast">
+<div class="block">NEW Method @author Archie Godfrey
+ 
+ Set the path the fire engine will follow</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fire(com.badlogic.gdx.math.Vector2)">fire</a></span>&#8203;(com.badlogic.gdx.math.Vector2&nbsp;targetPos)</code></th>
 <td class="colLast">
 <div class="block">Calls the fire method of the Weapon attached to the fire engine,
@@ -267,7 +277,7 @@ extends <a href="../EntityTypes/BoxGameEntity.html" title="class in com.berbils.
  updates water resource to mimic consumption.</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAlive()">getAlive</a></span>()</code></th>
 <td class="colLast">
@@ -276,7 +286,15 @@ extends <a href="../EntityTypes/BoxGameEntity.html" title="class in com.berbils.
  Get whether the fire engine is alive or not</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#moveTowards(com.badlogic.gdx.math.Vector2)">moveTowards</a></span>&#8203;(com.badlogic.gdx.math.Vector2&nbsp;targetVector)</code></th>
+<td class="colLast">
+<div class="block">NEW Method @author Archie Godfrey
+ Method for moving the patrol towards a specified point</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onDeath()">onDeath</a></span>()</code></th>
 <td class="colLast">
@@ -288,7 +306,7 @@ extends <a href="../EntityTypes/BoxGameEntity.html" title="class in com.berbils.
  screens shown.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#reset(boolean)">reset</a></span>&#8203;(boolean&nbsp;resetStats)</code></th>
 <td class="colLast">
@@ -296,7 +314,7 @@ extends <a href="../EntityTypes/BoxGameEntity.html" title="class in com.berbils.
  Resets the current health and current water atributes to their max values</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAlive(boolean)">setAlive</a></span>&#8203;(boolean&nbsp;alive)</code></th>
 <td class="colLast">
@@ -305,7 +323,7 @@ extends <a href="../EntityTypes/BoxGameEntity.html" title="class in com.berbils.
  Set whether the fire engine is alive or not</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawn(com.badlogic.gdx.math.Vector2)">spawn</a></span>&#8203;(com.badlogic.gdx.math.Vector2&nbsp;spawnPos)</code></th>
 <td class="colLast">
@@ -313,12 +331,20 @@ extends <a href="../EntityTypes/BoxGameEntity.html" title="class in com.berbils.
  creates an attached sprite</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#takeDamage(int)">takeDamage</a></span>&#8203;(int&nbsp;damageTaken)</code></th>
 <td class="colLast">
 <div class="block">Method for reducing the current health of the fire engine instance and
  checking whether the health reaches zero</div>
+</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update()">update</a></span>()</code></th>
+<td class="colLast">
+<div class="block">NEW Method @author Archie Godfrey
+ Called every frame, move the Fire Engine along it's path</div>
 </td>
 </tr>
 </table>
@@ -524,6 +550,50 @@ extends <a href="../EntityTypes/BoxGameEntity.html" title="class in com.berbils.
 </dl>
 </li>
 </ul>
+<a id="moveTowards(com.badlogic.gdx.math.Vector2)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>moveTowards</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;moveTowards&#8203;(com.badlogic.gdx.math.Vector2&nbsp;targetVector)</pre>
+<div class="block">NEW Method @author Archie Godfrey
+ Method for moving the patrol towards a specified point</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>targetVector</code> - the position ot move the patrol to</dd>
+</dl>
+</li>
+</ul>
+<a id="update()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>update</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;update()</pre>
+<div class="block">NEW Method @author Archie Godfrey
+ Called every frame, move the Fire Engine along it's path</div>
+</li>
+</ul>
+<a id="createPath(com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>createPath</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;createPath&#8203;(com.badlogic.gdx.math.Vector2&nbsp;start,
+                       com.badlogic.gdx.math.Vector2&nbsp;goal)</pre>
+<div class="block">NEW Method @author Archie Godfrey
+ 
+ Set the path the fire engine will follow</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>start</code> - The start of the path to follow</dd>
+<dd><code>goal</code> - The end of the path to follow</dd>
+</dl>
+</li>
+</ul>
 <a id="reset(boolean)">
 <!--   -->
 </a>
@@ -566,6 +636,10 @@ extends <a href="../EntityTypes/BoxGameEntity.html" title="class in com.berbils.
 <div class="block">NEW Method @author Archie Godfrey
  
  Get whether the fire engine is alive or not</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>whether the fire engine is alive or not</dd>
+</dl>
 </li>
 </ul>
 </li>

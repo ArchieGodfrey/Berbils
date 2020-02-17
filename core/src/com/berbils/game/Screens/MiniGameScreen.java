@@ -321,7 +321,7 @@ public class MiniGameScreen extends PlayScreen
    *
    * <p>This method draws the world, all sprites and HUD
    *
-   * @param delta
+   * @param delta The delta time between frames
    */
   @Override
   public void render(float delta)

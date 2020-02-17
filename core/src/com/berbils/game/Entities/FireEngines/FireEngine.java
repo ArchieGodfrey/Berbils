@@ -326,7 +326,8 @@ public class FireEngine extends BoxGameEntity
 	 * 
 	 * Set the path the fire engine will follow
 	 * 
-	 * @param path 	The path to follow
+	 * @param start 	The start of the path to follow
+	 * @param goal 		The end of the path to follow
 	 */
 	public void createPath(Vector2 start,Vector2 goal) {
 		super.setFixtureCategory(Kroy.CAT_FRIENDLY, Kroy.MASK_UFO);
@@ -368,6 +369,8 @@ public class FireEngine extends BoxGameEntity
 	 * NEW Method @author Archie Godfrey
 	 * 
 	 * Get whether the fire engine is alive or not
+	 * 
+	 * @return whether the fire engine is alive or not
 	 */
 	public boolean getAlive() {
 		return this.isAlive;

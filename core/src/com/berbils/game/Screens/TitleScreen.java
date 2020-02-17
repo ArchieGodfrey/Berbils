@@ -55,10 +55,9 @@ public class TitleScreen implements Screen
 	 * Creates the viewport,stage and calculates padding value.Also calculates
 	 * the title position and size
 	 *
+	 * @param game	  		The game instance
 	 *
-	 * @param spriteBatch 	spriteBatch
-	 *
-	 * @param titlePath	  	The file path of the texture to be used as a title
+	 * @param spriteBatch 	spriteBatch to be drawn to
 	 *
 	 * @param titlePath		The file path to the texture for the title that
 	 *                         will be displaed

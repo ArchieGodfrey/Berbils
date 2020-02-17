@@ -168,6 +168,13 @@ extends <a href="../EntityTypes/BoxGameEntity.html" title="class in com.berbils.
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>float</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#delayBeforeNextEncounter">delayBeforeNextEncounter</a></span></code></th>
+<td class="colLast">
+<div class="block">Time before next minigame can trigger</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>float</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#speed">speed</a></span></code></th>
 <td class="colLast">
 <div class="block">A constant speed multiplier</div>
@@ -242,7 +249,7 @@ extends <a href="../EntityTypes/BoxGameEntity.html" title="class in com.berbils.
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawn(com.badlogic.gdx.math.Vector2)">spawn</a></span>&#8203;(com.badlogic.gdx.math.Vector2&nbsp;spawnPos)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawn()">spawn</a></span>()</code></th>
 <td class="colLast">
 <div class="block">This method sets the body position, then creates the body, fixture and
  creates an attached sprite</div>
@@ -296,11 +303,21 @@ extends <a href="../EntityTypes/BoxGameEntity.html" title="class in com.berbils.
 <a id="speed">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>speed</h4>
 <pre>public&nbsp;float speed</pre>
 <div class="block">A constant speed multiplier</div>
+</li>
+</ul>
+<a id="delayBeforeNextEncounter">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>delayBeforeNextEncounter</h4>
+<pre>public&nbsp;float delayBeforeNextEncounter</pre>
+<div class="block">Time before next minigame can trigger</div>
 </li>
 </ul>
 </li>
@@ -388,21 +405,15 @@ extends <a href="../EntityTypes/BoxGameEntity.html" title="class in com.berbils.
  destroy the patrol</div>
 </li>
 </ul>
-<a id="spawn(com.badlogic.gdx.math.Vector2)">
+<a id="spawn()">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>spawn</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;spawn&#8203;(com.badlogic.gdx.math.Vector2&nbsp;spawnPos)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;spawn()</pre>
 <div class="block">This method sets the body position, then creates the body, fixture and
  creates an attached sprite</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>spawnPos</code> - The position in meters where the fire engine should be
-                   created with the center of the fire engine being at
-                   this position.</dd>
-</dl>
 </li>
 </ul>
 </li>

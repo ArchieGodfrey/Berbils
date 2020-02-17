@@ -163,6 +163,8 @@ public abstract class Projectiles extends CircleGameEntity
 		return this.maxRange;
 		}
 
-	/** All projectiles must have a collidede method */
+	/** All projectiles must have a collidede method 
+	 * @param projectile The projectile that collided
+	*/
 	public abstract void collided(Fixture projectile);
 	}

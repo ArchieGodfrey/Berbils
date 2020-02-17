@@ -130,6 +130,8 @@ public class BoxGameEntity extends Entity
 	/***
 	 * NEW METHOD @author Archie Godfrey
 	 * Setter for changing the size of an entity
+	 * 
+	 * @param scale	The new scale for the entity
 	 */
 	public void setScale(Vector2 scale) {
 		if (this.sizeDims != scale) {

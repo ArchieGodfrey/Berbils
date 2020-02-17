@@ -19,8 +19,9 @@ public class InputManager {
   /**
    * Gets user input from keyboard
    *
-   * @param delta
-   * @param player
+   * @param player - The player instance
+   * @param delta - The delta time betwee frames
+   * @param game -  The game instance
    */
   public void handlePlayerInput(FireEngine player, float delta, Kroy game) {
     int torque = 0;

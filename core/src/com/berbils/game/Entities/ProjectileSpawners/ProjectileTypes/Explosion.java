@@ -94,7 +94,7 @@ public class Explosion
 	 * contacts a fire engine applies a linear impulse depdenent upon the
 	 * knock back power and distance from explosion centre
 	 *
-	 * @param explosionCenter
+	 * @param explosionCenter The centre of the explosion
 	 */
 	public void explode(Vector2 explosionCenter)
 		{

@@ -177,7 +177,7 @@ extends <a href="PlayScreen.html" title="class in com.berbils.game.Screens">Play
 <!--   -->
 </a>
 <h3>Fields inherited from class&nbsp;com.berbils.game.Screens.<a href="PlayScreen.html" title="class in com.berbils.game.Screens">PlayScreen</a></h3>
-<code><a href="PlayScreen.html#baseFireEngWeapon">baseFireEngWeapon</a>, <a href="PlayScreen.html#basicWeapon">basicWeapon</a>, <a href="PlayScreen.html#fireEngineSelectedIndex">fireEngineSelectedIndex</a>, <a href="PlayScreen.html#largeFireEngWeapon">largeFireEngWeapon</a>, <a href="PlayScreen.html#randomDirWeapon">randomDirWeapon</a>, <a href="PlayScreen.html#spokeWeapon">spokeWeapon</a></code></li>
+<code><a href="PlayScreen.html#baseFireEngWeapon">baseFireEngWeapon</a>, <a href="PlayScreen.html#basicWeapon">basicWeapon</a>, <a href="PlayScreen.html#largeFireEngWeapon">largeFireEngWeapon</a>, <a href="PlayScreen.html#mediumFireEngWeapon">mediumFireEngWeapon</a>, <a href="PlayScreen.html#menuOptions">menuOptions</a>, <a href="PlayScreen.html#randomDirWeapon">randomDirWeapon</a>, <a href="PlayScreen.html#smallFireEngWeapon">smallFireEngWeapon</a>, <a href="PlayScreen.html#spokeWeapon">spokeWeapon</a></code></li>
 </ul>
 </li>
 </ul>
@@ -199,7 +199,7 @@ extends <a href="PlayScreen.html" title="class in com.berbils.game.Screens">Play
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.berbils.game.Kroy,com.badlogic.gdx.graphics.g2d.Batch)">MiniGameScreen</a></span>&#8203;(<a href="../Kroy.html" title="class in com.berbils.game">Kroy</a>&nbsp;game,
               com.badlogic.gdx.graphics.g2d.Batch&nbsp;batch)</code></th>
 <td class="colLast">
-<div class="block">TODO</div>
+<div class="block">Constructor for the minigame.</div>
 </td>
 </tr>
 </table>
@@ -296,7 +296,7 @@ extends <a href="PlayScreen.html" title="class in com.berbils.game.Screens">Play
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;com.berbils.game.Screens.<a href="PlayScreen.html" title="class in com.berbils.game.Screens">PlayScreen</a></h3>
-<code><a href="PlayScreen.html#allFireEnginesDestroyed()">allFireEnginesDestroyed</a>, <a href="PlayScreen.html#allTowersDestroyed()">allTowersDestroyed</a>, <a href="PlayScreen.html#destroyBody(com.badlogic.gdx.physics.box2d.Body)">destroyBody</a>, <a href="PlayScreen.html#fireEngineDestroyed()">fireEngineDestroyed</a>, <a href="PlayScreen.html#getGame()">getGame</a>, <a href="PlayScreen.html#getMapLoader()">getMapLoader</a>, <a href="PlayScreen.html#getPlayerScore()">getPlayerScore</a>, <a href="PlayScreen.html#getSelectedFireEngineIndex()">getSelectedFireEngineIndex</a>, <a href="PlayScreen.html#selectFireEngine(int)">selectFireEngine</a>, <a href="PlayScreen.html#setFireEngSpawnPoint(com.badlogic.gdx.math.Vector2)">setFireEngSpawnPoint</a>, <a href="PlayScreen.html#setSelectionOverlayVisibility(boolean)">setSelectionOverlayVisibility</a>, <a href="PlayScreen.html#startGameEndTimer()">startGameEndTimer</a>, <a href="PlayScreen.html#towerDestroyed()">towerDestroyed</a>, <a href="PlayScreen.html#update(float)">update</a>, <a href="PlayScreen.html#updateCamera(float)">updateCamera</a>, <a href="PlayScreen.html#updatePlayerScore(int)">updatePlayerScore</a></code></li>
+<code><a href="PlayScreen.html#allFireEnginesDestroyed()">allFireEnginesDestroyed</a>, <a href="PlayScreen.html#allTowersDestroyed()">allTowersDestroyed</a>, <a href="PlayScreen.html#destroyBody(com.badlogic.gdx.physics.box2d.Body)">destroyBody</a>, <a href="PlayScreen.html#fireEngineDestroyed()">fireEngineDestroyed</a>, <a href="PlayScreen.html#getDemoMode()">getDemoMode</a>, <a href="PlayScreen.html#getGame()">getGame</a>, <a href="PlayScreen.html#getMapLoader()">getMapLoader</a>, <a href="PlayScreen.html#getPlayerScore()">getPlayerScore</a>, <a href="PlayScreen.html#getSelectedFireEngineIndex()">getSelectedFireEngineIndex</a>, <a href="PlayScreen.html#removeOptionFromMenu()">removeOptionFromMenu</a>, <a href="PlayScreen.html#selectFireEngine(int)">selectFireEngine</a>, <a href="PlayScreen.html#setFireEngSpawnPoint(com.badlogic.gdx.math.Vector2)">setFireEngSpawnPoint</a>, <a href="PlayScreen.html#setPlayerStats(int,int)">setPlayerStats</a>, <a href="PlayScreen.html#setSelectionOverlayVisibility(boolean)">setSelectionOverlayVisibility</a>, <a href="PlayScreen.html#startDemoMode()">startDemoMode</a>, <a href="PlayScreen.html#startGameEndTimer()">startGameEndTimer</a>, <a href="PlayScreen.html#towerDestroyed()">towerDestroyed</a>, <a href="PlayScreen.html#update(float)">update</a>, <a href="PlayScreen.html#updateCamera(float)">updateCamera</a>, <a href="PlayScreen.html#updatePlayerScore(int)">updatePlayerScore</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
@@ -349,7 +349,8 @@ extends <a href="PlayScreen.html" title="class in com.berbils.game.Screens">Play
 <h4>MiniGameScreen</h4>
 <pre>public&nbsp;MiniGameScreen&#8203;(<a href="../Kroy.html" title="class in com.berbils.game">Kroy</a>&nbsp;game,
                       com.badlogic.gdx.graphics.g2d.Batch&nbsp;batch)</pre>
-<div class="block">TODO</div>
+<div class="block">Constructor for the minigame. Creates all instances that are needed
+ at runtime.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>game</code> - the game instance</dd>
@@ -398,7 +399,7 @@ extends <a href="PlayScreen.html" title="class in com.berbils.game.Screens">Play
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code><a href="PlayScreen.html#render(float)">render</a></code>&nbsp;in class&nbsp;<code><a href="PlayScreen.html" title="class in com.berbils.game.Screens">PlayScreen</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>delta</code> - </dd>
+<dd><code>delta</code> - The delta time between frames</dd>
 </dl>
 </li>
 </ul>

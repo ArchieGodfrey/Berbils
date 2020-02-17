@@ -76,6 +76,9 @@ public class MiniGameScreen extends PlayScreen
 	/**alien instance spawner*/
 	private Spawner spawner;
 
+	/** Array List storing all pre-defined projectiles */
+	private ArrayList<Projectiles> projectileList = new ArrayList<>();
+
 	/** Array storing all aliens currently on screen */
 	private ArrayList<Alien> aliens = new ArrayList<Alien>();
 
@@ -92,10 +95,11 @@ public class MiniGameScreen extends PlayScreen
 
 
 	/**
-	 * TODO
+	 * Constructor for the minigame. Creates all instances that are needed
+	 * at runtime.
 	 *
 	 * @param game the game instance
-     * @param batch the batch to draw to
+   * @param batch the batch to draw to
 	 */
 	public MiniGameScreen(Kroy game, Batch batch)
 		{
@@ -188,15 +192,29 @@ public class MiniGameScreen extends PlayScreen
 	 */
 	private void createPlayer() {
 		switch (this.game.gameScreen.getSelectedFireEngineIndex()) {
+			case 3:
+				Projectiles slowLargeExplosiveProjectile = new ExplodingBulletCircle(3f, 0.5f, 50, 1, 10, 20, Kroy.EXPLOSIVE_PROJECTILE_TEXTURE, this);
+				this.projectileList.add(slowLargeExplosiveProjectile);
+				Weapon largeFireEngWeapon = new BasicProjectileSpawner(1, slowLargeExplosiveProjectile);
+				this.player = new FireEngineFront(this, new Vector2(8, 6), largeFireEngWeapon, 800, 10, 200, Kroy.HEAVY_FIRE_ENGINE_TEX);
+				break;
+			case 2:
+				Projectiles largewaterProjectile = new SimpleBulletCircle(4f, 0.8f, 20, 20, Kroy.WATER_PROJECTILE_TEX, this);
+				this.projectileList.add(largewaterProjectile);
+				Weapon mediumFireEngWeapon = new BasicProjectileSpawner(10, largewaterProjectile);
+				this.player = new FireEngineFront(this, new Vector2(6, 4), mediumFireEngWeapon, 600, 15, 150, Kroy.GREEN_FIRE_ENGINE_TEX);
+				break;
 			case 1:
-				Projectiles largewaterProjectile = new SimpleBulletCircle(3f, 1f, 25, 0, Kroy.WATER_PROJECTILE_TEX, this);
-				Weapon largeFireEngWeapon = new BasicProjectileSpawner(5, largewaterProjectile);
-				this.player = new FireEngineFront(this, new Vector2(6f, 3f), largeFireEngWeapon, 800, 15, 200, Kroy.HEAVY_FIRE_ENGINE_TEX);
+				Projectiles waterProjectile = new SimpleBulletCircle(5f, 0.5f, 10, 20, Kroy.WATER_PROJECTILE_TEX, this);
+				this.projectileList.add(waterProjectile);
+				Weapon baseFireEngWeapon = new BasicProjectileSpawner(15, waterProjectile);
+				this.player = new FireEngineFront(this, new Vector2(4, 2), baseFireEngWeapon, 400, 20, 100, Kroy.BASE_FIRE_ENGINE_TEX);
 				break;
 			default:
-				Projectiles waterProjectile = new SimpleBulletCircle(3f, 0.75f, 25, 0, Kroy.WATER_PROJECTILE_TEX, this);
-				Weapon baseFireEngWeapon = new BasicProjectileSpawner(5, waterProjectile);
-				this.player = new FireEngineFront(this, new Vector2(5f, 2.5f), baseFireEngWeapon, 400, 20, 100, Kroy.BASE_FIRE_ENGINE_TEX);
+				Projectiles smallWaterProjectile = new SimpleBulletCircle(5f, 0.5f, 10, 20, Kroy.WATER_PROJECTILE_TEX, this);
+				this.projectileList.add(smallWaterProjectile);
+				Weapon smallFireEngWeapon = new BasicProjectileSpawner(20, smallWaterProjectile);
+				this.player = new FireEngineFront(this, new Vector2(3, 1.6f), smallFireEngWeapon, 300, 25, 80, Kroy.ORANGE_FIRE_ENGINE_TEX);
 				break;
 		}
 		//Spawn player in bottom left quarter of the map
@@ -207,7 +225,8 @@ public class MiniGameScreen extends PlayScreen
 	 * Create a UFO to spawn in the aliens
 	 */
 	private void createSpawner(){
-		this.spawner = new Spawner(this, new Vector2(1, 0.5f), 30, Kroy.BASE_FIRE_ENGINE_TEX);
+		this.spawner = new Spawner(this, new Vector2(1.5f, 1 ), 40,
+								   Kroy.MINIGAME_UFO_TEX);
 		this.spawner.spawn(new Vector2((this.maploader.getDims().cpy().x / 4), 12));
 	}
 
@@ -221,7 +240,8 @@ public class MiniGameScreen extends PlayScreen
 			// Stop the UFO and then randomise it's next direction
 			this.spawner.randomiseTrajectory();
 			// Create an alien and spawn it
-			Alien alien = new Alien(this, new Vector2(1.5f, 0.75f), 5, 100, Kroy.BASE_FIRE_ENGINE_TEX);
+			Alien alien = new Alien(this, new Vector2(1.5f, 1f), 10, 100,
+									Kroy.MINIGAME_ALIEN_TEX);
 			alien.spawn(this.spawner.getBody().getPosition());
 			this.aliens.add(alien);
 			this.alienTotal -= 1;
@@ -229,6 +249,8 @@ public class MiniGameScreen extends PlayScreen
 			if (this.aliens.size() <= 0) {
 				// Cancel timer and return to main game
 				this.cancelTimer();
+				game.gameScreen.updatePlayerScore(this.getPlayerScore());
+				game.gameScreen.setPlayerStats(this.player.currentWater, this.player.currentHealth);
 				this.getGame().setScreen(game.gameScreen);
 			}
 		}
@@ -268,22 +290,23 @@ public class MiniGameScreen extends PlayScreen
 	private void moveEntities() {
 		// Only move UFO if not beaming aliens
 		boolean allowUFOMovement = true;
-	
+
+
     for (Alien alien : this.aliens) {
 			// If first spawned, move directly down until correct axis
 			if (alien.getBody().getPosition().y > 10) {
-				alien.getBody().applyForceToCenter(0, -alien.getSpeed() * 4, true);
+				alien.getBody().applyForceToCenter(0, -alien.getSpeed() * 2, true);
 				allowUFOMovement = false;
 			} else {
 				// Move towards the player
 				alien.moveTowards(this.player.getBody().getPosition());
 			}
 		}
-
 		// Allow UFO to move again if all aliens beamed down
 		// When no more aliens, fly away
 		this.spawner.move(allowUFOMovement, this.alienTotal <= 0);
 	}
+
 
   @Override
   public void show() {
@@ -336,6 +359,11 @@ public class MiniGameScreen extends PlayScreen
 
 		// Move alien and UFO
 		moveEntities();
+
+		// Update the projectiles
+		for (Projectiles projectiles : projectileList) {
+      projectiles.update(delta);
+		}
 
 		// Clean up game
     destroyObjects();

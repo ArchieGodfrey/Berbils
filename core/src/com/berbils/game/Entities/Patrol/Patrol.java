@@ -21,7 +21,9 @@ public class Patrol extends BoxGameEntity
 	 * The start and end positions for the patrol
 	 */
     private Vector2 start;
-    private Vector2 goal;
+	private Vector2 goal;
+	private boolean swapDirection;
+	private Pathfinding pathfinder;
 	
 	/**
 	 * The path it will move along
@@ -32,6 +34,11 @@ public class Patrol extends BoxGameEntity
 	 * A constant speed multiplier
 	 */
 	public float speed;
+
+	/**
+	 * Time before next minigame can trigger
+	 */
+	public float delayBeforeNextEncounter;
 
 	/**
 	 * This constructor assigns required variables for use.
@@ -70,15 +77,16 @@ public class Patrol extends BoxGameEntity
 			2 // Sprite Layer is two as needs to be drwan on top of both
 						// towers and fire station
 		);
-		super.setFixtureCategory(Kroy.CAT_ENEMY, Kroy.MASK_ENEMY);
+		super.setFixtureCategory(Kroy.CAT_ENEMY, Kroy.MASK_UFO);
 		super.setBodyDefAngularDampening(10);
 		super.setBodyDefLinearDampening(10);
 
 		// Create the path the patrol will follow
-        Pathfinding pathfinder = new Pathfinding(this.screen.getMapLoader().map);
-        this.path = pathfinder.find(start, goal);
+        this.pathfinder = new Pathfinding(this.screen.getMapLoader().map);
+		this.path = pathfinder.find(start, goal);
         this.start = start;
-        this.goal = goal;
+		this.goal = goal;
+		this.swapDirection = true;
 		this.speed = speed;
         }
 
@@ -99,7 +107,7 @@ public class Patrol extends BoxGameEntity
 			Vector2 patrolCentre = new Vector2(this.getX() + this.getSizeDims().x / 2,this.getY() + this.getSizeDims().y / 2);
 
 			// Work out the vector between them and scale by speed
-			Vector2 trajectory = targetVector.sub(patrolCentre);
+			Vector2 trajectory = targetVector.cpy().sub(patrolCentre);
 			trajectory.nor().scl(this.speed);
 
 			// Apply force to the patrol
@@ -112,14 +120,37 @@ public class Patrol extends BoxGameEntity
          * Called every frame, move the patrol along it's path
          */
         public void update() {
-            // Path to take
-            //System.out.println(this.path);
 
-			if (this.path != null) {
-				// Move towards next point
-				moveTowards(this.path.get(0));
+			// Decrease timeout if greater than 0
+			if (this.delayBeforeNextEncounter > 0) this.delayBeforeNextEncounter -= 1;
+
+			// If there is a path, follow it
+			if (this.path != null && this.path.size() > 1) {
+				Vector2 nextPosition = this.path.get(0);
+				
+				// Positions on the path are integer floats
+				float roundedX = (float) Math.ceil(this.getX());
+				float roundedY = (float) Math.ceil(this.getY());
+
+				// Difference between the next point and current position
+				Vector2 difference = nextPosition.cpy().sub(new Vector2(roundedX, roundedY));
+				// If not at next position, move towards it
+				if (difference.len2() > 1) {
+					moveTowards(nextPosition);
+				} else {
+					// Otherwise remove it from the path
+					this.path.remove(0);
+				}
+			} else if (this.path != null) {
+				// Swap direction when at the end
+				if (swapDirection) {
+					this.path = this.pathfinder.find(goal, start);
+					this.swapDirection = false;
+				} else {
+					this.path = this.pathfinder.find(start, goal);
+					this.swapDirection = true;
+				}
 			}
-
         }
 
 		/**
@@ -127,21 +158,19 @@ public class Patrol extends BoxGameEntity
 		 * destroy the patrol
 		 */
 		public void collided() {
-			this.screen.getGame().setScreen(this.screen.getGame().getNewMinigameScreen());
-			this.spriteHandler.destroySpriteAndBody(this.getFixture());
+			if (this.delayBeforeNextEncounter <= 0) {
+				this.delayBeforeNextEncounter = 100;
+				this.screen.getGame().setScreen(this.screen.getGame().getNewMinigameScreen());
+			}
 		}
 
 	/**
 	 * This method sets the body position, then creates the body, fixture and
 	 * creates an attached sprite
-	 *
-	 * @param spawnPos The position in meters where the fire engine should be
-	 *                   created with the center of the fire engine being at
-	 *                   this position.
 	 */
-	public void spawn(Vector2 spawnPos)
+	public void spawn()
 		{
-		super.setSpawnPosition(spawnPos);
+		super.setSpawnPosition(this.start);
 		super.createBodyCopy();
 		super.createFixtureCopy();
 		super.setUserData(this);

@@ -196,6 +196,9 @@ public class FireEngine extends BoxGameEntity
 			Kroy game = this.screen.getGame();
 			this.screen.fireEngineDestroyed();
 
+			//NEW line @author Matteo Barberis
+			this.screen.removeOptionFromMenu();
+
 			if (this.screen.allFireEnginesDestroyed()) {
 				this.screen.getGame().setScreen(game.gameOverScreen);
 				game.gameOverScreen.setTimer(2, game.mainMenu);
@@ -206,8 +209,8 @@ public class FireEngine extends BoxGameEntity
 														game.gameScreen);
 				this.spriteHandler.destroySpriteAndBody(this.entityFixture);
 				this.screen.updatePlayerScore(-200);
-				this.screen.getGame().setScreen(game.fireEngineDestroyedScreen);
-
+				this.screen.setSelectionOverlayVisibility(true);
+				game.setScreen(game.fireEngineDestroyedScreen);
 			}
 		}
 		}

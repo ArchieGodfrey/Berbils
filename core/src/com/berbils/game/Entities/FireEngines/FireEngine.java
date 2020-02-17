@@ -310,7 +310,6 @@ public class FireEngine extends BoxGameEntity
 					this.path.remove(0);
 				}
 			} else if (this.path != null) {
-				this.getBody().setAngularVelocity(32);
 				// Swap direction when at the end
 				if (swapDirection) {
 					this.path = this.pathfinder.find(goal, start);

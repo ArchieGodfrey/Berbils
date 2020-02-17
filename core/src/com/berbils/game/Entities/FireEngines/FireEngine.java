@@ -257,13 +257,18 @@ public class FireEngine extends BoxGameEntity
 		}
 
 
-	/**Get the x coordinate of the patrol**/
+	/**
+	 * NEW Method @author Archie Godfrey
+	 * Get the x coordinate of the patrol**/
 	private float getX(){return this.getBody().getPosition().x;}
 
-	/**Get the y coordinate of the patrol**/
+	/**
+	 * NEW Method @author Archie Godfrey
+	 * Get the y coordinate of the patrol**/
 	private float getY(){return this.getBody().getPosition().y;}
 
 	/**
+	 * NEW Method @author Archie Godfrey
 	 * Method for moving the patrol towards a specified point
 	 *
 	 * @param targetVector the position ot move the patrol to
@@ -283,6 +288,7 @@ public class FireEngine extends BoxGameEntity
         
 
         /**
+		 * NEW Method @author Archie Godfrey
          * Called every frame, move the Fire Engine along it's path
          */
         public void update() {

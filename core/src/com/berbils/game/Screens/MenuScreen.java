@@ -19,6 +19,9 @@ public class MenuScreen extends BasicMenu
 	private static String[] menuOptions = new String[] { "New Game", "Demo", "Quit" };
 
 	/**
+	 * Updated Method @author Archie Godfrey
+	 * Added new button for demo
+	 * 
 	 * Creates the menu and assigns functions to each of the menu buttons
 	 *
 	 * @param game			The game instance

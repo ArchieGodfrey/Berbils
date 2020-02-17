@@ -670,11 +670,7 @@ public class PlayScreen implements Screen
 
 	/**
 	 * NEW Method @author Archie Godfrey
-	 * Selects and spawns the fire engine, also updates the HUD, the
-	 * leftFireStation variable and the fireEngineSelectedIndex;
-	 *
-	 * @param index Fire Engine to be selected to be instantiated and used by
-	 *              the player
+	 * Starts the game in demo mode, the fire engine will drive itself
 	 */
 	public void startDemoMode()
 	{

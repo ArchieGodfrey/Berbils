@@ -677,7 +677,7 @@ public class PlayScreen implements Screen
 	{
 	this.player = this.fireEngineArrayList.get(1);
 	this.player.leftFireStation = false;
-	this.player.createPath(this.fireEngSpawnPos, new Vector2(29,11));
+	this.player.createPath(new Vector2(this.fireEngSpawnPos.x + 2,this.fireEngSpawnPos.y + 2), new Vector2(29,11));
 	this.player.spawn(this.fireEngSpawnPos);
 	this.fireEngineSelectedIndex = 1;
 	this.demoMode = true;
@@ -692,8 +692,11 @@ public class PlayScreen implements Screen
 	 */
 	public void setSelectionOverlayVisibility(boolean show)
 	{
-		// Show the selection overlay
-		if (show && !this.demoMode) {
+		// If in demo, repair at firestation
+		if (show && this.demoMode) {
+			this.player.reset(this.fireStation.getRepairFiretruck());
+		} else if (show && !this.demoMode) {
+			// Show the selection overlay
 			// Reset the player if before 8 minutes
 			this.player.reset(this.fireStation.getRepairFiretruck());
 			// Allow the stage to recieve input
